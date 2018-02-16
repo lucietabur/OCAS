@@ -1,10 +1,11 @@
 {% extends "@OCAS/layout.html.twig" %}
 {# changer l'heritage de template #}
-{% block title %}modifier un stagiaire{% endblock %}
+{% block title %}ajouter un stagiaire{% endblock %}
 
 {% block content %}
-<h1>Modifier un stagiaire</h1>
-<div class="well">
+<h1>{{ h1 }}</h1>
+
+<div class="col-8 offset-2">
   {{ form(form)}}
 </div>
 {% endblock %}

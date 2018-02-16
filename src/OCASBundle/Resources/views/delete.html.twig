@@ -1,7 +1,29 @@
+{# src/OC/PlatformBundle/Resources/views/delete.html.twig #}
+
+
 {% extends "@OCAS/layout.html.twig" %}
 
-{% block title %}OCASBundle:Stagiaire:delete{% endblock %}
 
-{% block body %}
-<h1>Welcome to the Stagiaire:delete page</h1>
+{% block title %}
+
+  Supprimer un stagiaire - {{ parent() }}
+
+{% endblock %}
+{% block content %}
+<div class="col-sm-6 offset-sm-4 ">
+  <h2>Supprimer un stagiaire</h2>
+  <p>
+    Etes-vous certain de vouloir supprimer "{{ stagiaire.nom }}" ?
+  </p>
+
+  <form action="{{ path('stagiaire_delete', {'id': stagiaire.id}) }}" method="post" class="align-self-center">
+    <a href="{{ path('stagiaire_edit', {'id': stagiaire.id}) }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour à l'annonce
+    </a>
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+  </form>
+</div>
 {% endblock %}

@@ -63,7 +63,8 @@ class StagiaireController extends Controller
           $request->getSession()->getFlashBag()->add('notice','Stagiaire bien enregistré•e.');
           return $this->redirectToRoute('stagiaire_list');
         }
-        return $this->render('@OCAS/add.html.twig', array(
+        return $this->render('@OCAS/form.html.twig', array(
+          'h1' => "Ajouter un stagiaire",
           'form' => $form->createView(),
         ));
     }
@@ -91,8 +92,9 @@ class StagiaireController extends Controller
           return $this->redirectToRoute('stagiaire_view');
         }
 
-        return $this->render('@OCAS/edit.html.twig', array(
+        return $this->render('@OCAS/form.html.twig', array(
           'stagiaire' =>  $stagiaire,
+          'h1' => "Modifier un stagiaire",
           'form' => $form->createView()
          ));
     }
@@ -100,20 +102,29 @@ class StagiaireController extends Controller
     /**
      * @Route("/stagiaire/delete/{id}/",name="stagiaire_delete",defaults={"id"="1"},requirements={"id"="\d*"})
      */
-    public function deleteAction($id)
+    public function deleteAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
 
         if (null === $stagiaire){
-          throw new NotFoundHttpException("L'annonce demandée n'existe pas");
+          throw new NotFoundHttpException("Le stagiaire demandée n'existe pas");
         }
-        $form = $this->createForm();
+        $form = $this->get('form.factory')->create();
 
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+          $em->remove($stagiaire);
+          $em->flush();
 
+          $request->getSession()->getFlashBag()->add('info',"Le stagiaire a bien été supprimée");
 
+          return $this->redirectToRoute('stagiaire_list');
+        }
+        return $this->render('@OCAS/delete.html.twig', array(
+          'stagiaire' => $stagiaire,
+          'form' => $form->createView()
+        ));
 
-        return $this->render('@OCAS/delete.html.twig');
     }
 
 }

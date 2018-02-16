@@ -24,11 +24,18 @@ class StagiaireType extends AbstractType
           ->add('nom', TextType::class)
           ->add('fonction',TextType::class, array('required' => false))
           ->add('ville',TextType::class, array('required' => false))
-          ->add('naissance',BirthdayType::class, array('required' => false))
+          ->add('naissance',BirthdayType::class, array(
+            'required' => false,
+            'years' => range(1940, date('Y')),
+            'placeholder' => array(
+              'year' => 'année', 'month' => 'mois', 'day' => 'jour'
+            )
+          ))
           ->add('titre',TextType::class, array('required' => false))
           ->add('nationalite',CountryType::class, array(
             'preferred_choices' => array('France' =>'FR'), //TODO : valeur les plus fréquentes
-            'required' => false
+            'required' => false,
+            'data' => 1,
           ))
           ->add('quotite',IntegerType::class, array('required' => false))
           ->add('statut',EntityType::class,array( //TODO: a corriger
@@ -36,7 +43,7 @@ class StagiaireType extends AbstractType
             'choice_label' => 'libelle',
             'required' => false
           ))
-          ->add('enregistrer',SubmitType::class);
+          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
     /**
