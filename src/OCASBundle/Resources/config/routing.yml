@@ -1,0 +1,3 @@
+OCAS_home:
+  path: /
+  defaults: {_controller: OCASBundle::index} #non utilisé
