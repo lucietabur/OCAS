@@ -13,7 +13,10 @@ class IndexController extends Controller
   */
     public function indexAction()
     {
-      return $this->render('index.html.twig');
+      $menu = $this->get('OCASBundle\Menu\Menu');
+      return $this->render('index.html.twig', array(
+        'menu' => $menu->getMenu()
+      ));
     }
 
 }

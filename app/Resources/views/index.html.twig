@@ -2,13 +2,8 @@
 {% block title %} OCAS {% endblock %}
 {% block content %}
 <div class="index row col-6 offset-3 d-flex justify-content-around">
-    <a role="button" class="btn btn-primary col-3" href="{{ path('stagiaire_list')}}">Stagiaires</a>
-    <a role="button" class="btn btn-primary col-3" >Formation</a>
-    <a role="button" class="btn btn-primary col-3" >Formateur</a>
-</div>
-<div class="index row col-6 offset-3 d-flex justify-content-around">
-    <a role="button" class="btn btn-primary col-3">Feuille d'émargement</a>
-    <a role="button" class="btn btn-primary col-3" >Siege</a>
-    <a role="button" class="btn btn-primary col-3" >Agence</a>
+    {% for nom,lien in menu %}
+      <a role="button" class="btn btn-primary col-4" href="{{ path(lien)}}">{{nom}}</a>
+    {% endfor %}
 </div>
 {% endblock %}

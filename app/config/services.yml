@@ -34,3 +34,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    OCASBundle\Menu\:
+      resource : '../../src/OCASBundle/Menu/*'
+      public: true
