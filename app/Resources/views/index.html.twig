@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block title %} OCAS {% endblock %}
 {% block content %}
-<div class="row">
-    <div class="col-sm-4"><a href="{{ path('stagiaire_list')}}">Stagiaires</a></div>
-    <div class="col-sm-4">Formation</div>
-    <div class="col-sm-4">Formateur</div>
+<div class="index row col-6 offset-3 d-flex justify-content-around">
+    <a role="button" class="btn btn-primary col-3" href="{{ path('stagiaire_list')}}">Stagiaires</a>
+    <a role="button" class="btn btn-primary col-3" >Formation</a>
+    <a role="button" class="btn btn-primary col-3" >Formateur</a>
+</div>
+<div class="index row col-6 offset-3 d-flex justify-content-around">
+    <a role="button" class="btn btn-primary col-3">Feuille d'émargement</a>
+    <a role="button" class="btn btn-primary col-3" >Siege</a>
+    <a role="button" class="btn btn-primary col-3" >Agence</a>
 </div>
 {% endblock %}
