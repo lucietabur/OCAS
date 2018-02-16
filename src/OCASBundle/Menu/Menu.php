@@ -13,11 +13,11 @@ class Menu
     $menu = array(
       'Accueil' => 'home',
       'Stagiaires' => 'stagiaire_list',
-      'Agence' => 'home',
-      'Siege' => 'home',
-      'Formation' => 'home',
-      'Formateur' => 'home',
-      'Feuille d\'émargement' => 'home',
+      // 'Agence' => 'home',
+      // 'Siege' => 'home',
+      // 'Formation' => 'home',
+      // 'Formateur' => 'home',
+      // 'Feuille d\'émargement' => 'home',
     );
     return $menu;
   }

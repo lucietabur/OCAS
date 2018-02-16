@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 {% block title %} OCAS {% endblock %}
 {% block content %}
-<div class="index row col-6 offset-3 d-flex justify-content-around">
+<div class="row col-6 offset-3 d-flex justify-content-around">
     {% for nom,lien in menu %}
-      <a role="button" class="btn btn-primary col-4" href="{{ path(lien)}}">{{nom}}</a>
+      <a role="button" class="index btn btn-primary col-4" href="{{ path(lien)}}">{{nom}}</a>
     {% endfor %}
 </div>
 {% endblock %}
