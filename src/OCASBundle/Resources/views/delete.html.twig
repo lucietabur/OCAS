@@ -17,9 +17,9 @@
   </p>
 
   <form action="{{ path('stagiaire_delete', {'id': stagiaire.id}) }}" method="post" class="align-self-center">
-    <a href="{{ path('stagiaire_edit', {'id': stagiaire.id}) }}" class="btn btn-default">
+    <a href="{{ path('stagiaire_list', {'id': stagiaire.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
-      Retour à l'annonce
+      Retour à la liste
     </a>
     <input type="submit" value="Supprimer" class="btn btn-danger" />
     {# Ceci va générer le champ CSRF #}
