@@ -83,17 +83,20 @@ class StagiaireController extends Controller
           //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
         }
         $form = $this->createForm(StagiaireType::class,$stagiaire);
-
+        $form->handleRequest($request);
 
         // soumission du formulaire
-        if ($request->isMethod('POST')) {
+        if ($form->isSubmitted() && $form->isValid()){
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($stagiaire);
           $em->flush();
           $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien modifié•e');
-          return $this->redirectToRoute('stagiaire_view');
+          return $this->redirectToRoute('stagiaire_list');
         }
 
         return $this->render('@OCAS/form.html.twig', array(
           'stagiaire' =>  $stagiaire,
+          'id' => $id,
           'h1' => "Modifier un stagiaire",
           'form' => $form->createView()
          ));
