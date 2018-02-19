@@ -13,12 +13,13 @@ use OCASBundle\Form\StagiaireType;
 class StagiaireController extends Controller
 {
     /**
-     * @Route("/stagiaires/{page}/",name="stagiaire_list",defaults={"page"="1"},requirements={"page"="\d*"})
+     * @Route("/stagiaires/{page}",name="stagiaire_list",defaults={"page"=1})
      */
-    public function listAction($page)
+    public function listAction($page = 1)
     {
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
         $stagiaires = $repository->findAll();
+
         if ($page == null){
           $page=1;
         }
