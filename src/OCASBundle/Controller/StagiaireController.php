@@ -18,12 +18,12 @@ class StagiaireController extends Controller
     public function listAction($page = 1)
     {
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
-        $stagiaires = $repository->findAll();
+        $listeStagiaires = $repository->findAll();
+        $stagiaires = $this->get('knp_paginator')->paginate(
+          $listeStagiaires,
+          $page);
 
-        if ($page == null){
-          $page=1;
-        }
-        else if ($page < 1){
+        if ($page < 1){
           throw $this->createNotFoundException('Page '.$page.' inexistante.');
         }
 
