@@ -14,9 +14,7 @@ class IndexController extends Controller
     public function indexAction()
     {
       $menu = $this->get('OCASBundle\Menu\Menu');
-      return $this->render('index.html.twig', array(
-        'menu' => $menu->getMenu()
-      ));
+      return $this->render('index.html.twig');
     }
 
 }

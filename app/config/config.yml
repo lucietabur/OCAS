@@ -38,6 +38,8 @@ twig:
       - 'bootstrap_4_horizontal_layout.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+      menu : '@OCASBundle\Menu\Menu'
 
 # Doctrine Configuration
 doctrine:

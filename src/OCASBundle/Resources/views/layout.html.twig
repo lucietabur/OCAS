@@ -3,9 +3,11 @@
 {% block nav %}
 <nav>
     <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('home')}}">Accueil</a>
-      </li>
+      {% for nom,lien in menu.getMenu() %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path(lien)}}">{{nom}}</a>
+        </li>
+      {% endfor %}
     </ul>
 </nav>
 {% endblock %}
