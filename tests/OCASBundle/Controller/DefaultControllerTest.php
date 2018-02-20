@@ -1,6 +1,6 @@
 <?php
 
-namespace OCASBundle\Tests\Controller;
+namespace OCAS\OCASBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

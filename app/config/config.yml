@@ -39,7 +39,7 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-      menu : '@OCASBundle\Menu\Menu'
+      menu : '@OCAS\OCASBundle\Menu\Menu'
 
 # Doctrine Configuration
 doctrine:
