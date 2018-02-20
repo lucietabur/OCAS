@@ -1,0 +1,42 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}liste des stagiaires{% endblock %}
+{% block header %}
+Liste des stagiaires
+{% endblock %}
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">Titre</th>
+      <th>Nom</th>
+      <th>Fonction</th>
+      <th>Ville</th>
+      <th>Date de naissance</th>
+      <th>Nationalite</th>
+      {#<th>Statut</th>#}
+      <th>Quotite</th>
+      <th></th>
+      <th><a role="button" href="{{ path('stagiaire_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for stagiaire in stagiaires %}
+<tr>
+  <th scope="row">{{ stagiaire.titre }}</th>
+  <td><a href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}">{{ stagiaire.nom }}</a></td>
+  <td>{{ stagiaire.fonction }}</td>
+  <td>{{ stagiaire.ville }}</td>
+  <td>{{ stagiaire.naissance|date("d/m/Y") }}</td>
+  <td>{{ stagiaire.nationalite }}</td>
+  {#<td>{{ stagiaire.statut.libelle }}</td>#}
+  <td>{{ stagiaire.quotite }}</td>
+  <td><a role="button" href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}" class="btn btn-warning">Modifier</a></td>
+  <td><a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-danger">Supprimer</a></td>
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(stagiaires) }}</div>
+{% endblock %}
