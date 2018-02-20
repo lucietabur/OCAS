@@ -1,6 +1,6 @@
 <?php
 
-namespace OCAS\OCASBundle\Menu;
+namespace OCAS\OCASBundle\Services;
 
 class Menu
 {

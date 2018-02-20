@@ -35,6 +35,6 @@ services:
     #     arguments:
     #         $someArgument: 'some_value'
 
-    OCAS\OCASBundle\Menu\:
-      resource : '../../src/OCAS/OCASBundle/Menu/*'
+    OCAS\OCASBundle\Services\:
+      resource : '../../src/OCAS/OCASBundle/Services/*'
       public: true
