@@ -1,0 +1,46 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}liste des feuilles{% endblock %}
+{% block header %}
+Liste des feuilles
+{% endblock %}
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">num</th>
+      <th>Formation</th>
+      <th>Formateur</th>
+      <th>Lieu</th>
+      <th>Date de séance</th>
+      <th>Horaire</th>
+      <th>Date de retour</th>
+      <th></th>
+      <th><a role="button" href="{{ path('feuille_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for feuille in feuilles %}
+<tr>
+  <th scope="row">{{ feuille.numEmargement }}</th>
+  {#<td><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.nom }}</a></td>#}
+  {% if feuille.formation.id != '0' %}
+    <td>{{ feuille.formation.libelle }}</td>
+  {% else %}
+    <td>{{ feuille.observation }}</td>
+  {% endif %}
+
+  <td>{{ feuille.formateur.nom }}</td>
+  <td>{{ feuille.lieu }}</td>
+  <td>{{ feuille.dateSeance|date("d/m/Y") }}</td>
+  <td>{#{{ feuille.horaire|date("H:i") }}#}</td>
+  <td>{{ feuille.dateRetour|date("d/m/Y") }}</td>
+  {#<td><a role="button" href="{{ path('feuille_edit',{'id': feuille.id }) }}" class="btn btn-warning">Modifier</a></td>
+  <td><a role="submit" href="{{ path('feuille_delete',{'id': feuille.id })}}" class="btn btn-danger">Supprimer</a></td>#}
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(feuilles) }}</div>
+{% endblock %}

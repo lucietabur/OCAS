@@ -27,7 +27,7 @@ class StagiaireController extends Controller
           throw $this->createNotFoundException('Page '.$page.' inexistante.');
         }
 
-        return $this->render('@OCAS/list.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/list.html.twig', array(
             'stagiaires' => $stagiaires,
         ));
     }
@@ -42,7 +42,7 @@ class StagiaireController extends Controller
         if ($id == null){
           return $this->redirectToRoute('stagiaire_list');
         }
-        return $this->render('@OCAS/view.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/view.html.twig', array(
             'id' => $id,
             'stagiaire' => $stagiaire
         ));
@@ -64,7 +64,7 @@ class StagiaireController extends Controller
           $request->getSession()->getFlashBag()->add('notice','Stagiaire bien enregistré•e.');
           return $this->redirectToRoute('stagiaire_list');
         }
-        return $this->render('@OCAS/form.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/form.html.twig', array(
           'h1' => "Ajouter un stagiaire",
           'form' => $form->createView(),
         ));
@@ -95,7 +95,7 @@ class StagiaireController extends Controller
           return $this->redirectToRoute('stagiaire_list');
         }
 
-        return $this->render('@OCAS/form.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/form.html.twig', array(
           'stagiaire' =>  $stagiaire,
           'id' => $id,
           'h1' => "Modifier un stagiaire",
@@ -124,7 +124,7 @@ class StagiaireController extends Controller
 
           return $this->redirectToRoute('stagiaire_list');
         }
-        return $this->render('@OCAS/delete.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/delete.html.twig', array(
           'stagiaire' => $stagiaire,
           'form' => $form->createView()
         ));
