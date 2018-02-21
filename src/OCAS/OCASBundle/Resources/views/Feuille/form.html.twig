@@ -6,10 +6,11 @@
 <h1>{{ h1 }}</h1>
 
 <div class="col-8 offset-2">
+  {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
   {{ form(form)}}
-  <a role="button" href="{{ path('stagiaire_list')}}" class="btn btn-primary">Retour à la liste</a>
+  <a role="button" href="{{ path('feuille_list')}}" class="btn btn-primary">Retour à la liste</a>
   {% if id is defined %}
-    <a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-danger">Supprimer</a>
+    <a role="submit" href="{{ path('feuille_delete',{'id': feuille.id })}}" class="btn btn-danger">Supprimer</a>
   {% endif %}
   </div>
 {% endblock %}
