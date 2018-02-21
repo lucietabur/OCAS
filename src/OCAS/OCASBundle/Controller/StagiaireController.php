@@ -8,7 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use OCAS\OCASBundle\Form\StagiaireType;
-
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class StagiaireController extends Controller
 {
@@ -17,35 +19,28 @@ class StagiaireController extends Controller
      */
     public function listAction($page = 1)
     {
-        $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
-        $listeStagiaires = $repository->findAll();
-        $stagiaires = $this->get('knp_paginator')->paginate(
-          $listeStagiaires,
-          $page);
 
-        if ($page < 1){
-          throw $this->createNotFoundException('Page '.$page.' inexistante.');
-        }
+      $searchform = $this->createFormBuilder()
+      ->add('Stagiaire',TextType::class, array('attr' => array( 'class' => "")))
+      ->add('rechercher',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+      ->setMethod('POST')
+      ->setAction($this->generateUrl('stagiaire_search'))
+      ->getForm();
+      $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
+      $listeStagiaires = $repository->findAll();
+      $stagiaires = $this->get('knp_paginator')->paginate(
+        $listeStagiaires,
+        $page);
 
-        return $this->render('@OCAS/Stagiaire/list.html.twig', array(
-            'stagiaires' => $stagiaires,
-        ));
-    }
+      if ($page < 1){
+        throw $this->createNotFoundException('Page '.$page.' inexistante.');
+      }
 
-    /**
-     * @Route("/stagiaire/{id}/",name="stagiaire_view",defaults={"id"="1"},requirements={"id"="\d*"})
-     */
-    public function viewAction($id)
-    {
-        $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
-        $stagiaire = $repository->find($id);
-        if ($id == null){
-          return $this->redirectToRoute('stagiaire_list');
-        }
-        return $this->render('@OCAS/Stagiaire/view.html.twig', array(
-            'id' => $id,
-            'stagiaire' => $stagiaire
-        ));
+      return $this->render('@OCAS/Stagiaire/list_view.html.twig', array(
+          'stagiaires' => $stagiaires,
+          'form' => $searchform->createView(),
+          'h1' => 'Liste des stagiaires'
+      ));
     }
 
     /**
@@ -130,5 +125,24 @@ class StagiaireController extends Controller
         ));
 
     }
+
+    /**
+     * @Route("/stagiaire/search",name="stagiaire_search")
+     */
+    public function searchAction(Request $request)
+    {
+      $em = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Stagiaire');
+      $req=$request->request->all()["form"]["Stagiaire"];
+      $stagiaires = $em->FindBy(['nom' => $req]);
+      $stagiaires = $this->get('knp_paginator')->paginate(
+        $stagiaires,
+        1);
+
+        return $this->render('@OCAS/Stagiaire/list_result.html.twig', array(
+          'stagiaires' =>  $stagiaires,
+          'h1' => 'Résultat de la recherche'
+         ));
+    }
+
 
 }
