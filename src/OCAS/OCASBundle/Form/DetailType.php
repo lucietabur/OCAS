@@ -29,7 +29,8 @@ class DetailType extends AbstractType
           ->add('h_present', IntegerType::class)
           ->add('h_absent',IntegerType::class)
           ->add('h_facture',IntegerType::class)
-          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+          ->add('enregistrer&suivant',SubmitType::class, array('attr' => array('class' => 'btn btn-success', 'label' => 'Enregistrer et ajouter un autre stagiaire') ));
     }
 
     /**
