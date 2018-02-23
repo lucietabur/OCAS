@@ -14,19 +14,19 @@ Liste des stagiaires pour la formation X
       <th>heure absent</th>
       <th>heure facturée</th>
       <th></th>
-      <th><a role="button" href="{{ path('detail_add',{'id': id_feuille }) }}" class="btn btn-success">Ajouter</a></th>
+      <th><a role="button" href="{{ path('detail_add',{'feuille_id': id_feuille }) }}" class="btn btn-success">Ajouter</a></th>
     </tr>
   </thead>
   <tbody>
 {% for detail in details %}
 <tr>
-  <th scope="row">{{ detail.stagiaire.nom }}</th>
+  <th scope="row"><a href="{{path('stagiaire_edit',{'id': detail.stagiaire.id})}}">{{ detail.stagiaire.nom }}</a></th>
   <td>{{ detail.typeFormation }}</td>
   <td>{{ detail.hPresent }}</td>
   <td>{{ detail.hAbsent }}</td>
   <td>{{ detail.hFacture }}</td>
-  {#<td><a role="button" href="{{ path('feuille_edit',{'id': detail.id }) }}" class="btn btn-warning">Modifier</a></td>
-  <td><a role="submit" href="{{ path('feuille_delete',{'id': detail.id })}}" class="btn btn-danger">Supprimer</a></td>#}
+  <td><a role="button" href="{{ path('detail_edit',{'id' : detail.id,'feuille_id' : id_feuille }) }}" class="btn btn-warning">Modifier</a></td>
+  <td><a role="submit" href="{{ path('detail_delete',{'id': detail.id ,'feuille_id' : id_feuille })}}" class="btn btn-danger">Supprimer</a></td>
 </tr>
 {% endfor %}
 

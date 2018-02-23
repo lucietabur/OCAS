@@ -12,13 +12,13 @@ class Detail_emargementController extends Controller
 {
 
   /**
-   * @Route("/feuille/{id}/stagiaires/{page}",name="detail_list",defaults={"page"=1})
+   * @Route("/feuille/{feuille_id}/stagiaires/{page}",name="detail_list",requirements={"feuille_id"="\d*"},defaults={"page"=1})
    */
-  public function listAction($id,$page = 1)
+  public function listAction($feuille_id,$page = 1)
   {
     //on recherche la feuille correspondant a l'id
     $em = $this->getDoctrine()->getManager();
-    $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($id);
+    $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
     // on recherche tous les detail correspondant à la feuille d'émargement
     $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_emargement');
     $listeDetails = $repository->findby(
@@ -35,18 +35,18 @@ class Detail_emargementController extends Controller
 
     return $this->render('@OCAS/Detail/list.html.twig', array(
         'details' => $details,
-        'id_feuille' => $id
+        'id_feuille' => $feuille_id
     ));
   }
 
     /**
-     * @Route("/feuille/{id}/add/stagiaire/",name="detail_add",defaults={"id"="1"},requirements={"id"="\d*"})
+     * @Route("/feuille/{feuille_id}/stagiaire/add/",name="detail_add",requirements={"feuille_id"="\d*"})
      */
-    public function addAction($id, Request $request)
+    public function addAction($feuille_id, Request $request)
     {
         // on recherche la feuille correspondant à l'id et on l'ajoute à l'objet detail
         $em = $this->getDoctrine()->getManager();
-        $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($id);
+        $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
         $detail = new Detail_emargement();
         $detail->setFeuilleEmargement($feuille); //TODO: ErrorException
         $form = $this->createForm(DetailType::class,$detail);
@@ -60,19 +60,19 @@ class Detail_emargementController extends Controller
 
           // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
           $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
-          return $this->redirectToRoute($nextAction, array('id' => $id));
+          return $this->redirectToRoute($nextAction, array('id' => $feuille_id));
         }
 
         $toto=$feuille->getFormation()->getLibelle();
         return $this->render('@OCAS/Detail/add.html.twig', array(
             'h1' => "Ajouter un stagiaire à la formation : ".$toto,
             'form' => $form->createView(),
-            'id_feuille' => $id
+            'id_feuille' => $feuille_id
         ));
     }
 
     /**
-     * @Route("/edit")
+     * @Route("/feuille/{feuille_id}/stagiaire/{id}/edit",name="detail_edit",requirements={"feuille_id"="\d*", "id"="\d*"})
      */
     public function editAction()
     {
@@ -82,7 +82,7 @@ class Detail_emargementController extends Controller
     }
 
     /**
-     * @Route("/delete")
+     * @Route("/feuille/{feuille_id}/stagiaire/{id}/delete",name="detail_delete",requirements={"feuille_id"="\d*", "id"="\d*"})
      */
     public function deleteAction()
     {
