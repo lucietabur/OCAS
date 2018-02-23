@@ -24,7 +24,7 @@ class Feuille_emargement
     /**
      * @var int
      *
-     * @ORM\Column(name="num_emargement", type="integer", unique=true, nullable=true) //TODO: rendre auto increment
+     * @ORM\Column(name="num_emargement", type="integer", unique=false, nullable=true) //TODO: rendre auto increment
      */
     private $numEmargement;
 

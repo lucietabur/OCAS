@@ -51,6 +51,7 @@ class Detail_emargement
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement")
+    * @ORM\JoinColumn(nullable=false)
     */
     private $feuille_emargement;
 

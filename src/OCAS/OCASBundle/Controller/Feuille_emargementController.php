@@ -80,8 +80,8 @@ class Feuille_emargementController extends Controller
         return $this->redirectToRoute('feuille_list');
       }
 
-      return $this->render('@OCAS/Stagiaire/form.html.twig', array(
-        'stagiaire' =>  $feuille,
+      return $this->render('@OCAS/Feuille/form.html.twig', array(
+        'feuille' =>  $feuille,
         'id' => $id,
         'h1' => "Modifier une feuille",
         'form' => $form->createView()

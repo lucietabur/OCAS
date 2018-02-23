@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class FeuilleType extends AbstractType
+class DetailType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -38,7 +38,7 @@ class FeuilleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OCAS\OCASBundle\Entity\Feuille_emargement'
+            'data_class' => 'OCAS\OCASBundle\Entity\Detail_emargement'
         ));
     }
 
