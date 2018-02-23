@@ -23,9 +23,8 @@ Liste des feuilles
 {% for feuille in feuilles %}
 <tr>
   <th scope="row">{{ feuille.numEmargement }}</th>
-  {#<td><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.nom }}</a></td>#}
   {% if feuille.formation.id != '0' %}
-    <td>{{ feuille.formation.libelle }}</td>
+    <td><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.formation.libelle }}</a></td>
   {% else %}
     <td>{{ feuille.observation }}</td>
   {% endif %}

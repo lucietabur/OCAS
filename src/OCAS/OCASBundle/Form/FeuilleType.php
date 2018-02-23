@@ -30,12 +30,12 @@ class FeuilleType extends AbstractType
             'choice_label' => 'nom',
           ))
           ->add('dateSeance',DateTimeType::class)
-          ->add('groupe', TextType::class,array('required' =>'false'))
-          ->add('duree', IntegerType::class, array('required' => 'false' ))
-          ->add('horaire',DateTimeType::class,array('required' =>'false'))
-          ->add('dateRetour', DateTimeType::class, array('required' => 'false'))
-          ->add('lieu', TextType::class,array('required' => 'false'))
-          ->add('observation', TextType::class,array('required' =>'false'))
+          ->add('groupe', TextType::class, array('required' => false))
+          ->add('duree', IntegerType::class, array('required' => false ))
+          ->add('horaire',DateTimeType::class, array('required' => false))
+          ->add('dateRetour', DateTimeType::class, array('required' => false))
+          ->add('lieu', TextType::class, array('required' => false))
+          ->add('observation', TextType::class, array('required' => false))
           ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 

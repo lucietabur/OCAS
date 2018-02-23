@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use OCAS\OCASBundle\Form\FeuilleType;
+use OCAS\OCASBundle\Form\SearchType;
 class Feuille_emargementController extends Controller
 {
   /**
@@ -36,18 +37,21 @@ class Feuille_emargementController extends Controller
   {
       $feuille= new Feuille_emargement();
       $form = $this->createForm(FeuilleType::class,$feuille);
+
+      $searchform = $this->createForm(SearchType::class);
+
       $form->handleRequest($request);
       if ($form->isSubmitted() && $form->isValid()){
         $em = $this->getDoctrine()->getManager();
         $em->persist($feuille);
         $em->flush();
-        // a voir si on redirige vers la liste, le stagiaire créé ou plutot vers add
         $request->getSession()->getFlashBag()->add('notice','Feuille_emargement bien enregistré•e.');
         return $this->redirectToRoute('stagiaire_list');
       }
       return $this->render('@OCAS/Feuille/form.html.twig', array(
         'h1' => "Ajouter une feuille",
         'form' => $form->createView(),
+        'searchform' => $searchform->createView()
       ));
   }
 

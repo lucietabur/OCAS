@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Routing\Router;
 
 class SearchType extends AbstractType
 {
@@ -16,9 +17,11 @@ class SearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-          ->add('searchbox',TextType::class)
-          ->add('search',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+      $builder
+        ->add('Stagiaire',TextType::class, array('attr' => array( 'class' => "")))
+        ->add('rechercher',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+        ->setMethod('POST')
+        ->getForm();
     }
 
     /**
