@@ -7,6 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use OCAS\OCASBundle\Entity\Detail_emargement;
 use OCAS\OCASBundle\Form\DetailType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Detail_emargementController extends Controller
 {
@@ -60,12 +61,12 @@ class Detail_emargementController extends Controller
 
           // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
           $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
-          return $this->redirectToRoute($nextAction, array('id' => $feuille_id));
+          return $this->redirectToRoute($nextAction, array('feuille_id' => $feuille_id));
         }
 
-        $toto=$feuille->getFormation()->getLibelle();
-        return $this->render('@OCAS/Detail/add.html.twig', array(
-            'h1' => "Ajouter un stagiaire à la formation : ".$toto,
+        $libelle=$feuille->getFormation()->getLibelle();
+        return $this->render('@OCAS/Detail/form.html.twig', array(
+            'h1' => "Ajouter un stagiaire à la formation : ".$libelle,
             'form' => $form->createView(),
             'id_feuille' => $feuille_id
         ));
@@ -74,21 +75,67 @@ class Detail_emargementController extends Controller
     /**
      * @Route("/feuille/{feuille_id}/stagiaire/{id}/edit",name="detail_edit",requirements={"feuille_id"="\d*", "id"="\d*"})
      */
-    public function editAction()
+    public function editAction($feuille_id, $id, Request $request)
     {
-        return $this->render('OCASBundle:Detail_emargement:edit.html.twig', array(
-            // ...
-        ));
+      $em = $this->getDoctrine()->getManager();
+      $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
+
+      $detail = $em->getRepository('OCASBundle:Detail_emargement')->find($id);
+
+      if ($id == null){
+        $request->getSession()->getFlashBag()->add('notice',"l'inscription du stagiaire demandée n'a pas pu être trouvé");
+        return $this->redirectToRoute('detail_list', array('feuille_id' => $feuille_id));
+        //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
+      }
+      $form = $this->createForm(DetailType::class,$detail);
+      $form->handleRequest($request);
+
+      // soumission du formulaire
+      if ($form->isSubmitted() && $form->isValid()){
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($detail);
+        $em->flush();
+        $request->getSession()->getFlashBag()->add('notice', 'Inscription bien modifiée');
+        // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
+        $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
+        return $this->redirectToRoute($nextAction, array('feuille_id' => $feuille_id));
+      }
+
+
+      $libelle=$feuille->getFormation()->getLibelle();
+      return $this->render('@OCAS/Detail/form.html.twig', array(
+        'h1' => "Modifier l'inscription d'un stagiaire à la formation : ".$libelle,
+        'form' => $form->createView(),
+        'id_feuille' => $feuille_id
+      ));
     }
 
     /**
      * @Route("/feuille/{feuille_id}/stagiaire/{id}/delete",name="detail_delete",requirements={"feuille_id"="\d*", "id"="\d*"})
      */
-    public function deleteAction()
+    public function deleteAction($feuille_id, $id, Request $request)
     {
-        return $this->render('OCASBundle:Detail_emargement:delete.html.twig', array(
-            // ...
-        ));
-    }
+      $em = $this->getDoctrine()->getManager();
+      $detail = $em->getRepository('OCASBundle:Detail_emargement')->find($id);
 
+      if (null === $detail){
+        throw new NotFoundHttpException("L'inscription du stagiaire demandée n'existe pas");
+      }
+      $form = $this->get('form.factory')->create();
+
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
+        $em->remove($detail);
+        $em->flush();
+
+        $request->getSession()->getFlashBag()->add('info',"L'inscription a bien été supprimée");
+
+        return $this->redirectToRoute('detail_list', array('feuille_id' => $feuille_id));
+      }
+      return $this->render('@OCAS/Detail/delete.html.twig', array(
+        'detail' => $detail,
+        'form' => $form->createView(),
+        'id_feuille' => $feuille_id
+      ));
+
+  }
 }
