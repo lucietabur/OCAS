@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use OCAS\OCASBundle\Form\FeuilleType;
 use OCAS\OCASBundle\Form\SearchType;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 class Feuille_emargementController extends Controller
 {
   /**

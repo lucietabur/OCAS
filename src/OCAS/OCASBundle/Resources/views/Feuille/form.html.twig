@@ -12,7 +12,7 @@
   {# {{form_start(searchform, {action:path('stagiaire_search')})}} #}
   <a role="button" href="{{ path('feuille_list')}}" class="btn btn-primary">Retour à la liste</a>
   {% if id is defined %}
-    <a role="button" href="{{ path('detail_list',{'id': feuille.id })}}" class="btn btn-success">Liste des stagiaires</a>
+    <a role="button" href="{{ path('detail_list',{'feuille_id': feuille.id })}}" class="btn btn-success">Liste des stagiaires</a>
     <a role="button" href="{{ path('feuille_delete',{'id': feuille.id })}}" class="btn btn-danger">Supprimer</a>
   {% endif %}
   </div>

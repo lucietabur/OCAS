@@ -6,18 +6,18 @@
 
 {% block title %}
 
-  Supprimer un stagiaire - {{ parent() }}
+  Supprimer une feuille - {{ parent() }}
 
 {% endblock %}
 {% block content %}
 <div class="col-sm-6 offset-sm-4 ">
-  <h2>Supprimer un stagiaire</h2>
+  <h2>Supprimer une feuille</h2>
   <p>
-    Etes-vous certain de vouloir supprimer "{{ stagiaire.nom }}" ?
+    Etes-vous certain de vouloir supprimer "{{ feuille.formation.libelle }}" ?
   </p>
 
-  <form action="{{ path('stagiaire_delete', {'id': stagiaire.id}) }}" method="post" class="align-self-center">
-    <a href="{{ path('stagiaire_list', {'id': stagiaire.id}) }}" class="btn btn-primary">
+  <form action="{{ path('feuille_delete', {'id': feuille.id}) }}" method="post" class="align-self-center">
+    <a href="{{ path('feuille_list', {'id': feuille.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>
