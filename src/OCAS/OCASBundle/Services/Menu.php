@@ -16,7 +16,7 @@ class Menu
       // 'Agence' => 'home',
       // 'Siege' => 'home',
       // 'Formation' => 'home',
-      // 'Formateur' => 'home',
+       'Formateur' => 'formateur_list',
        'Feuille d\'émargement' => 'feuille_list',
     );
     return $menu;
