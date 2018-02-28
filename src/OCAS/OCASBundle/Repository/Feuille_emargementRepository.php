@@ -15,7 +15,7 @@ class Feuille_emargementRepository extends \Doctrine\ORM\EntityRepository
   */
   public function nombreFeuilles()
   {
-    annee = new date("Y");
+    $annee = new date("Y");
     $builder = $this->createQueryBuilder('a');
     $builder->select('COUNT(a.id) AS nombre')
             ->where('a.date_debut LIKE "'.$annee.'%"')

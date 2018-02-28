@@ -131,7 +131,7 @@ class FormateurController extends Controller
     {
         $em = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Formateur');
         $req=$request->request->all()["form"]["Formateur"];
-        $formateurs = $em->FindBy(['nom' => $req]);
+        $formateurs = $em->findByName($req);
         $formateurs = $this->get('knp_paginator')->paginate(
         $formateurs,
         1

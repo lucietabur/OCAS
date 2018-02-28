@@ -131,7 +131,7 @@ class FormationController extends Controller
     {
         $em = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Formation');
         $req=$request->request->all()["form"]["Formation"];
-        $formations = $em->FindBy(['libelle' => $req]);
+        $formations = $em->findByName($req);
         $formations = $this->get('knp_paginator')->paginate(
         $formations,
         1
