@@ -6,8 +6,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="row">num</th>
-      <th>Formation</th>
+      <th scope="row">Formation</th>
       <th>Formateur</th>
       <th>Lieu</th>
       <th>Date de séance</th>
@@ -20,17 +19,16 @@
   <tbody>
 {% for feuille in feuilles %}
 <tr>
-  <th scope="row">{{ feuille.numEmargement }}</th>
   {% if feuille.formation.id != '0' %}
-    <td><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.formation.libelle }}</a></td>
+    <th scope="row"><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.formation.libelle }}</a></td>
   {% else %}
-    <td>{{ feuille.observation }}</td>
+    <th  scope="row">{{ feuille.observation }}</td>
   {% endif %}
 
   <td>{{ feuille.formateur.nom }}</td>
   <td>{{ feuille.lieu }}</td>
   <td>{{ feuille.dateSeance|date("d/m/Y") }}</td>
-  <td>{#{{ feuille.horaire|date("H:i") }}#}</td>
+  <td>{{ feuille.dateSeance|date("H:i") }}</td>
   <td>{{ feuille.dateRetour|date("d/m/Y") }}</td>
   {#<td><a role="button" href="{{ path('feuille_edit',{'id': feuille.id }) }}" class="btn btn-warning">Modifier</a></td>
   <td><a role="submit" href="{{ path('feuille_delete',{'id': feuille.id })}}" class="btn btn-danger">Supprimer</a></td>#}

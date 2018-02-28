@@ -37,7 +37,8 @@ class Detail_emargementController extends Controller
 
         return $this->render('@OCAS/Detail/list.html.twig', array(
         'details' => $details,
-        'id_feuille' => $feuille_id
+        'id_feuille' => $feuille_id,
+        'h1' => "Liste des stagiaires pour la formation X"
     ));
     }
 
