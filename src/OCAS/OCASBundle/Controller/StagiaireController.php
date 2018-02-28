@@ -3,11 +3,11 @@
 namespace OCAS\OCASBundle\Controller;
 
 use OCAS\OCASBundle\Entity\Stagiaire;
+use OCAS\OCASBundle\Form\StagiaireType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use OCAS\OCASBundle\Form\StagiaireType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

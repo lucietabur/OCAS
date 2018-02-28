@@ -52,7 +52,7 @@ class Agence
     /**
      * @var int
      *
-     * @ORM\Column(name="code_departement", type="integer")
+     * @ORM\Column(name="code_departement", type="string", length=6)
      */
     private $codeDepartement;
 
@@ -66,7 +66,7 @@ class Agence
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
+     * @ORM\Column(name="telephone", type="string", length=12, nullable=true)
      */
     private $telephone;
 

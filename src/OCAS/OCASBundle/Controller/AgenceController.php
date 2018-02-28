@@ -2,6 +2,8 @@
 
 namespace OCAS\OCASBundle\Controller;
 
+use OCAS\OCASBundle\Entity\Agence;
+use OCAS\OCASBundle\Form\AgenceType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
