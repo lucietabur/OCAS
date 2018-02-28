@@ -10,17 +10,18 @@ namespace OCAS\OCASBundle\Repository;
  */
 class FormateurRepository extends \Doctrine\ORM\EntityRepository
 {
-  /**
-  * Retourne les formateurs dont le nom contient $req
-  */
+    /**
+    * Retourne les formateurs dont le nom contient $req
+    */
     public function findByName($req)
     {
-      $query = $this->getEntityManager()
-                      ->createQuery("
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          "
             SELECT p FROM OCASBundle:Formateur p
             WHERE p.nom LIKE :key "
                       );
-      $query->setParameter('key', '%'.$req.'%');
-      return $query->getResult();
+        $query->setParameter('key', '%'.$req.'%');
+        return $query->getResult();
     }
 }

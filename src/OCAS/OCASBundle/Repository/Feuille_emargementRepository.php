@@ -10,16 +10,16 @@ namespace OCAS\OCASBundle\Repository;
  */
 class Feuille_emargementRepository extends \Doctrine\ORM\EntityRepository
 {
-  /**
-  * Compte toutes les feuilles d'emargement de l'annee en cours
-  */
-  public function nombreFeuilles()
-  {
-    $annee = new date("Y");
-    $builder = $this->createQueryBuilder('a');
-    $builder->select('COUNT(a.id) AS nombre')
+    /**
+    * Compte toutes les feuilles d'emargement de l'annee en cours
+    */
+    public function nombreFeuilles()
+    {
+        $annee = new date("Y");
+        $builder = $this->createQueryBuilder('a');
+        $builder->select('COUNT(a.id) AS nombre')
             ->where('a.date_debut LIKE "'.$annee.'%"')
             ->orderBy('a.date_debut');
-    return $builder->getQuery()->getSingleScalarResult();
-  }
+        return $builder->getQuery()->getSingleScalarResult();
+    }
 }

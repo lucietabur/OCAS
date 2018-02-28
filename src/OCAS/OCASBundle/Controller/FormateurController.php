@@ -38,7 +38,7 @@ class FormateurController extends Controller
         return $this->render('@OCAS/Formateur/list_view.html.twig', array(
           'formateurs' => $formateurs,
           'form' => $searchform->createView(),
-          'h1' => 'Liste des formateurs'
+          'h1' => 'OCAS : Liste des formateurs'
       ));
     }
 
@@ -59,7 +59,7 @@ class FormateurController extends Controller
             return $this->redirectToRoute('formateur_list');
         }
         return $this->render('@OCAS/Formateur/form.html.twig', array(
-        'h1' => "Ajouter un formateur",
+        'h1' => "OCAS : Ajouter un formateur",
         'form' => $form->createView(),
       ));
     }
@@ -92,7 +92,7 @@ class FormateurController extends Controller
         return $this->render('@OCAS/Formateur/form.html.twig', array(
         'formateur' =>  $formateur,
         'id' => $id,
-        'h1' => "Modifier un formateur",
+        'h1' => "OCAS : Modifier un formateur",
         'form' => $form->createView()
        ));
     }
@@ -139,7 +139,7 @@ class FormateurController extends Controller
 
         return $this->render('@OCAS/Formateur/list_result.html.twig', array(
           'formateurs' =>  $formateurs,
-          'h1' => 'Résultat de la recherche'
+          'h1' => 'OCAS : Résultat de la recherche'
          ));
     }
 }

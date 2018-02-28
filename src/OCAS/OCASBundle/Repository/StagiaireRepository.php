@@ -17,12 +17,13 @@ class StagiaireRepository extends EntityRepository
   */
     public function findByName($req)
     {
-      $query = $this->getEntityManager()
-                      ->createQuery("
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          "
             SELECT p FROM OCASBundle:Stagiaire p
             WHERE p.nom LIKE :key "
                       );
-      $query->setParameter('key', '%'.$req.'%');
-      return $query->getResult();
+        $query->setParameter('key', '%'.$req.'%');
+        return $query->getResult();
     }
 }

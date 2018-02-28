@@ -30,6 +30,7 @@ class Feuille_emargementController extends Controller
 
         return $this->render('@OCAS/Feuille/list.html.twig', array(
           'feuilles' => $feuilles,
+          'h1' => 'Liste des feuilles'
       ));
     }
 
@@ -49,10 +50,10 @@ class Feuille_emargementController extends Controller
             $em->persist($feuille);
             $em->flush();
             $request->getSession()->getFlashBag()->add('notice', 'Feuille_emargement bien enregistré•e.');
-            return $this->redirectToRoute('stagiaire_list');
+            return $this->redirectToRoute('feuille_list');
         }
         return $this->render('@OCAS/Feuille/form.html.twig', array(
-        'h1' => "Ajouter une feuille",
+        'h1' => "OCAS : Ajouter une feuille",
         'form' => $form->createView(),
         'searchform' => $searchform->createView()
       ));
@@ -86,7 +87,7 @@ class Feuille_emargementController extends Controller
         return $this->render('@OCAS/Feuille/form.html.twig', array(
         'feuille' =>  $feuille,
         'id' => $id,
-        'h1' => "Modifier une feuille",
+        'h1' => "OCAS : Modifier une feuille",
         'form' => $form->createView()
        ));
     }

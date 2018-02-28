@@ -26,5 +26,4 @@ class AgenceControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/agence/delete');
     }
-
 }

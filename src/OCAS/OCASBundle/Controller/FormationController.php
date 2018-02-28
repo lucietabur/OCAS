@@ -38,7 +38,7 @@ class FormationController extends Controller
         return $this->render('@OCAS/Formation/list_view.html.twig', array(
           'formations' => $formations,
           'form' => $searchform->createView(),
-          'h1' => 'Liste des formations'
+          'h1' => 'OCAS : Liste des formations'
       ));
     }
 
@@ -59,7 +59,7 @@ class FormationController extends Controller
             return $this->redirectToRoute('formation_list');
         }
         return $this->render('@OCAS/Formation/form.html.twig', array(
-        'h1' => "Ajouter une formation",
+        'h1' => "OCAS : Ajouter une formation",
         'form' => $form->createView(),
       ));
     }
@@ -92,7 +92,7 @@ class FormationController extends Controller
         return $this->render('@OCAS/Formation/form.html.twig', array(
         'formation' =>  $formation,
         'id' => $id,
-        'h1' => "Modifier une formation",
+        'h1' => "OCAS : Modifier une formation",
         'form' => $form->createView()
        ));
     }
@@ -139,7 +139,7 @@ class FormationController extends Controller
 
         return $this->render('@OCAS/Formation/list_result.html.twig', array(
           'formations' =>  $formations,
-          'h1' => 'Résultat de la recherche'
+          'h1' => 'OCAS : Résultat de la recherche'
          ));
     }
 }

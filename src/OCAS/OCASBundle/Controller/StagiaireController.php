@@ -39,7 +39,7 @@ class StagiaireController extends Controller
         return $this->render('@OCAS/Stagiaire/list_view.html.twig', array(
           'stagiaires' => $stagiaires,
           'form' => $searchform->createView(),
-          'h1' => 'Liste des stagiaires'
+          'h1' => 'OCAS : Liste des stagiaires'
       ));
     }
 
@@ -60,7 +60,7 @@ class StagiaireController extends Controller
             return $this->redirectToRoute('stagiaire_list');
         }
         return $this->render('@OCAS/Stagiaire/form.html.twig', array(
-          'h1' => "Ajouter un stagiaire",
+          'h1' => "OCAS : Ajouter un stagiaire",
           'form' => $form->createView(),
         ));
     }
@@ -93,7 +93,7 @@ class StagiaireController extends Controller
         return $this->render('@OCAS/Stagiaire/form.html.twig', array(
           'stagiaire' =>  $stagiaire,
           'id' => $id,
-          'h1' => "Modifier un stagiaire",
+          'h1' => "OCAS : Modifier un stagiaire",
           'form' => $form->createView()
          ));
     }
@@ -140,7 +140,7 @@ class StagiaireController extends Controller
 
         return $this->render('@OCAS/Stagiaire/list_result.html.twig', array(
           'stagiaires' =>  $stagiaires,
-          'h1' => 'Résultat de la recherche'
+          'h1' => 'OCAS : Résultat de la recherche'
          ));
     }
 }

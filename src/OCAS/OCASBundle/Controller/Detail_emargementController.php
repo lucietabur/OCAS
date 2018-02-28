@@ -67,7 +67,7 @@ class Detail_emargementController extends Controller
 
         $libelle=$feuille->getFormation()->getLibelle();
         return $this->render('@OCAS/Detail/form.html.twig', array(
-            'h1' => "Ajouter un stagiaire à la formation : ".$libelle,
+            'h1' => "OCAS : Ajouter un stagiaire à la formation : ".$libelle,
             'form' => $form->createView(),
             'id_feuille' => $feuille_id
         ));
@@ -105,7 +105,7 @@ class Detail_emargementController extends Controller
 
         $libelle=$feuille->getFormation()->getLibelle();
         return $this->render('@OCAS/Detail/form.html.twig', array(
-        'h1' => "Modifier l'inscription d'un stagiaire à la formation : ".$libelle,
+        'h1' => "OCAS : Modifier l'inscription d'un stagiaire à la formation : ".$libelle,
         'form' => $form->createView(),
         'id_feuille' => $feuille_id
       ));

@@ -36,5 +36,4 @@ class AgenceController extends Controller
             // ...
         ));
     }
-
 }

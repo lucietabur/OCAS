@@ -10,17 +10,18 @@ namespace OCAS\OCASBundle\Repository;
  */
 class FormationRepository extends \Doctrine\ORM\EntityRepository
 {
-  /**
-  * Retourne les formations dont le nom contient $req
-  */
+    /**
+    * Retourne les formations dont le nom contient $req
+    */
     public function findByName($req)
     {
-      $query = $this->getEntityManager()
-                      ->createQuery("
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          "
             SELECT p FROM OCASBundle:Formation p
             WHERE p.libelle LIKE :key "
                       );
-      $query->setParameter('key', '%'.$req.'%');
-      return $query->getResult();
+        $query->setParameter('key', '%'.$req.'%');
+        return $query->getResult();
     }
 }
