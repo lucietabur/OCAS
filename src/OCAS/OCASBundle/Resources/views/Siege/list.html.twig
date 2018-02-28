@@ -1,0 +1,46 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}liste des sieges{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+
+{% block content %}
+{% block form %}{% endblock %}
+
+{% block list %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">Nom</th>
+      <th>Correspondant</th>
+      <th colspan="2">Adresse</th>
+      <th>Code Postal</th>
+      <th>Commune</th>
+      <th>Télephone</th>
+      <th>Cedex</th>
+      <th><a role="button" href="{{ path('siege_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for siege in sieges %}
+    <tr>
+      <th scope="row"><a href="{{ path('siege_edit',{'id': siege.id }) }}">{{ siege.rsociale }}</a></td>
+      <td>{{ siege.correspondant }}</td>
+      <td>{{ siege.numVoie }}</td>
+      <td>{{ siege.adresseComplement }}</td>
+      <td>{{ siege.codeDepartement }}</td>
+      <td>{{ siege.commune }}</td>
+      <td>{{ siege.telephone }}</td>
+      <td>{{ siege.cedex }}</td>
+      <td><a role="button" href="{{ path('siege_edit',{'id': siege.id }) }}" class="btn btn-warning">Modifier</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+  {% endblock list %}
+
+{% block retour %}{% endblock %}
+
+{% block pagination %}
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(sieges) }}</div>
+{% endblock %}
+{% endblock %}

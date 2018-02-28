@@ -9,9 +9,9 @@
   {{ form_start(form)}}
   {{ form_widget(form)}}
   {{form_end(form)}}
-  <a role="button" href="{{ path('agence_list')}}" class="btn btn-primary">Retour à la liste</a>
+  <a role="button" href="{{ path('siege_list')}}" class="btn btn-primary">Retour à la liste</a>
   {% if id is defined %}
-    <a role="submit" href="{{ path('agence_delete',{'id': agence.id })}}" class="btn btn-danger">Supprimer</a>
+    <a role="submit" href="{{ path('siege_delete',{'id': siege.id })}}" class="btn btn-danger">Supprimer</a>
   {% endif %}
   </div>
 {% endblock %}

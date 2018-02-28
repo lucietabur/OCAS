@@ -6,18 +6,18 @@
 
 {% block title %}
 
-  Supprimer une agence - {{ parent() }}
+  Supprimer un siege - {{ parent() }}
 
 {% endblock %}
 {% block content %}
 <div class="col-sm-6 offset-sm-4 ">
-  <h2>Supprimer un agence</h2>
+  <h2>Supprimer un siege</h2>
   <p>
-    Etes-vous certain de vouloir supprimer "{{ agence.nom }}" ?
+    Etes-vous certain de vouloir supprimer "{{ siege.nom }}" ?
   </p>
 
-  <form action="{{ path('agence_delete', {'id': agence.id}) }}" method="post" class="align-self-center">
-    <a href="{{ path('agence_list', {'id': agence.id}) }}" class="btn btn-primary">
+  <form action="{{ path('siege_delete', {'id': siege.id}) }}" method="post" class="align-self-center">
+    <a href="{{ path('siege_list', {'id': siege.id}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>

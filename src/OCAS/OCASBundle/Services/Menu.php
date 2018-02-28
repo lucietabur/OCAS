@@ -14,7 +14,7 @@ class Menu
       'Accueil' => 'home',
       'Stagiaires' => 'stagiaire_list',
        'Agence' => 'agence_list',
-      // 'Siege' => 'home',
+       'Siege' => 'siege_list',
        'Formation' => 'formation_list',
        'Formateur' => 'formateur_list',
        'Feuille d\'émargement' => 'feuille_list',

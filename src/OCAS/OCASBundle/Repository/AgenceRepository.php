@@ -12,7 +12,7 @@ class AgenceRepository extends \Doctrine\ORM\EntityRepository
 {
 
   /**
-  * Retourne les stagiaires dont le nom contient $req
+  * Retourne les agences dont le nom contient $req
   */
     public function findByName($req)
     {

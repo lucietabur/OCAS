@@ -10,4 +10,19 @@ namespace OCAS\OCASBundle\Repository;
  */
 class SiegeRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  /**
+  * Retourne les sieges dont le nom contient $req
+  */
+    public function findByName($req)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          "
+            SELECT p FROM OCASBundle:Siege p
+            WHERE p.rsociale LIKE :key "
+                      );
+        $query->setParameter('key', '%'.$req.'%');
+        return $query->getResult();
+    }
 }
