@@ -2,6 +2,8 @@
 
 namespace OCAS\OCASBundle\Controller;
 
+use OCAS\OCASBundle\Entity\Siege;
+use OCAS\OCASBundle\Form\SiegeType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;

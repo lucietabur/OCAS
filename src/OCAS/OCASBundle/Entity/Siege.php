@@ -52,7 +52,7 @@ class Siege
     /**
      * @var int
      *
-     * @ORM\Column(name="code_departement", type="integer")
+     * @ORM\Column(name="code_departement", type="string", length=6)
      */
     private $codeDepartement;
 
@@ -66,16 +66,9 @@ class Siege
     /**
      * @var string
      *
-     * @ORM\Column(name="telephone", type="string", length=255, nullable=true)
+     * @ORM\Column(name="telephone", type="string", length=12, nullable=true)
      */
     private $telephone;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
-     */
-    private $fax;
 
     /**
      * @var string
@@ -263,29 +256,6 @@ class Siege
         return $this->telephone;
     }
 
-    /**
-     * Set fax
-     *
-     * @param string $fax
-     *
-     * @return Siege
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-     * Get fax
-     *
-     * @return string
-     */
-    public function getFax()
-    {
-        return $this->fax;
-    }
 
     /**
      * Set cedex
