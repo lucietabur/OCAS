@@ -1,9 +1,8 @@
 {% extends "@OCAS/layout.html.twig" %}
 {# changer l'heritage de template #}
 {% block title %}{{h1}}{% endblock %}
-
+{% block header %}{{h1}}{% endblock %}
 {% block content %}
-<h1>{{ h1 }}</h1>
 
 <div class="col-8 offset-2">
   {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}

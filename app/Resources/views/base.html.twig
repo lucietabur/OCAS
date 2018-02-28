@@ -10,17 +10,15 @@
         {% endblock %}
     </head>
     <body>
-      <header>
-        <h1>OCAS</h1>
-      </header>
-      <section>
-      <header>
+      <header class="index-header">
         <h1>{% block header %}{% endblock %}</h1>
       </header>
+      <div>
+
       {% block nav %}{% endblock %}
       {% block content %}
       {% endblock %}
-    </section>
+      </div>
       {% block javascripts %}{% endblock %}
     </body>
 </html>

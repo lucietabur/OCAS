@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %} OCAS {% endblock %}
+{% block header %}Outils Complémentaires A Stage{% endblock %}
 {% block content %}
-<div class="row col-6 offset-3 d-flex justify-content-around">
+<div class="full-height col-6 row offset-3 align-content-center">
     {% for nom,lien in menu.getMenu() %}
-      <a role="button" class="index btn btn-primary col-4" href="{{ path(lien)}}">{{nom}}</a>
+      <a role="button" class="mybutton d-flex justify-content-center align-items-center index btn btn-primary col-3" href="{{ path(lien)}}">{{nom}}</a>
     {% endfor %}
 </div>
 {% endblock %}
