@@ -68,6 +68,12 @@ class Formation
     private $feuille_emargement;
 
     /**
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Libelle_Formation")
+    */
+    private $libelle_formation;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -274,5 +280,29 @@ class Formation
     public function removeFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {
         $this->feuille_emargement->removeElement($feuilleEmargement);
+    }
+
+    /**
+     * Set libelle_formation
+     *
+     * @param \OCAS\OCASBundle\Entity\Libelle_Formation $libelle_formation
+     *
+     * @return Formation
+     */
+    public function setLibelleFormation(\OCAS\OCASBundle\Entity\Libelle_Formation $libelle_formation = null)
+    {
+        $this->libelle_formation = $libelle_formation;
+
+        return $this;
+    }
+
+    /**
+     * Get libelle_formation
+     *
+     * @return \OCAS\OCASBundle\Entity\libelle_formation
+     */
+    public function getLibelleformation()
+    {
+        return $this->libelle_formation;
     }
 }
