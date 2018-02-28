@@ -73,13 +73,6 @@ class Agence
     /**
      * @var string
      *
-     * @ORM\Column(name="fax", type="string", length=255, nullable=true)
-     */
-    private $fax;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="cedex", type="string", length=255, nullable=true)
      */
     private $cedex;
@@ -268,29 +261,6 @@ class Agence
         return $this->telephone;
     }
 
-    /**
-     * Set fax
-     *
-     * @param string $fax
-     *
-     * @return Agence
-     */
-    public function setFax($fax)
-    {
-        $this->fax = $fax;
-
-        return $this;
-    }
-
-    /**
-     * Get fax
-     *
-     * @return string
-     */
-    public function getFax()
-    {
-        return $this->fax;
-    }
 
     /**
      * Set cedex
