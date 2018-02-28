@@ -1,7 +1,17 @@
-{% extends "::base.html.twig" %}
+{% extends "@OCAS/layout.html.twig" %}
+{# changer l'heritage de template #}
+{% block title %}{{h1}}{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+{% block content %}
 
-{% block title %}OCASBundle:Agence:edit{% endblock %}
-
-{% block body %}
-<h1>Welcome to the Agence:edit page</h1>
+<div class="col-8 offset-2">
+  {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
+  {{ form_start(form)}}
+  {{ form_widget(form)}}
+  {{form_end(form)}}
+  <a role="button" href="{{ path('stagiaire_list')}}" class="btn btn-primary">Retour à la liste</a>
+  {% if id is defined %}
+    <a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-danger">Supprimer</a>
+  {% endif %}
+  </div>
 {% endblock %}

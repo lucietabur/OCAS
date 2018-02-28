@@ -1,0 +1,46 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}liste des agences{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+
+{% block content %}
+{% block form %}{% endblock %}
+
+{% block list %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">Nom</th>
+      <th>Correspondant</th>
+      <th colspan="2">Adresse</th>
+      <th>Code Postal</th>
+      <th>Commune</th>
+      <th>Télephone</th>
+      <th>Cedex</th>
+      <th><a role="button" href="{{ path('agence_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for agence in agences %}
+    <tr>
+      <th scope="row"><a href="{{ path('agence_edit',{'id': agence.id }) }}">{{ agence.rsociale }}</a></td>
+      <td>{{ agence.correspondant }}</td>
+      <td>{{ agence.numVoie }}</td>
+      <td>{{ agence.adresseComplement }}</td>
+      <td>{{ agence.codeDepartement }}</td>
+      <td>{{ agence.commune }}</td>
+      <td>{{ agence.telephone }}</td>
+      <td>{{ agence.cedex }}</td>
+      <td><a role="button" href="{{ path('agence_edit',{'id': agence.id }) }}" class="btn btn-warning">Modifier</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  </table>
+  {% endblock list %}
+
+{% block retour %}{% endblock %}
+
+{% block pagination %}
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(agences) }}</div>
+{% endblock %}
+{% endblock %}

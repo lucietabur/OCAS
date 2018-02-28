@@ -1,0 +1,13 @@
+{% extends "@OCAS/Agence/list.html.twig" %}
+{% block form %}
+{% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
+{{ form_start(form, {'attr': {'class': 'form-inline','style': 'display:inline'}}) }}
+{{ form_errors(form) }}
+
+<span class="form-group "  style="display: inline;" >
+  {{ form_widget(form.Agence , {'attr': {'class': 'form-inline'} }) }}
+  {{ form_widget(form.rechercher , {'attr': {'class': 'form-inline'} }) }}
+</span>
+{{ form_end(form, {'render_rest': false}) }}
+{{ form(form, {'attr' :{'class':'form-inline'}}) }}
+{% endblock %}

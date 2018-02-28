@@ -13,7 +13,7 @@ class Menu
         $menu = array(
       'Accueil' => 'home',
       'Stagiaires' => 'stagiaire_list',
-      // 'Agence' => 'home',
+       'Agence' => 'agence_list',
       // 'Siege' => 'home',
        'Formation' => 'formation_list',
        'Formateur' => 'formateur_list',

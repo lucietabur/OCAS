@@ -10,4 +10,19 @@ namespace OCAS\OCASBundle\Repository;
  */
 class AgenceRepository extends \Doctrine\ORM\EntityRepository
 {
+
+  /**
+  * Retourne les stagiaires dont le nom contient $req
+  */
+    public function findByName($req)
+    {
+        $query = $this->getEntityManager()
+                      ->createQuery(
+                          "
+            SELECT p FROM OCASBundle:Agence p
+            WHERE p.rsociale LIKE :key "
+                      );
+        $query->setParameter('key', '%'.$req.'%');
+        return $query->getResult();
+    }
 }
