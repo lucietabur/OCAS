@@ -19,24 +19,24 @@ class StagiaireController extends Controller
      */
     public function listAction($page = 1)
     {
-
-      $searchform = $this->createFormBuilder()
-      ->add('Stagiaire',TextType::class, array('attr' => array( 'class' => "")))
-      ->add('rechercher',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+        $searchform = $this->createFormBuilder()
+      ->add('Stagiaire', TextType::class, array('attr' => array( 'class' => "")))
+      ->add('rechercher', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
       ->setMethod('POST')
       ->setAction($this->generateUrl('stagiaire_search'))
       ->getForm();
-      $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
-      $listeStagiaires = $repository->findAll();
-      $stagiaires = $this->get('knp_paginator')->paginate(
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Stagiaire');
+        $listeStagiaires = $repository->findAll();
+        $stagiaires = $this->get('knp_paginator')->paginate(
         $listeStagiaires,
-        $page);
+        $page
+      );
 
-      if ($page < 1){
-        throw $this->createNotFoundException('Page '.$page.' inexistante.');
-      }
+        if ($page < 1) {
+            throw $this->createNotFoundException('Page '.$page.' inexistante.');
+        }
 
-      return $this->render('@OCAS/Stagiaire/list_view.html.twig', array(
+        return $this->render('@OCAS/Stagiaire/list_view.html.twig', array(
           'stagiaires' => $stagiaires,
           'form' => $searchform->createView(),
           'h1' => 'Liste des stagiaires'
@@ -49,15 +49,15 @@ class StagiaireController extends Controller
     public function addAction(Request $request)
     {
         $stagiaire= new Stagiaire();
-        $form = $this->createForm(StagiaireType::class,$stagiaire);
+        $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($stagiaire);
-          $em->flush();
-          // a voir si on redirige vers la liste, le stagiaire créé ou plutot vers add
-          $request->getSession()->getFlashBag()->add('notice','Stagiaire bien enregistré•e.');
-          return $this->redirectToRoute('stagiaire_list');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($stagiaire);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien enregistré•e.');
+            return $this->redirectToRoute('stagiaire_list');
         }
         return $this->render('@OCAS/Stagiaire/form.html.twig', array(
           'h1' => "Ajouter un stagiaire",
@@ -73,21 +73,21 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
 
-        if ($id == null){
-          $request->getSession()->getFlashBag()->add('notice',"Le stagiaire demandé n'a pas pu être trouvé");
-          return $this->redirectToRoute('stagiaire_list');
-          //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
+        if ($id == null) {
+            $request->getSession()->getFlashBag()->add('notice', "Le stagiaire demandé n'a pas pu être trouvé");
+            return $this->redirectToRoute('stagiaire_list');
+            //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
         }
-        $form = $this->createForm(StagiaireType::class,$stagiaire);
+        $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
 
         // soumission du formulaire
-        if ($form->isSubmitted() && $form->isValid()){
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($stagiaire);
-          $em->flush();
-          $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien modifié•e');
-          return $this->redirectToRoute('stagiaire_list');
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($stagiaire);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien modifié•e');
+            return $this->redirectToRoute('stagiaire_list');
         }
 
         return $this->render('@OCAS/Stagiaire/form.html.twig', array(
@@ -106,24 +106,23 @@ class StagiaireController extends Controller
         $em = $this->getDoctrine()->getManager();
         $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
 
-        if (null === $stagiaire){
-          throw new NotFoundHttpException("Le stagiaire demandée n'existe pas");
+        if (null === $stagiaire) {
+            throw new NotFoundHttpException("Le stagiaire demandée n'existe pas");
         }
         $form = $this->get('form.factory')->create();
 
-        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()){
-          $em->remove($stagiaire);
-          $em->flush();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em->remove($stagiaire);
+            $em->flush();
 
-          $request->getSession()->getFlashBag()->add('info',"Le stagiaire a bien été supprimée");
+            $request->getSession()->getFlashBag()->add('info', "Le stagiaire a bien été supprimée");
 
-          return $this->redirectToRoute('stagiaire_list');
+            return $this->redirectToRoute('stagiaire_list');
         }
         return $this->render('@OCAS/Stagiaire/delete.html.twig', array(
           'stagiaire' => $stagiaire,
           'form' => $form->createView()
         ));
-
     }
 
     /**
@@ -131,18 +130,17 @@ class StagiaireController extends Controller
      */
     public function searchAction(Request $request)
     {
-      $em = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Stagiaire');
-      $req=$request->request->all()["form"]["Stagiaire"];
-      $stagiaires = $em->FindBy(['nom' => $req]);
-      $stagiaires = $this->get('knp_paginator')->paginate(
+        $em = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Stagiaire');
+        $req=$request->request->all()["form"]["Stagiaire"];
+        $stagiaires = $em->findByName($req);
+        $stagiaires = $this->get('knp_paginator')->paginate(
         $stagiaires,
-        1);
+        1
+      );
 
         return $this->render('@OCAS/Stagiaire/list_result.html.twig', array(
           'stagiaires' =>  $stagiaires,
           'h1' => 'Résultat de la recherche'
          ));
     }
-
-
 }

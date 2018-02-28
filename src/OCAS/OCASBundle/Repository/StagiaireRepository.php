@@ -1,5 +1,6 @@
 <?php
 namespace OCAS\OCASBundle\Repository;
+
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -11,12 +12,17 @@ use Doctrine\ORM\EntityRepository;
 class StagiaireRepository extends EntityRepository
 {
 
-  public function myFindBy($table,$req)
-  {
-    $query = $this->getEntityManager()
-      ->createQueryBuilder('u')
-      ->where($table.' LIKE ', '%'.addcslashes($req, '%_').'%')
-      ->getQuery();
-    return $query->getResult();
-  }
+  /**
+  * Retourne les stagiaires dont le nom contient $req
+  */
+    public function findByName($req)
+    {
+      $query = $this->getEntityManager()
+                      ->createQuery("
+            SELECT p FROM OCASBundle:Stagiaire p
+            WHERE p.nom LIKE :key "
+                      );
+      $query->setParameter('key', '%'.$req.'%');
+      return $query->getResult();
+    }
 }

@@ -33,5 +33,4 @@ class StagiaireControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/delete');
     }
-
 }
