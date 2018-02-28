@@ -24,7 +24,7 @@ Liste des formateurs
 
   <tr>
     <th scope="row"><a href="{{ path('formateur_edit',{'id': formateur.id }) }}">{{ formateur.nom }}</a></th>
-    <td>formateur.adresse</td>
+    <td>{{formateur.adresse}}</td>
     <td><a role="button" href="{{ path('formateur_edit',{'id': formateur.id }) }}" class="btn btn-warning">Modifier</a></td>
     <td><a role="submit" href="{{ path('formateur_delete',{'id': formateur.id })}}" class="btn btn-danger">Supprimer</a></td>
   </tr>

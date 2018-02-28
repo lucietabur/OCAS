@@ -33,5 +33,4 @@ class FormateurControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/formateur/delete');
     }
-
 }

@@ -12,5 +12,4 @@ class HelloControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/hello');
     }
-
 }

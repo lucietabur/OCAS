@@ -16,3 +16,5 @@
 /vendor/
 /web/bundles/
 /node_modules
+php-cs-fixer-v2.phar
+

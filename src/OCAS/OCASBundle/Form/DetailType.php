@@ -27,10 +27,10 @@ class DetailType extends AbstractType
           ))
           ->add('typeFormation', TextType::class) //TODO: remplacer par case a cocher et changer en base
           ->add('h_present', IntegerType::class)
-          ->add('h_absent',IntegerType::class)
-          ->add('h_facture',IntegerType::class)
-          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
-          ->add('enregistrer&suivant',SubmitType::class, array('attr' => array('class' => 'btn btn-success', 'label' => 'Enregistrer et ajouter un autre stagiaire') ));
+          ->add('h_absent', IntegerType::class)
+          ->add('h_facture', IntegerType::class)
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+          ->add('enregistrer&suivant', SubmitType::class, array('attr' => array('class' => 'btn btn-success', 'label' => 'Enregistrer et ajouter un autre stagiaire') ));
     }
 
     /**
@@ -50,6 +50,4 @@ class DetailType extends AbstractType
     {
         return 'ocasbundle_feuille';
     }
-
-
 }

@@ -22,28 +22,29 @@ class StagiaireType extends AbstractType
     {
         $builder
           ->add('nom', TextType::class)
-          ->add('fonction',TextType::class, array('required' => false))
-          ->add('ville',TextType::class, array('required' => false))
-          ->add('naissance',BirthdayType::class, array(
+          ->add('fonction', TextType::class, array('required' => false))
+          ->add('ville', TextType::class, array('required' => false))
+          ->add('naissance', BirthdayType::class, array(
             'required' => false,
             'years' => range(1940, date('Y')),
             'placeholder' => array(
               'year' => 'année', 'month' => 'mois', 'day' => 'jour'
             )
           ))
-          ->add('titre',TextType::class, array('required' => false))
-          ->add('nationalite',CountryType::class, array(
+          ->add('titre', TextType::class, array('required' => false))
+          ->add('nationalite', CountryType::class, array(
             'preferred_choices' => array('France' =>'FR'), //TODO : valeur les plus fréquentes
             'required' => false,
             'data' => 1,
           ))
-          ->add('quotite',IntegerType::class, array('required' => false))
-          ->add('statut',EntityType::class,array( //TODO: a corriger
+          ->add('quotite', IntegerType::class, array('required' => false))
+          ->add('statut', EntityType::class, array( //TODO: a corriger
             'class' => 'OCAS\OCASBundle\Entity\Statut',
             'choice_label' => 'libelle',
+            'placeholder' => '',
             'required' => false
           ))
-          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
     /**
@@ -63,6 +64,4 @@ class StagiaireType extends AbstractType
     {
         return 'ocasbundle_stagiaire';
     }
-
-
 }

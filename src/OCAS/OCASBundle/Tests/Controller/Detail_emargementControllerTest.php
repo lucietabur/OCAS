@@ -26,5 +26,4 @@ class Detail_emargementControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/delete');
     }
-
 }

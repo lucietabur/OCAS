@@ -29,6 +29,13 @@ class Formateur
     private $nom;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255)
+     */
+    private $adresse;
+
+    /**
     * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="formateur")
     * @ORM\JoinColumn(nullable=false)
     */
@@ -68,6 +75,30 @@ class Formateur
         return $this->nom;
     }
 
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     *
+     * @return Formateur
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
+    }
+    
     /**
      * Set feuilleEmargement
      *

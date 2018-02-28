@@ -17,8 +17,8 @@ class FormateurType extends AbstractType
     {
         $builder
           ->add('nom', TextType::class)
-          //->add('adresse', TextType::class)
-          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('adresse', TextType::class)
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
     /**
@@ -38,6 +38,4 @@ class FormateurType extends AbstractType
     {
         return 'ocasbundle_formateur';
     }
-
-
 }

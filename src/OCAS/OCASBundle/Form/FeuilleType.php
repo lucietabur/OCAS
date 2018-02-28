@@ -23,20 +23,22 @@ class FeuilleType extends AbstractType
         //TODO: num_emargement auto increment
           ->add('formation', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Formation',
-            'choice_label' => 'libelle',
+            'choice_label' => 'libelle_formation',
+            'placeholder' => ''
           ))
           ->add('formateur', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Formateur',
             'choice_label' => 'nom',
+            'placeholder' => '',
           ))
-          ->add('dateSeance',DateTimeType::class)
+          ->add('dateSeance', DateTimeType::class)
           ->add('groupe', TextType::class, array('required' => false))
           ->add('duree', IntegerType::class, array('required' => false ))
-          ->add('horaire',DateTimeType::class, array('required' => false))
+          ->add('horaire', DateTimeType::class, array('required' => false))
           ->add('dateRetour', DateTimeType::class, array('required' => false))
           ->add('lieu', TextType::class, array('required' => false))
           ->add('observation', TextType::class, array('required' => false))
-          ->add('enregistrer',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
     /**
@@ -56,6 +58,4 @@ class FeuilleType extends AbstractType
     {
         return 'ocasbundle_feuille';
     }
-
-
 }

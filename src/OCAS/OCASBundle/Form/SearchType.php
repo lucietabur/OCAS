@@ -17,9 +17,9 @@ class SearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      $builder
-        ->add('Stagiaire',TextType::class, array('attr' => array( 'class' => "")))
-        ->add('rechercher',SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+        $builder
+        ->add('Stagiaire', TextType::class, array('attr' => array( 'class' => "")))
+        ->add('rechercher', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
         ->setMethod('POST')
         ->getForm();
     }
@@ -41,6 +41,4 @@ class SearchType extends AbstractType
     {
         return 'ocasbundle_feuille';
     }
-
-
 }

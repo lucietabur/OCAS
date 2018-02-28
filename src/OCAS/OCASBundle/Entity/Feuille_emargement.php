@@ -52,13 +52,6 @@ class Feuille_emargement
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="horaire", type="datetime", nullable=true)
-     */
-    private $horaire;
-
-    /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="date_retour", type="datetime", nullable=true)
      */
     private $dateRetour;
@@ -191,30 +184,6 @@ class Feuille_emargement
     public function getDuree()
     {
         return $this->duree;
-    }
-
-    /**
-     * Set horaire
-     *
-     * @param \DateTime $horaire
-     *
-     * @return Feuille_emargement
-     */
-    public function setHoraire($horaire)
-    {
-        $this->horaire = $horaire;
-
-        return $this;
-    }
-
-    /**
-     * Get horaire
-     *
-     * @return \DateTime
-     */
-    public function getHoraire()
-    {
-        return $this->horaire;
     }
 
     /**
