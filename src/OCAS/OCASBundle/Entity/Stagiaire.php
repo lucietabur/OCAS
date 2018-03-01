@@ -72,7 +72,10 @@ class Stagiaire
     */
     private $statut;
 
-
+    /**
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Agence")
+    */
+    private $agence;
 
     /**
      * Get id

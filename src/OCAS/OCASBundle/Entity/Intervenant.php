@@ -36,7 +36,7 @@ class Intervenant
     private $adresse;
 
     /**
-    * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="intervenant")
+    * @ORM\ManyToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="intervenant")
     * @ORM\JoinColumn(nullable=false)
     */
     private $feuille_emargement;

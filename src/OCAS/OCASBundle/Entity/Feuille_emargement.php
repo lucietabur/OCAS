@@ -71,7 +71,14 @@ class Feuille_emargement
     private $observation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
+    * @var boolean
+    *
+    * @ORM\Column(name="retour", type="boolean", options={"default":false})
+    */
+    private $retour;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
     */
     private $intervenant;
 
