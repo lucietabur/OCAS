@@ -28,12 +28,6 @@ class Formation
      */
     private $libelle;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="duree", type="integer", nullable=true)
-     */
-    private $duree;
 
     /**
      * @var \DateTime
@@ -107,29 +101,6 @@ class Formation
         return $this->libelle;
     }
 
-    /**
-     * Set duree
-     *
-     * @param integer $duree
-     *
-     * @return Formation
-     */
-    public function setDuree($duree)
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
-    /**
-     * Get duree
-     *
-     * @return int
-     */
-    public function getDuree()
-    {
-        return $this->duree;
-    }
 
     /**
      * Set dateDebut
