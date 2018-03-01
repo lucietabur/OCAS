@@ -5,11 +5,11 @@ namespace OCAS\OCASBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
-use OCAS\OCASBundle\Entity\Detail_emargement;
+use OCAS\OCASBundle\Entity\Detail_formation;
 use OCAS\OCASBundle\Form\DetailType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Detail_emargementController extends Controller
+class Detail_formationController extends Controller
 {
 
   /**
@@ -21,7 +21,7 @@ class Detail_emargementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
         // on recherche tous les detail correspondant à la feuille d'émargement
-        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_emargement');
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_formation');
         $listeDetails = $repository->findby(
       array("feuille_emargement" => $feuille)
     );
@@ -50,7 +50,7 @@ class Detail_emargementController extends Controller
         // on recherche la feuille correspondant à l'id et on l'ajoute à l'objet detail
         $em = $this->getDoctrine()->getManager();
         $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
-        $detail = new Detail_emargement();
+        $detail = new Detail_formation();
         $detail->setFeuilleEmargement($feuille); //TODO: ErrorException
         $form = $this->createForm(DetailType::class, $detail);
 
@@ -82,7 +82,7 @@ class Detail_emargementController extends Controller
         $em = $this->getDoctrine()->getManager();
         $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
 
-        $detail = $em->getRepository('OCASBundle:Detail_emargement')->find($id);
+        $detail = $em->getRepository('OCASBundle:Detail_formation')->find($id);
 
         if ($id == null) {
             $request->getSession()->getFlashBag()->add('notice', "l'inscription du stagiaire demandée n'a pas pu être trouvé");
@@ -118,7 +118,7 @@ class Detail_emargementController extends Controller
     public function deleteAction($feuille_id, $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $detail = $em->getRepository('OCASBundle:Detail_emargement')->find($id);
+        $detail = $em->getRepository('OCASBundle:Detail_formation')->find($id);
 
         if (null === $detail) {
             throw new NotFoundHttpException("L'inscription du stagiaire demandée n'existe pas");

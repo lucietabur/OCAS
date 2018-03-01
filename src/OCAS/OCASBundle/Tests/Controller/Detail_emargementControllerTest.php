@@ -4,7 +4,7 @@ namespace OCAS\OCASBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class Detail_emargementControllerTest extends WebTestCase
+class Detail_formationControllerTest extends WebTestCase
 {
     public function testAdd()
     {

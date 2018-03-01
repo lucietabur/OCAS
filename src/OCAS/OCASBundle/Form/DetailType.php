@@ -39,7 +39,7 @@ class DetailType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OCAS\OCASBundle\Entity\Detail_emargement'
+            'data_class' => 'OCAS\OCASBundle\Entity\Detail_formation'
         ));
     }
 

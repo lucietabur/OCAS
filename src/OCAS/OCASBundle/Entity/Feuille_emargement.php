@@ -264,7 +264,7 @@ class Feuille_emargement
     {
         $this->intervenant = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formation = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->detail_emargement = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->detail_formation = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -342,9 +342,9 @@ class Feuille_emargement
      *
      * @return Feuille_emargement
      */
-    public function addDetailEmargement(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
+    public function addDetailFormation(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
     {
-        $this->detail_emargement[] = $detailEmargement;
+        $this->detail_formation[] = $detailEmargement;
 
         return $this;
     }
@@ -354,9 +354,9 @@ class Feuille_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Formation $detailEmargement
      */
-    public function removeDetailEmargement(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
+    public function removeDetailFormation(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
     {
-        $this->detail_emargement->removeElement($detailEmargement);
+        $this->detail_formation->removeElement($detailEmargement);
     }
 
     /**
@@ -364,9 +364,9 @@ class Feuille_emargement
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDetailEmargement()
+    public function getDetailFormation()
     {
-        return $this->detail_emargement;
+        return $this->detail_formation;
     }
 
     /**

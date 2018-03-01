@@ -5,12 +5,12 @@ namespace OCAS\OCASBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Detail_emargement
+ * Detail_formation
  *
- * @ORM\Table(name="detail_emargement")
- * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_emargementRepository")
+ * @ORM\Table(name="detail_formation")
+ * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_formationRepository")
  */
-class Detail_emargement
+class Detail_formation
 {
     /**
      * @var int
@@ -50,10 +50,10 @@ class Detail_emargement
     private $typeFormation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation")
     * @ORM\JoinColumn(nullable=false)
     */
-    private $feuille_emargement;
+    private $formation;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire")
@@ -76,7 +76,7 @@ class Detail_emargement
      *
      * @param integer $hPresent
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setHPresent($hPresent)
     {
@@ -100,7 +100,7 @@ class Detail_emargement
      *
      * @param integer $hAbsent
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setHAbsent($hAbsent)
     {
@@ -124,7 +124,7 @@ class Detail_emargement
      *
      * @param integer $hFacture
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setHFacture($hFacture)
     {
@@ -148,7 +148,7 @@ class Detail_emargement
      *
      * @param string $typeFormation
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setTypeFormation($typeFormation)
     {
@@ -172,7 +172,7 @@ class Detail_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {
@@ -196,7 +196,7 @@ class Detail_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Stagiaire $stagiaire
      *
-     * @return Detail_emargement
+     * @return Detail_formation
      */
     public function setStagiaire(\OCAS\OCASBundle\Entity\Stagiaire $stagiaire)
     {
