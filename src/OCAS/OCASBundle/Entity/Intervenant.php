@@ -5,12 +5,12 @@ namespace OCAS\OCASBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Formateur
+ * Intervenant
  *
- * @ORM\Table(name="formateur")
- * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\FormateurRepository")
+ * @ORM\Table(name="intervenant")
+ * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\IntervenantRepository")
  */
-class Formateur
+class Intervenant
 {
     /**
      * @var int
@@ -36,7 +36,7 @@ class Formateur
     private $adresse;
 
     /**
-    * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="formateur")
+    * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="intervenant")
     * @ORM\JoinColumn(nullable=false)
     */
     private $feuille_emargement;
@@ -56,7 +56,7 @@ class Formateur
      *
      * @param string $nom
      *
-     * @return Formateur
+     * @return Intervenant
      */
     public function setNom($nom)
     {
@@ -80,7 +80,7 @@ class Formateur
      *
      * @param string $adresse
      *
-     * @return Formateur
+     * @return Intervenant
      */
     public function setAdresse($adresse)
     {
@@ -98,13 +98,13 @@ class Formateur
     {
         return $this->adresse;
     }
-    
+
     /**
      * Set feuilleEmargement
      *
      * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
      *
-     * @return Formateur
+     * @return Intervenant
      */
     public function setFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {
@@ -135,7 +135,7 @@ class Formateur
      *
      * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
      *
-     * @return Formateur
+     * @return Intervenant
      */
     public function addFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {

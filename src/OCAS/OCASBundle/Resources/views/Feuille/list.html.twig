@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th scope="row">Formation</th>
-      <th>Formateur</th>
+      <th>Intervenant</th>
       <th>Lieu</th>
       <th>Date de séance</th>
       <th>Horaire</th>
@@ -25,7 +25,7 @@
     <th  scope="row">{{ feuille.observation }}</td>
   {% endif %}
 
-  <td>{{ feuille.formateur.nom }}</td>
+  <td>{{ feuille.intervenant.nom }}</td>
   <td>{{ feuille.lieu }}</td>
   <td>{{ feuille.dateSeance|date("d/m/Y") }}</td>
   <td>{{ feuille.dateSeance|date("H:i") }}</td>

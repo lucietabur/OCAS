@@ -71,9 +71,9 @@ class Feuille_emargement
     private $observation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formateur", inversedBy="feuille_emargement")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
     */
-    private $formateur;
+    private $intervenant;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="feuille_emargement")
@@ -262,43 +262,43 @@ class Feuille_emargement
      */
     public function __construct()
     {
-        $this->formateur = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->intervenant = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formation = new \Doctrine\Common\Collections\ArrayCollection();
         $this->detail_emargement = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add formateur
+     * Add intervenant
      *
-     * @param \OCAS\OCASBundle\Entity\Formateur $formateur
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
      *
      * @return Feuille_emargement
      */
-    public function addFormateur(\OCAS\OCASBundle\Entity\Formateur $formateur)
+    public function addIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
     {
-        $this->formateur[] = $formateur;
+        $this->intervenant[] = $intervenant;
 
         return $this;
     }
 
     /**
-     * Remove formateur
+     * Remove intervenant
      *
-     * @param \OCAS\OCASBundle\Entity\Formateur $formateur
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
      */
-    public function removeFormateur(\OCAS\OCASBundle\Entity\Formateur $formateur)
+    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
     {
-        $this->formateur->removeElement($formateur);
+        $this->intervenant->removeElement($intervenant);
     }
 
     /**
-     * Get formateur
+     * Get intervenant
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFormateur()
+    public function getIntervenant()
     {
-        return $this->formateur;
+        return $this->intervenant;
     }
 
     /**
@@ -370,15 +370,15 @@ class Feuille_emargement
     }
 
     /**
-     * Set formateur
+     * Set intervenant
      *
-     * @param \OCAS\OCASBundle\Entity\Formateur $formateur
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
      *
      * @return Feuille_emargement
      */
-    public function setFormateur(\OCAS\OCASBundle\Entity\Formateur $formateur = null)
+    public function setIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant = null)
     {
-        $this->formateur = $formateur;
+        $this->intervenant = $intervenant;
 
         return $this;
     }

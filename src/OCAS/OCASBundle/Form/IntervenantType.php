@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class FormateurType extends AbstractType
+class IntervenantType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class FormateurType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OCAS\OCASBundle\Entity\Formateur'
+            'data_class' => 'OCAS\OCASBundle\Entity\Intervenant'
         ));
     }
 
@@ -36,6 +36,6 @@ class FormateurType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_formateur';
+        return 'ocasbundle_intervenant';
     }
 }

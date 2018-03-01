@@ -1,11 +1,11 @@
-{% extends "@OCAS/Formateur/list.html.twig" %}
+{% extends "@OCAS/Intervenant/list.html.twig" %}
 {% block form %}
 {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
 {{ form_start(form, {'attr': {'class': 'form-inline','style': 'display:inline'}}) }}
 {{ form_errors(form) }}
 
 <span class="form-group "  style="display: inline;" >
-  {{ form_widget(form.Formateur , {'attr': {'class': 'form-inline'} }) }}
+  {{ form_widget(form.Intervenant , {'attr': {'class': 'form-inline'} }) }}
   {{ form_widget(form.rechercher , {'attr': {'class': 'form-inline'} }) }}
 </span>
 {{ form_end(form, {'render_rest': false}) }}

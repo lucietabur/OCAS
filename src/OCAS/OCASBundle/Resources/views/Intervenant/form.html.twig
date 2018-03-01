@@ -10,9 +10,9 @@
   {{ form_start(form)}}
   {{ form_widget(form)}}
   {{form_end(form)}}
-  <a role="button" href="{{ path('formateur_list')}}" class="btn btn-primary">Retour à la liste</a>
+  <a role="button" href="{{ path('intervenant_list')}}" class="btn btn-primary">Retour à la liste</a>
   {% if id is defined %}
-    <a role="submit" href="{{ path('formateur_delete',{'id': formateur.id })}}" class="btn btn-danger">Supprimer</a>
+    <a role="submit" href="{{ path('intervenant_delete',{'id': intervenant.id })}}" class="btn btn-danger">Supprimer</a>
   {% endif %}
   </div>
 {% endblock %}

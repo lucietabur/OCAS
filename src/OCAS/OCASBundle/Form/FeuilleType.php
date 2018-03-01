@@ -30,8 +30,8 @@ class FeuilleType extends AbstractType
           //   'choice_label' => 'libelle_formation',
           //   'placeholder' => ''
           // ))
-          ->add('formateur', EntityType::class, array(
-            'class' => 'OCAS\OCASBundle\Entity\Formateur',
+          ->add('intervenant', EntityType::class, array(
+            'class' => 'OCAS\OCASBundle\Entity\Intervenant',
             'choice_label' => 'nom',
             'placeholder' => '',
           ))

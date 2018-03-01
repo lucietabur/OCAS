@@ -16,7 +16,7 @@ class Menu
        'Agence' => 'agence_list',
        'Siege' => 'siege_list',
        'Formation' => 'formation_list',
-       'Formateur' => 'formateur_list',
+       'Intervenant' => 'intervenant_list',
        'Feuille d\'émargement' => 'feuille_list',
     );
         return $menu;

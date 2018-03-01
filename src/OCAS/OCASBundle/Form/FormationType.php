@@ -52,6 +52,6 @@ class FormationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_formateur';
+        return 'ocasbundle_intervenant';
     }
 }

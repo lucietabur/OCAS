@@ -1,0 +1,42 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}liste des intervenants{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+
+{% block content %}
+{% block form %}{% endblock %}
+
+{% block list %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">Nom</th>
+      <th>Adresse</th>
+      <th></th>
+      <th><a role="button" href="{{ path('intervenant_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  {% for intervenant in intervenants %}
+
+  <tr>
+    <th scope="row"><a href="{{ path('intervenant_edit',{'id': intervenant.id }) }}">{{ intervenant.nom }}</a></th>
+    <td>{{intervenant.adresse}}</td>
+    <td><a role="button" href="{{ path('intervenant_edit',{'id': intervenant.id }) }}" class="btn btn-warning">Modifier</a></td>
+    <td><a role="submit" href="{{ path('intervenant_delete',{'id': intervenant.id })}}" class="btn btn-danger">Supprimer</a></td>
+  </tr>
+  {% endfor %}
+
+
+
+  </tbody>
+  </table>
+  {% endblock list %}
+
+{% block retour %}{% endblock %}
+
+{% block pagination %}
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(intervenants) }}</div>
+{% endblock %}
+{% endblock %}
