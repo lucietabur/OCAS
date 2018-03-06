@@ -11,7 +11,6 @@
   <thead>
     <tr>
       <th scope="row">Libelle</th>
-      <th>Duree</th>
       <th>Date debut</th>
       <th>Date fin</th>
       <th>Lieu</th>
@@ -27,7 +26,6 @@
   <tr>
     <th scope="row"><a href="{{ path('formation_edit',{'id': formation.id }) }}">{{ formation.libelle }}</a></th>
     {#<td>{{formation.libelleFormation.libelle}}</td>#}
-    <td>{{formation.duree}}</td>
     <td>{{formation.dateDebut|date("d/m/Y")}}</td>
     <td>{{formation.dateFin|date("d/m/Y")}}</td>
     <td>{{formation.lieu}}</td>

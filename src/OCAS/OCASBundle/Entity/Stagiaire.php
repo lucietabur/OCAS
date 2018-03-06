@@ -278,4 +278,28 @@ class Stagiaire
     {
         return $this->statut;
     }
+
+    /**
+     * Set agence
+     *
+     * @param \OCAS\OCASBundle\Entity\Agence $agence
+     *
+     * @return Formation
+     */
+    public function setAgence(\OCAS\OCASBundle\Entity\Agence $agence = null)
+    {
+        $this->agence = $agence;
+
+        return $this;
+    }
+
+    /**
+     * Get agence
+     *
+     * @return \OCAS\OCASBundle\Entity\Agence
+     */
+    public function getAgence()
+    {
+        return $this->agence;
+    }
 }

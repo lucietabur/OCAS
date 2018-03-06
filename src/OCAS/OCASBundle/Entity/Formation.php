@@ -49,7 +49,13 @@ class Formation
      * @ORM\Column(name="observation", type="string", length=255, nullable=true)
      */
     private $observation;
-    
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
+     */
+    private $lieu;
 
     /**
     * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="formation")

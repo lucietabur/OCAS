@@ -44,6 +44,12 @@ class StagiaireType extends AbstractType
             'placeholder' => '',
             'required' => false
           ))
+          ->add('agence', EntityType::class, array(
+            'class' => 'OCAS\OCASBundle\Entity\Agence',
+            'choice_label' => 'rsociale',
+            'label' => 'Résidence administrative',
+            'placeholder' => ''
+          ))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 

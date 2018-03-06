@@ -18,6 +18,7 @@
       <th>Nationalite</th>
       {#<th>Statut</th>#}
       <th>Quotite</th>
+      <th>Résidence administrative</th>
       <th></th>
       <th><a role="button" href="{{ path('stagiaire_add') }}" class="btn btn-success">Ajouter</a></th>
     </tr>
@@ -33,6 +34,7 @@
       <td>{{ stagiaire.nationalite }}</td>
       {#<td>{{ stagiaire.statut.libelle }}</td>#}
       <td>{{ stagiaire.quotite }}</td>
+      <td>{{ stagiaire.agence }}</td>
       <td><a role="button" href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}" class="btn btn-warning">Modifier</a></td>
       <td><a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-danger">Supprimer</a></td>
     </tr>

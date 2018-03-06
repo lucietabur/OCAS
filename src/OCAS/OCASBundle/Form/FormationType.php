@@ -25,14 +25,8 @@ class FormationType extends AbstractType
           'class' => 'OCAS\OCASBundle\Entity\Libelle_Formation',
           'choice_label' => 'libelle',
         ))
-        ->add('duree', IntegerType::class)
         ->add('dateDebut', DateTimeType::class)
         ->add('dateFin', DateTimeType::class)
-        ->add('lieu', EntityType::class, array(
-          'class' => 'OCAS\OCASBundle\Entity\Agence',
-          'choice_label' => 'rsociale',
-          'placeholder' => ''
-        ))
         ->add('observation', TextType::class, array('required' => false))
         ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
