@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use OCAS\OCASBundle\Entity\Statut;
 
@@ -22,7 +23,24 @@ class StagiaireType extends AbstractType
     {
         $builder
           ->add('nom', TextType::class)
-          ->add('fonction', TextType::class, array('required' => false))
+          ->add(
+              'fonction',
+              ChoiceType::class,
+              array(
+            'choices' => array(
+              'Formateur/formatrice' => 'Formateur/formatrice',
+              'Psychologue' => 'Psychologue',
+              'Conseiller-e en formation continue' => 'Conseiller-e en formation continue',
+              'Assistant-e administratif-ve' => 'Assistant-e administratif-ve',
+              'Responsable des affaires administratives et financières' => 'Responsable des affaires administratives et financières',
+              'Directeur-ice des études' => 'Directeur-ice des études',
+              'Coordinateur-ice' => 'Coordinateur-ice',
+              'Vacataire' => 'Vacataire',
+              'Animateur-ice en formation continue' => 'Animateur-ice en formation continue'
+            ),
+            'multiple' => true,
+            'required' => false)
+          )
           ->add('ville', TextType::class, array('required' => false))
           ->add('naissance', BirthdayType::class, array(
             'required' => false,

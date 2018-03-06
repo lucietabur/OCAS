@@ -78,9 +78,16 @@ class Feuille_emargement
     private $retour = false;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
-    */
-    private $intervenant;
+
+     * Owning Side
+     *
+     * @ORM\ManyToMany(targetEntity="Intervenant", inversedBy="feuille_emargement")
+     * @ORM\JoinTable(name="feuille_emargement_intervenant",
+     *  joinColumns={@ORM\JoinColumn(name="feuille_emargement_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="intervenant_id", referencedColumnName="id")}
+     * )
+     */
+    private $intervenants;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="feuille_emargement")
@@ -264,49 +271,54 @@ class Feuille_emargement
     {
         return $this->observation;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->intervenant = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->intervenants = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formation = new \Doctrine\Common\Collections\ArrayCollection();
         $this->detail_formation = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add intervenant
+     * Add Intervenant
      *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
-     *
-     * @return Feuille_emargement
+     * @param Intervenant $intervenant
      */
-    public function addIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    public function addIntervenant(Intervenant $intervenant)
     {
-        $this->intervenant[] = $intervenant;
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants->add($intervenant);
+        }
+    }
 
-        return $this;
+    public function setIntervenants($items)
+    {
+        if ($items instanceof ArrayCollection || is_array($items)) {
+            foreach ($items as $item) {
+                $this->addIntervenant($item);
+            }
+        } elseif ($items instanceof Intervenant) {
+            $this->addIntervenant($items);
+        } else {
+            throw new Exception("$items must be an instance of Intervenant or ArrayCollection");
+        }
     }
 
     /**
-     * Remove intervenant
+     * Get ArrayCollection
      *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     * @return ArrayCollection $intervenants
      */
-    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    public function getIntervenants()
     {
-        $this->intervenant->removeElement($intervenant);
+        return $this->intervenants;
     }
 
-    /**
-     * Get intervenant
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getIntervenant()
-    {
-        return $this->intervenant;
-    }
+
 
     /**
      * Add formation

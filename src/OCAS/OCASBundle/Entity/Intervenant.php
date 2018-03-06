@@ -36,9 +36,11 @@ class Intervenant
     private $adresse;
 
     /**
-    * @ORM\ManyToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="intervenant")
-    * @ORM\JoinColumn(nullable=false)
-    */
+     *
+     * Inverse Side
+     *
+     * @ORM\ManyToMany(targetEntity="feuille_emargement", mappedBy="intervenants", cascade={"persist", "merge"})
+     */
     private $feuille_emargement;
 
     /**
@@ -99,49 +101,51 @@ class Intervenant
         return $this->adresse;
     }
 
-    /**
-     * Set feuilleEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
-     *
-     * @return Intervenant
-     */
-    public function setFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function setFeuille_emargements($items)
     {
-        $this->feuille_emargement = $feuilleEmargement;
-
-        return $this;
+        if ($items instanceof ArrayCollection || is_array($items)) {
+            foreach ($items as $item) {
+                $this->addFeuille_emargement($item);
+            }
+        } elseif ($items instanceof Feuille_emargement) {
+            $this->addFeuille_emargement($items);
+        } else {
+            throw new Exception("$items must be an instance of Feuille_emargement or ArrayCollection");
+        }
     }
 
     /**
-     * Get feuilleEmargement
+     * Get ArrayCollection
      *
-     * @return \OCAS\OCASBundle\Entity\Feuille_emargement
+     * @return ArrayCollection $feuille_emargements
      */
-    public function getFeuilleEmargement()
+    public function getFeuille_emargements()
     {
-        return $this->feuille_emargement;
+        return $this->feuille_emargements;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->feuille_emargement = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->feuille_emargements = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add feuilleEmargement
+     * Add Feuille_emargement
      *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
-     *
-     * @return Intervenant
+     * @param Feuille_emargement $feuille_emargement
      */
-    public function addFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function addFeuille_emargement(Feuille_emargement $feuille_emargement)
     {
-        $this->feuille_emargement[] = $feuilleEmargement;
-
-        return $this;
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->feuille_emargements->contains($feuille_emargement)) {
+            if (!$feuille_emargement->getProduits()->contains($this)) {
+                $feuille_emargement->addProduit($this);  // Lie le Feuille_emargement au produit.
+            }
+            $this->feuille_emargements->add($feuille_emargement);
+        }
     }
 
     /**

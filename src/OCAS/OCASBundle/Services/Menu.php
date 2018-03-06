@@ -5,7 +5,7 @@ namespace OCAS\OCASBundle\Services;
 class Menu
 {
     /**
-    *Définie le contenu du menu et le retourne
+    *Définit le contenu du menu et le retourne
     *
     */
     public function getMenu()
@@ -13,11 +13,11 @@ class Menu
         $menu = array(
       'Accueil' => 'home',
       'Stagiaires' => 'stagiaire_list',
-       'Agence' => 'agence_list',
-       'Siege' => 'siege_list',
-       'Formation' => 'formation_list',
-       'Intervenant' => 'intervenant_list',
-       'Feuille d\'émargement' => 'feuille_list',
+       'Résidences administratives' => 'agence_list',
+       'Sièges' => 'siege_list',
+       'Formations' => 'formation_list',
+       'Intervenants' => 'intervenant_list',
+       'Feuilles d\'émargement' => 'feuille_list',
     );
         return $menu;
     }
