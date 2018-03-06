@@ -75,10 +75,10 @@ class Feuille_emargement
     *
     * @ORM\Column(name="retour", type="boolean", options={"default":false})
     */
-    private $retour;
+    private $retour = false;
 
     /**
-    * @ORM\ManyToMany(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
     */
     private $intervenant;
 

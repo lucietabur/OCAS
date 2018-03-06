@@ -38,7 +38,7 @@ class FeuilleType extends AbstractType
           ->add('dateSeance', DateTimeType::class)
           ->add('groupe', TextType::class, array('required' => false))
           ->add('duree', IntegerType::class, array('required' => false ))
-          ->add('dateRetour', DateTimeType::class, array('required' => false))
+          ->add('dateRetour', DateTimeType::class)
           ->add('lieu', TextType::class, array('required' => false))
           ->add('observation', TextType::class, array('required' => false))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
