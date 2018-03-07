@@ -89,6 +89,7 @@ class Feuille_emargement
      */
     private $intervenants;
 
+    //TODO
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="feuille_emargement")
     */

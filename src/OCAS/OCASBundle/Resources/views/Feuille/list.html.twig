@@ -20,14 +20,18 @@
   <tbody>
 {% for feuille in feuilles %}
 <tr>
-  {% if feuille.formation.id != '0' %}
+  {% if  feuille.formation != null and feuille.formation.id != '0'%}
     <th scope="row"><a href="{{ path('feuille_edit',{'id': feuille.id }) }}">{{ feuille.formation.libelle }}</a></td>
   {% else %}
     <th  scope="row">{{ feuille.observation }}</td>
   {% endif %}
 
   <td>{{ feuille.groupe }}</a></td>
-  <td>{{ feuille.intervenant.nom }}</td>
+  <td>
+    {% for intervenant in feuille.intervenants %}
+      {{ intervenant.nom }}
+    {% endfor %}
+  </td>
   <td>{{ feuille.lieu }}</td>
   <td>{{ feuille.dateSeance|date("d/m/Y") }}</td>
   <td>{{ feuille.dateSeance|date("H:i") }}</td>

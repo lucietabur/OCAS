@@ -20,19 +20,20 @@ class FeuilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('formation', EntityType::class, array(
-          'class' => 'OCAS\OCASBundle\Entity\Formation',
-          'choice_label' => 'libelle',
-          'placeholder' => ''
-        ))
-          // ->add('formation', EntityType::class, array(
-          //   'class' => 'OCAS\OCASBundle\Entity\Formation',
-          //   'choice_label' => 'libelle_formation',
-          //   'placeholder' => ''
-          // ))
-          ->add('intervenant', EntityType::class, array(
+        // ->add('formation', EntityType::class, array(
+        //   'class' => 'OCAS\OCASBundle\Entity\Formation',
+        //   'choice_label' => 'libelle',
+        //   'placeholder' => ''
+        // ))
+          ->add('formation', EntityType::class, array(
+            'class' => 'OCAS\OCASBundle\Entity\Formation',
+            'choice_label' => 'libelle',
+            'placeholder' => ''
+          ))
+          ->add('intervenants', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Intervenant',
             'choice_label' => 'nom',
+            'multiple' => true,
             'placeholder' => '',
           ))
           ->add('dateSeance', DateTimeType::class)
