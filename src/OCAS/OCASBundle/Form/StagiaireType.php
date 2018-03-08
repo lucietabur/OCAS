@@ -28,15 +28,15 @@ class StagiaireType extends AbstractType
               ChoiceType::class,
               array(
             'choices' => array(
-              'Formateur/formatrice' => 'Formateur/formatrice',
+              'Formateur·ice' => 'Formateur·ice',
               'Psychologue' => 'Psychologue',
-              'Conseiller-e en formation continue' => 'Conseiller-e en formation continue',
-              'Assistant-e administratif-ve' => 'Assistant-e administratif-ve',
+              'Conseiller·e en formation continue' => 'Conseiller·e en formation continue',
+              'Assistant·e administratif·ve' => 'Assistant·e administratif·ve',
               'Responsable des affaires administratives et financières' => 'Responsable des affaires administratives et financières',
-              'Directeur-ice des études' => 'Directeur-ice des études',
-              'Coordinateur-ice' => 'Coordinateur-ice',
+              'Directeur·ice des études' => 'Directeur·ice des études',
+              'Coordinateur·ice' => 'Coordinateur·ice',
               'Vacataire' => 'Vacataire',
-              'Animateur-ice en formation continue' => 'Animateur-ice en formation continue'
+              'Animateur·ice en formation continue' => 'Animateur·ice en formation continue'
             ),
             'multiple' => true,
             'required' => false)
@@ -71,7 +71,7 @@ class StagiaireType extends AbstractType
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
-    /**
+    /**210
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

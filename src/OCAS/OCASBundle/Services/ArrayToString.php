@@ -19,7 +19,13 @@ class ArrayToString
 
   public function stringToArray($string)
   {
-      return preg_split('/[\s]?-[\s]?/', $string); // 0 ou 1 espace 
+    $array=preg_split('/[\s]?-[\s]?/', $string);
+    // for ($i=0; $i < count($array); $i++) {
+    //   if ($array[$i]=="formateur" || $array[$i]=="Formateur" || $array[$i]=="formatrice" || $array[$i]=='Formatrice'){
+    //     $array[$i]="Formateur·ice";
+    //   }
+    // }
+      return $array ; // 0 ou 1 espace
   }
 
 

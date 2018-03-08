@@ -4,6 +4,7 @@ namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use OCAS\OCASBundle\Services\ArrayToString;
 
 /**
  * Stagiaire
@@ -103,7 +104,7 @@ class Stagiaire
 
     /**
      * Get nom
-     *
+     * @ORM\PrePersist
      * @return string
      */
     public function getNom()
@@ -112,7 +113,7 @@ class Stagiaire
     }
 
     /**
-     * Set fonction
+     * Set fonction (convertit le tableau en texte)
      *
      * @param string $fonction
      *
@@ -120,8 +121,8 @@ class Stagiaire
      */
     public function setFonction($fonction)
     {
-        $this->fonction = $fonction;
-
+        $arrayToString = new ArrayToString();
+        $this->fonction = $arrayToString->arrayToString($fonction);
         return $this;
     }
 
@@ -132,6 +133,8 @@ class Stagiaire
      */
     public function getFonction()
     {
+        $arrayToString = new ArrayToString();
+        $this->fonction = $arrayToString->stringToArray($this->fonction);
         return $this->fonction;
     }
 

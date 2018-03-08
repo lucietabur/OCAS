@@ -28,13 +28,18 @@
     <tr>
       <th scope="row">{{ stagiaire.titre }}</th>
       <td><a href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}">{{ stagiaire.nom }}</a></td>
-      <td>{{ stagiaire.fonction }}</td>
+      <td>
+        {% for fonction in stagiaire.fonction %}
+            {{ fonction }}
+          {% endfor %}</td>
       <td>{{ stagiaire.ville }}</td>
       <td>{{ stagiaire.naissance|date("d/m/Y") }}</td>
       <td>{{ stagiaire.nationalite }}</td>
       {#<td>{{ stagiaire.statut.libelle }}</td>#}
       <td>{{ stagiaire.quotite }}</td>
-      <td>{{ stagiaire.agence }}</td>
+      {% if stagiaire.agence != null %}
+        <td>{{ stagiaire.agence.rsociale }}</td>
+      {% endif %}
       <td><a role="button" href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}" class="btn btn-warning">Modifier</a></td>
       <td><a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-danger">Supprimer</a></td>
     </tr>
