@@ -4,6 +4,19 @@ namespace OCAS\OCASBundle\Services;
 
 class ArrayToString
 {
+  /** si la fonction recoit une string elle le convertit en array
+  * et si elle recoit un array elle le convertit en string
+  * en appelant la fonction correspondante
+  */
+  public function arrayOrString($arg)
+  {
+    if (is_array($arg)){
+      return $this->arrayToString($arg);
+    }
+    else if (is_string($arg)){
+      return $this->stringToArray($arg);
+    }
+  }
 
   public function arrayToString($array)
   {
@@ -20,11 +33,35 @@ class ArrayToString
   public function stringToArray($string)
   {
     $array=preg_split('/[\s]?-[\s]?/', $string);
-    // for ($i=0; $i < count($array); $i++) {
-    //   if ($array[$i]=="formateur" || $array[$i]=="Formateur" || $array[$i]=="formatrice" || $array[$i]=='Formatrice'){
-    //     $array[$i]="Formateur·ice";
-    //   }
-    // }
+    for ($i=0; $i < count($array); $i++) {
+      if (strpos($array[$i],"Format")!==False){
+        $array[$i]="Formateur·ice";
+      }
+        if ("psychologue"===$array[$i]){
+          $array[$i]="Psychologue";
+      }
+      if (strpos($array[$i],"Conseill")!==False){
+        $array[$i]='Conseiller·e en formation continue';
+      }
+      if (strpos($array[$i],"Assistant")!==False){
+        $array[$i]='Assistant·e administratif·ve';
+      }
+      if ('responsable des affaires administratives et financières'===$array[$i]){
+        $array[$i]='Responsable des affaires administratives et financières';
+      }
+      if (strpos($array[$i],"Direct")!==False){
+        $array[$i]='Directeur·ice des études';
+      }
+      if (strpos($array[$i],"Coordinat")!==False){
+        $array[$i]='Coordinateur·ice';
+      }
+      if ('vacataire'===$array[$i]){
+        $array[$i]='Vacataire';
+      }
+      if (strpos($array[$i],'Animat')!==False){
+        $array[$i]='Animateur·ice en formation continue';
+      }
+    }
       return $array ; // 0 ou 1 espace
   }
 

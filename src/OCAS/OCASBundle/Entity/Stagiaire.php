@@ -79,6 +79,13 @@ class Stagiaire
     private $agence;
 
     /**
+     * Owning Side
+     *
+     * @ORM\ManyToMany(targetEntity="Formation", inversedBy="stagiaires", cascade={"persist", "merge"})
+     */
+     private $formations;
+
+    /**
      * Get id
      *
      * @return int
@@ -122,7 +129,7 @@ class Stagiaire
     public function setFonction($fonction)
     {
         $arrayToString = new ArrayToString();
-        $this->fonction = $arrayToString->arrayToString($fonction);
+        $this->fonction = $arrayToString->arrayOrString($fonction);
         return $this;
     }
 
@@ -134,7 +141,7 @@ class Stagiaire
     public function getFonction()
     {
         $arrayToString = new ArrayToString();
-        $this->fonction = $arrayToString->stringToArray($this->fonction);
+        $this->fonction = $arrayToString->arrayOrString($this->fonction);
         return $this->fonction;
     }
 
