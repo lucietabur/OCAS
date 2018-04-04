@@ -416,4 +416,38 @@ class Feuille_emargement
 
         return $this;
     }
+
+    /**
+     * Set retour
+     *
+     * @param boolean $retour
+     *
+     * @return Feuille_emargement
+     */
+    public function setRetour($retour)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return boolean
+     */
+    public function getRetour()
+    {
+        return $this->retour;
+    }
+
+    /**
+     * Remove intervenant
+     *
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     */
+    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    {
+        $this->intervenants->removeElement($intervenant);
+    }
 }

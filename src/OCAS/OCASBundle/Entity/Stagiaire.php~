@@ -4,6 +4,7 @@ namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use OCAS\OCASBundle\Services\ArrayToString;
 
 /**
  * Stagiaire
@@ -72,7 +73,17 @@ class Stagiaire
     */
     private $statut;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Agence")
+    */
+    private $agence;
 
+    /**
+     * Owning Side
+     *
+     * @ORM\OneToMany(targetEntity="Detail_formation", mappedBy="stagiaire", cascade={"persist", "merge"})
+     */
+     private $detail_formation;
 
     /**
      * Get id
@@ -100,7 +111,7 @@ class Stagiaire
 
     /**
      * Get nom
-     *
+     * @ORM\PrePersist
      * @return string
      */
     public function getNom()
@@ -109,7 +120,7 @@ class Stagiaire
     }
 
     /**
-     * Set fonction
+     * Set fonction (convertit le tableau en texte)
      *
      * @param string $fonction
      *
@@ -117,8 +128,8 @@ class Stagiaire
      */
     public function setFonction($fonction)
     {
-        $this->fonction = $fonction;
-
+        $arrayToString = new ArrayToString();
+        $this->fonction = $arrayToString->arrayOrString($fonction);
         return $this;
     }
 
@@ -129,6 +140,8 @@ class Stagiaire
      */
     public function getFonction()
     {
+        $arrayToString = new ArrayToString();
+        $this->fonction = $arrayToString->arrayOrString($this->fonction);
         return $this->fonction;
     }
 
@@ -274,5 +287,70 @@ class Stagiaire
     public function getStatut()
     {
         return $this->statut;
+    }
+
+    /**
+     * Set agence
+     *
+     * @param \OCAS\OCASBundle\Entity\Agence $agence
+     *
+     * @return Formation
+     */
+    public function setAgence(\OCAS\OCASBundle\Entity\Agence $agence = null)
+    {
+        $this->agence = $agence;
+
+        return $this;
+    }
+
+    /**
+     * Get agence
+     *
+     * @return \OCAS\OCASBundle\Entity\Agence
+     */
+    public function getAgence()
+    {
+        return $this->agence;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->details_formation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add detailsFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
+     *
+     * @return Stagiaire
+     */
+    public function addDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
+    {
+        $this->details_formation[] = $detailsFormation;
+
+        return $this;
+    }
+
+    /**
+     * Remove detailsFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
+     */
+    public function removeDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
+    {
+        $this->details_formation->removeElement($detailsFormation);
+    }
+
+    /**
+     * Get detailsFormation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDetailsFormation()
+    {
+        return $this->details_formation;
     }
 }

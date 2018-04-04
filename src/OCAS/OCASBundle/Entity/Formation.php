@@ -68,6 +68,9 @@ class Formation
     */
     private $libelle_formation;
 
+    /**@ORM\OneToMany(targetEntity="detail_formation", mappedBy="formation", cascade={"persist", "merge"})
+    */
+    private $detail_formation;
 
     /**
      * Get id
@@ -100,7 +103,8 @@ class Formation
      */
     public function getLibelle()
     {
-        return $this->libelle;
+        return $this->libelle.' - '.$this->dateDebut->format('d-m');
+        //TODO: a voir dans quel cas
     }
 
 

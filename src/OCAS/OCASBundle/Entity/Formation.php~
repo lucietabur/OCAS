@@ -24,16 +24,10 @@ class Formation
     /**
      * @var string
      *
-     * @ORM\Column(name="libelle", type="string", length=255)
+     * @ORM\Column(name="libelle", type="string", length=255, nullable=true) //TODO
      */
     private $libelle;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="duree", type="integer", nullable=true)
-     */
-    private $duree;
 
     /**
      * @var \DateTime
@@ -57,8 +51,10 @@ class Formation
     private $observation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Agence")
-    */
+     * @var string
+     *
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
+     */
     private $lieu;
 
     /**
@@ -66,6 +62,15 @@ class Formation
     * @ORM\JoinColumn(nullable=false)
     */
     private $feuille_emargement;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Libelle_Formation")
+    */
+    private $libelle_formation;
+
+    /**@ORM\OneToMany(targetEntity="detail_formation", mappedBy="formation", cascade={"persist", "merge"})
+    */
+    private $detail_formation;
 
     /**
      * Get id
@@ -101,29 +106,6 @@ class Formation
         return $this->libelle;
     }
 
-    /**
-     * Set duree
-     *
-     * @param integer $duree
-     *
-     * @return Formation
-     */
-    public function setDuree($duree)
-    {
-        $this->duree = $duree;
-
-        return $this;
-    }
-
-    /**
-     * Get duree
-     *
-     * @return int
-     */
-    public function getDuree()
-    {
-        return $this->duree;
-    }
 
     /**
      * Set dateDebut
@@ -274,5 +256,29 @@ class Formation
     public function removeFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {
         $this->feuille_emargement->removeElement($feuilleEmargement);
+    }
+
+    /**
+     * Set libelle_formation
+     *
+     * @param \OCAS\OCASBundle\Entity\Libelle_Formation $libelle_formation
+     *
+     * @return Formation
+     */
+    public function setLibelleFormation(\OCAS\OCASBundle\Entity\Libelle_Formation $libelle_formation = null)
+    {
+        $this->libelle_formation = $libelle_formation;
+
+        return $this;
+    }
+
+    /**
+     * Get libelle_formation
+     *
+     * @return \OCAS\OCASBundle\Entity\libelle_formation
+     */
+    public function getLibelleformation()
+    {
+        return $this->libelle_formation;
     }
 }

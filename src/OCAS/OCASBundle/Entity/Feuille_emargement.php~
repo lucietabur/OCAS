@@ -24,7 +24,7 @@ class Feuille_emargement
     /**
      * @var int
      *
-     * @ORM\Column(name="num_emargement", type="integer", unique=true, nullable=true) //TODO: rendre auto increment
+     * @ORM\Column(name="num_emargement", type="integer", unique=false, nullable=true) //TODO: rendre auto increment
      */
     private $numEmargement;
 
@@ -52,13 +52,6 @@ class Feuille_emargement
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="horaire", type="datetime", nullable=true)
-     */
-    private $horaire;
-
-    /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="date_retour", type="datetime", nullable=true)
      */
     private $dateRetour;
@@ -78,10 +71,25 @@ class Feuille_emargement
     private $observation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Intervenant", inversedBy="feuille_emargement")
+    * @var boolean
+    *
+    * @ORM\Column(name="retour", type="boolean", options={"default":false})
     */
-    private $intervenant;
+    private $retour = false;
 
+    /**
+
+     * Owning Side
+     *
+     * @ORM\ManyToMany(targetEntity="Intervenant", inversedBy="feuille_emargement")
+     * @ORM\JoinTable(name="feuille_emargement_intervenant",
+     *  joinColumns={@ORM\JoinColumn(name="feuille_emargement_id", referencedColumnName="id")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="intervenant_id", referencedColumnName="id")}
+     * )
+     */
+    private $intervenants;
+
+    //TODO
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="feuille_emargement")
     */
@@ -194,30 +202,6 @@ class Feuille_emargement
     }
 
     /**
-     * Set horaire
-     *
-     * @param \DateTime $horaire
-     *
-     * @return Feuille_emargement
-     */
-    public function setHoraire($horaire)
-    {
-        $this->horaire = $horaire;
-
-        return $this;
-    }
-
-    /**
-     * Get horaire
-     *
-     * @return \DateTime
-     */
-    public function getHoraire()
-    {
-        return $this->horaire;
-    }
-
-    /**
      * Set dateRetour
      *
      * @param \DateTime $dateRetour
@@ -288,49 +272,54 @@ class Feuille_emargement
     {
         return $this->observation;
     }
+
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->intervenant = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->intervenants = new \Doctrine\Common\Collections\ArrayCollection();
         $this->formation = new \Doctrine\Common\Collections\ArrayCollection();
         $this->detail_formation = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add intervenant
+     * Add Intervenant
      *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
-     *
-     * @return Feuille_emargement
+     * @param Intervenant $intervenant
      */
-    public function addIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    public function addIntervenant(Intervenant $intervenant)
     {
-        $this->intervenant[] = $intervenant;
+        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
+        if (!$this->intervenants->contains($intervenant)) {
+            $this->intervenants->add($intervenant);
+        }
+    }
 
-        return $this;
+    public function setIntervenants($items)
+    {
+        if ($items instanceof ArrayCollection || is_array($items)) {
+            foreach ($items as $item) {
+                $this->addIntervenant($item);
+            }
+        } elseif ($items instanceof Intervenant) {
+            $this->addIntervenant($items);
+        } else {
+            throw new Exception("$items must be an instance of Intervenant or ArrayCollection");
+        }
     }
 
     /**
-     * Remove intervenant
+     * Get ArrayCollection
      *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     * @return ArrayCollection $intervenants
      */
-    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    public function getIntervenants()
     {
-        $this->intervenant->removeElement($intervenant);
+        return $this->intervenants;
     }
 
-    /**
-     * Get intervenant
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getIntervenant()
-    {
-        return $this->intervenant;
-    }
+
 
     /**
      * Add formation
@@ -426,5 +415,39 @@ class Feuille_emargement
         $this->formation = $formation;
 
         return $this;
+    }
+
+    /**
+     * Set retour
+     *
+     * @param boolean $retour
+     *
+     * @return Feuille_emargement
+     */
+    public function setRetour($retour)
+    {
+        $this->retour = $retour;
+
+        return $this;
+    }
+
+    /**
+     * Get retour
+     *
+     * @return boolean
+     */
+    public function getRetour()
+    {
+        return $this->retour;
+    }
+
+    /**
+     * Remove intervenant
+     *
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     */
+    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    {
+        $this->intervenants->removeElement($intervenant);
     }
 }

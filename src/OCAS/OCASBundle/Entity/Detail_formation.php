@@ -50,14 +50,14 @@ class Detail_formation
     private $typeFormation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="details_formation")
+    * @ORM\JoinColumn(name="formation_id", referencedColumnName="id",nullable=false)
     */
     private $formation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire", inversedBy="detail_formation")
+    * @ORM\JoinColumn(name="stagiaire_id", referencedColumnName="id", nullable=false)
     */
     private $stagiaire;
 
@@ -213,5 +213,29 @@ class Detail_formation
     public function getStagiaire()
     {
         return $this->stagiaire;
+    }
+
+    /**
+     * Set formation
+     *
+     * @param \OCAS\OCASBundle\Entity\Formation $formation
+     *
+     * @return Detail_formation
+     */
+    public function setFormation(\OCAS\OCASBundle\Entity\Formation $formation)
+    {
+        $this->formation = $formation;
+
+        return $this;
+    }
+
+    /**
+     * Get formation
+     *
+     * @return \OCAS\OCASBundle\Entity\Formation
+     */
+    public function getFormation()
+    {
+        return $this->formation->getLibelle();
     }
 }

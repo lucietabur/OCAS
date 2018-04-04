@@ -39,7 +39,7 @@ class Intervenant
      *
      * Inverse Side
      *
-     * @ORM\ManyToMany(targetEntity="feuille_emargement", mappedBy="intervenants", cascade={"persist", "merge"})
+     * @ORM\ManyToMany(targetEntity="Feuille_emargement", mappedBy="intervenants", cascade={"persist", "merge"})
      */
     private $feuille_emargement;
 
@@ -156,5 +156,29 @@ class Intervenant
     public function removeFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
     {
         $this->feuille_emargement->removeElement($feuilleEmargement);
+    }
+
+    /**
+     * Add feuilleEmargement
+     *
+     * @param \OCAS\OCASBundle\Entity\feuille_emargement $feuilleEmargement
+     *
+     * @return Intervenant
+     */
+    public function addFeuilleEmargement(\OCAS\OCASBundle\Entity\feuille_emargement $feuilleEmargement)
+    {
+        $this->feuille_emargement[] = $feuilleEmargement;
+
+        return $this;
+    }
+
+    /**
+     * Get feuilleEmargement
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFeuilleEmargement()
+    {
+        return $this->feuille_emargement;
     }
 }

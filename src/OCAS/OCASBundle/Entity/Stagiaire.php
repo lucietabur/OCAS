@@ -81,9 +81,9 @@ class Stagiaire
     /**
      * Owning Side
      *
-     * @ORM\ManyToMany(targetEntity="Formation", inversedBy="stagiaires", cascade={"persist", "merge"})
+     * @ORM\OneToMany(targetEntity="Detail_formation", mappedBy="stagiaire", cascade={"persist", "merge"})
      */
-     private $formations;
+     private $detail_formation;
 
     /**
      * Get id
@@ -311,5 +311,80 @@ class Stagiaire
     public function getAgence()
     {
         return $this->agence;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->details_formation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add detailsFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
+     *
+     * @return Stagiaire
+     */
+    public function addDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
+    {
+        $this->details_formation[] = $detailsFormation;
+
+        return $this;
+    }
+
+    /**
+     * Remove detailsFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
+     */
+    public function removeDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
+    {
+        $this->details_formation->removeElement($detailsFormation);
+    }
+
+    /**
+     * Get detailsFormation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDetailsFormation()
+    {
+        return $this->details_formation->formation;
+    }
+
+    /**
+     * Add detailFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\Detail_formation $detailFormation
+     *
+     * @return Stagiaire
+     */
+    public function addDetailFormation(\OCAS\OCASBundle\Entity\Detail_formation $detailFormation)
+    {
+        $this->detail_formation[] = $detailFormation;
+
+        return $this;
+    }
+
+    /**
+     * Remove detailFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\Detail_formation $detailFormation
+     */
+    public function removeDetailFormation(\OCAS\OCASBundle\Entity\Detail_formation $detailFormation)
+    {
+        $this->detail_formation->removeElement($detailFormation);
+    }
+
+    /**
+     * Get detailFormation
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDetailFormation()
+    {
+        return $this->detail_formation;
     }
 }
