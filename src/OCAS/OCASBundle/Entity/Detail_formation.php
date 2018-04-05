@@ -236,6 +236,6 @@ class Detail_formation
      */
     public function getFormation()
     {
-        return $this->formation->getLibelle();
+        return $this->formation;
     }
 }

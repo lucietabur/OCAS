@@ -51,7 +51,7 @@ class StagiaireController extends Controller
         $stagiaire= new Stagiaire();
         $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {          
             $em = $this->getDoctrine()->getManager();
             $em->persist($stagiaire);
             $em->flush();

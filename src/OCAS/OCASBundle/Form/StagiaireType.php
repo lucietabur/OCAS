@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use OCAS\OCASBundle\Entity\Statut;
 
@@ -67,6 +68,13 @@ class StagiaireType extends AbstractType
             'choice_label' => 'rsociale',
             'label' => 'Résidence administrative',
             'placeholder' => ''
+          ))
+          ->add('detail_formation', CollectionType::class, array(
+            'label' => 'Formations',
+            'entry_type' => DetailType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
+            'by_reference' => false
           ))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }

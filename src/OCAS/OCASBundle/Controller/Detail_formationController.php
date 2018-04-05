@@ -47,31 +47,21 @@ class Detail_formationController extends Controller
      */
     public function addAction($feuille_id, Request $request)
     {
-        // on recherche la feuille correspondant à l'id et on l'ajoute à l'objet detail
-        $em = $this->getDoctrine()->getManager();
-        $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
-        $detail = new Detail_formation();
-        $detail->setFeuilleEmargement($feuille); //TODO: ErrorException
+        $detail= new Detail_formation();
         $form = $this->createForm(DetailType::class, $detail);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($detail);
             $em->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien enregistré•e.');
 
-            // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
-            $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
-            return $this->redirectToRoute($nextAction, array('feuille_id' => $feuille_id));
+            $request->getSession()->getFlashBag()->add('notice', 'Enregistré');
+            return $this->redirectToRoute('');
         }
-
-        $libelle=$feuille->getFormation()->getLibelle();
         return $this->render('@OCAS/Detail/form.html.twig', array(
-            'h1' => "OCAS : Ajouter un stagiaire à la formation : ".$libelle,
-            'form' => $form->createView(),
-            'id_feuille' => $feuille_id
-        ));
+        'h1' => "OCAS : ",
+        'form' => $form->createView(),
+      ));
     }
 
     /**
@@ -79,37 +69,8 @@ class Detail_formationController extends Controller
      */
     public function editAction($feuille_id, $id, Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
-
-        $detail = $em->getRepository('OCASBundle:Detail_formation')->find($id);
-
-        if ($id == null) {
-            $request->getSession()->getFlashBag()->add('notice', "l'inscription du stagiaire demandée n'a pas pu être trouvé");
-            return $this->redirectToRoute('detail_list', array('feuille_id' => $feuille_id));
-            //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
-        }
-        $form = $this->createForm(DetailType::class, $detail);
-        $form->handleRequest($request);
-
-        // soumission du formulaire
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($detail);
-            $em->flush();
-            $request->getSession()->getFlashBag()->add('notice', 'Inscription bien modifiée');
-            // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
-            $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
-            return $this->redirectToRoute($nextAction, array('feuille_id' => $feuille_id));
-        }
 
 
-        $libelle=$feuille->getFormation()->getLibelle();
-        return $this->render('@OCAS/Detail/form.html.twig', array(
-        'h1' => "OCAS : Modifier l'inscription d'un stagiaire à la formation : ".$libelle,
-        'form' => $form->createView(),
-        'id_feuille' => $feuille_id
-      ));
     }
 
     /**

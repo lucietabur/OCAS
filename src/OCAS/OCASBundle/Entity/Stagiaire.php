@@ -321,40 +321,6 @@ class Stagiaire
     }
 
     /**
-     * Add detailsFormation
-     *
-     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
-     *
-     * @return Stagiaire
-     */
-    public function addDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
-    {
-        $this->details_formation[] = $detailsFormation;
-
-        return $this;
-    }
-
-    /**
-     * Remove detailsFormation
-     *
-     * @param \OCAS\OCASBundle\Entity\detail_formation $detailsFormation
-     */
-    public function removeDetailsFormation(\OCAS\OCASBundle\Entity\detail_formation $detailsFormation)
-    {
-        $this->details_formation->removeElement($detailsFormation);
-    }
-
-    /**
-     * Get detailsFormation
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDetailsFormation()
-    {
-        return $this->details_formation->formation;
-    }
-
-    /**
      * Add detailFormation
      *
      * @param \OCAS\OCASBundle\Entity\Detail_formation $detailFormation
@@ -364,7 +330,7 @@ class Stagiaire
     public function addDetailFormation(\OCAS\OCASBundle\Entity\Detail_formation $detailFormation)
     {
         $this->detail_formation[] = $detailFormation;
-
+        $detailFormation->setStagiaire($this);
         return $this;
     }
 
