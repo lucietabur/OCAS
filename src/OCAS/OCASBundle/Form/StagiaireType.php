@@ -74,7 +74,7 @@ class StagiaireType extends AbstractType
             'entry_type' => DetailType::class,
             'allow_add' => true,
             'allow_delete' => true,
-            'by_reference' => false
+            'by_reference' => false,
           ))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }

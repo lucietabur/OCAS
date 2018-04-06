@@ -1,4 +1,8 @@
 {% extends "@OCAS/layout.html.twig" %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="/static/css/form.css">
+{% endblock %}
 {# changer l'heritage de template #}
 {% block title %}{{h1}}{% endblock %}
 {% block header %}{{h1}}{% endblock %}
@@ -18,10 +22,11 @@
   {{ form_row(form.agence) }}
 
   {#}{% form_theme form "bootstrap_4_layout.html.twig" %}#}
-  <div class="row">
-    {{ form_row(form.detail_formation) }}
+  <div>
+    {{ form_row(form.detail_formation, {
+      'label_attr': {'id':'detail'}
+    }) }}
     {{ form_rest(form) }}
-  <a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>
 </div>
   {{ form_row(form.enregistrer )}}
   <a role="button" href="{{ path('stagiaire_list')}}" class="btn btn-primary">Retour à la liste</a>
@@ -34,47 +39,45 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+  //ajouter au parent de legend une div. ajouter legend a cette div
+  $('#detail').parent().prepend('<div class="col-sm-2" id="wrapper"></div>');
+  $('#wrapper').parent().css("flex-wrap","nowrap");
+  $('#wrapper').parent().css("display","flex");
+  //$('#wrapper').parent().css("flex-direction","column");
+  $('#wrapper').parent().css("justify-content","space-between");
+  $('#wrapper').prepend($('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>'));
+  $('#wrapper').prepend($('#detail'));
+  //$('div#ocasbundle_stagiaire_detail_formation').append('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>');
+
 
   // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-
-  var $container = $('div#ocasbundle_stagiaire_detail_formation');
+  let $container = $('div#ocasbundle_stagiaire_detail_formation');
 
 
   // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-
-  var index = $container.find(':input').length;
+  let nb_elem = $container.children('legend').length; 
 
 
   // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
-
   $('#add_formation').click(function(e) {
-
     addFormation($container);
-
-
     e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-
     return false;
-
   });
 
 
   // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-
-  if (index == 0) {
-
+  console.log(nb_elem);
+  if (nb_elem == 0) {
     addFormation($container);
-
   } else {
-
-    // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
-
-    $container.children('div').each(function() {
-
+      // S'il existe déjà des catégories
+      $container.children('div').children('legend').each(function(index) {
+      // on ajoute le numero de la formation a chacune
+      this.textContent='Formation n° '+(index+1);
+      // on ajoute un lien de suppression pour chacune d'entre elles
       addDeleteLink($(this));
-
     });
-
   }
 
 
@@ -83,71 +86,38 @@ $(document).ready(function() {
   function addFormation($container) {
 
     // Dans le contenu de l'attribut « data-prototype », on remplace :
-
     // - le texte "__name__label__" qu'il contient par le label du champ
-
     // - le texte "__name__" qu'il contient par le numéro du champ
-
-    var template = $container.attr('data-prototype')
-
-      .replace(/__name__label__/g, 'Formation n°' + (index+1))
-
-      .replace(/__name__/g,        index)
-
-    ;
-
+    let template = $container.attr('data-prototype')
+      .replace(/__name__label__/g, 'Formation n°' + (nb_elem+1))
+      .replace(/__name__/g,        nb_elem);
 
     // On crée un objet jquery qui contient ce template
-
-    var $prototype = $(template);
-
-
+    let $prototype = $(template);
     // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
-
     addDeleteLink($prototype);
 
-
     // On ajoute le prototype modifié à la fin de la balise <div>
-
     $container.append($prototype);
 
-
     // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
-
-    index++;
-
+    nb_elem++;
   }
-
 
   // La fonction qui ajoute un lien de suppression d'une catégorie
-
   function addDeleteLink($prototype) {
-
     // Création du lien
-
-    var $deleteLink = $('<a href="#" class="btn btn-danger">Retirer</a>');
-
-
+    let $deleteLink = $('<a href="#" class="btn btn-danger">Retirer</a>');
     // Ajout du lien
-
     $prototype.append($deleteLink);
-
-
     // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
-
     $deleteLink.click(function(e) {
-
       $prototype.remove();
-
-
+      nb_elem-=1;
       e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-
       return false;
-
     });
-
   }
-
 });
 
 </script>
