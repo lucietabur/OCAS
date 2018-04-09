@@ -1,5 +1,7 @@
-#OCAS - Outils Complémentaires A Stage
+# OCAS - Outils Complémentaires A Stage
 
+
+## Installation
 
 ### Requis:
 
@@ -11,14 +13,12 @@ Si ils ne sont pas installés, installer des fichiers .xml de PHP 7.1 avec cette
 $ sudo apt-get install php7.1-xml
 ```
 
-### Installation
-
 #### Installer les composants de l'application
 ```bash
 $ composer install
 ```
 
-#### Base de données
+### Base de données
 
 _TODO: Partie base de données à renseigner quand celle-ci sera existante_
 
@@ -39,11 +39,13 @@ $ php bin/console server:run
 
 
 
-
+## Utilisation et maintien de l'application
 
 ### Pour modifier les modèles pdf
 Les fichiers se situent dans src/OCAS/OCASBundle/Resources/views/PDF
 Ils sont écrits au format twig.
+
+
 =======
 
 A Symfony project created on December 22, 2017, 10:02 am.
