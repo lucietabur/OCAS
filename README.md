@@ -41,12 +41,21 @@ $ php bin/console server:run
 ### Conception
 ..* [modèle de conception de données](doc/adress)
 ..* [Cas d'utilisation]
-### Utilisation et maintien de l'application
+### Utilisation 
+
+### Maintien de l'application
 
 #### Pour modifier les modèles pdf
 Les fichiers se situent dans src/OCAS/OCASBundle/Resources/views/PDF
 Ils sont écrits au format twig.
 
+#### Pour modifier la structure de la base de données
+Les fichiers se situent dans src/OCAS/OCASBundle/Entity
+
+Pour appliquer les changements
+```
+bin/console doctrine:schema:update --force
+```
 
 =======
 
