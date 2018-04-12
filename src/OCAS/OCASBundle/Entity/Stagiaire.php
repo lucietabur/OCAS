@@ -129,7 +129,7 @@ class Stagiaire
     public function setFonction($fonction)
     {
         $arrayToString = new ArrayToString();
-        $this->fonction = $arrayToString->arrayOrString($fonction);
+        $this->fonction = $arrayToString->fonctionArrayOrString($fonction);
         return $this;
     }
 
@@ -141,7 +141,7 @@ class Stagiaire
     public function getFonction()
     {
         $arrayToString = new ArrayToString();
-        $this->fonction = $arrayToString->arrayOrString($this->fonction);
+        $this->fonction = $arrayToString->fonctionArrayOrString($this->fonction);
         return $this->fonction;
     }
 

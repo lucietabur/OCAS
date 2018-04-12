@@ -3,6 +3,7 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OCAS\OCASBundle\Services\ArrayToString;
 
 /**
  * Detail_formation
@@ -152,9 +153,9 @@ class Detail_formation
      */
     public function setTypeFormation($typeFormation)
     {
-        $this->typeFormation = $typeFormation;
-
-        return $this;
+      $arrayToString = new ArrayToString();
+      $this->typeFormation = $arrayToString->typeArrayOrString($typeFormation);
+      return $this;
     }
 
     /**
@@ -164,7 +165,9 @@ class Detail_formation
      */
     public function getTypeFormation()
     {
-        return $this->typeFormation;
+      $arrayToString = new ArrayToString();
+      $this->typeFormation = $arrayToString->typeArrayOrString($this->typeFormation);
+      return $this->typeFormation;
     }
 
     /**

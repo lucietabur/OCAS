@@ -21,13 +21,6 @@ class Formation
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="libelle", type="string", length=255, nullable=true) //TODO
-     */
-    private $libelle;
-
 
     /**
      * @var \DateTime
@@ -50,12 +43,6 @@ class Formation
      */
     private $observation;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
-     */
-    private $lieu;
 
     /**
     * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="formation")

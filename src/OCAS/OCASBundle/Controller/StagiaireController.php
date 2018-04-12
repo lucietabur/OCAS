@@ -39,7 +39,7 @@ class StagiaireController extends Controller
         return $this->render('@OCAS/Stagiaire/list_view.html.twig', array(
           'stagiaires' => $stagiaires,
           'form' => $searchform->createView(),
-          'h1' => 'OCAS : Liste des stagiaires'
+          'h1' => 'OCAS : Liste des stagiaires',
       ));
     }
 
@@ -51,7 +51,7 @@ class StagiaireController extends Controller
         $stagiaire= new Stagiaire();
         $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {          
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($stagiaire);
             $em->flush();
@@ -140,7 +140,28 @@ class StagiaireController extends Controller
 
         return $this->render('@OCAS/Stagiaire/list_result.html.twig', array(
           'stagiaires' =>  $stagiaires,
-          'h1' => 'OCAS : Résultat de la recherche'
+          'h1' => 'OCAS : Résultat de la recherche',
          ));
+    }
+
+    /**
+     * @Route("/stagiaire/{id}/generate/mission",name="stagiaire_mission",defaults={"id"="1"},requirements={"id"="\d*"})
+     */
+    public function generateMission($id,Request $request)
+    {
+      $defaultData = array();
+      $form = $this->createFormBuilder($defaultData)
+        ->add('send', SubmitType::class)
+        ->getForm();
+      $form->handleRequest($request);
+      $em = $this->getDoctrine()->getManager();
+      $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
+      //rechercher la formation
+
+
+      return $this->render('@OCAS/PDF/ordre_de_mission.html.twig', array(
+        'stagiaire' =>  $stagiaire,
+        'h1' => "OCAS : Génerer l'odre de mission"
+       ));
     }
 }

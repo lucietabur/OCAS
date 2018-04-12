@@ -55,7 +55,7 @@ $(document).ready(function() {
 
 
   // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-  let nb_elem = $container.children('legend').length; 
+  let nb_elem = $container.children('legend').length;
 
 
   // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
@@ -67,10 +67,8 @@ $(document).ready(function() {
 
 
   // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-  console.log(nb_elem);
-  if (nb_elem == 0) {
-    addFormation($container);
-  } else {
+  if (nb_elem !== 0) {
+      console.log(nb_elem);
       // S'il existe déjà des catégories
       $container.children('div').children('legend').each(function(index) {
       // on ajoute le numero de la formation a chacune

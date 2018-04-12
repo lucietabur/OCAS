@@ -36,9 +36,9 @@ class Feuille_emargement
     private $dateSeance;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="groupe", type="string", length=255, nullable=true)
+     * @ORM\Column(name="groupe", type="integer", nullable=true)
      */
     private $groupe;
 
@@ -73,9 +73,9 @@ class Feuille_emargement
     /**
     * @var boolean
     *
-    * @ORM\Column(name="retour", type="boolean", options={"default":false})
+    * @ORM\Column(name="edite", type="boolean", options={"default":false})
     */
-    private $retour = false;
+    private $edite = false;
 
     /**
 

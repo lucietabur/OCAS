@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DetailType extends AbstractType
@@ -27,7 +28,23 @@ class DetailType extends AbstractType
             'choice_label' => 'libelle',
             'placeholder' => ''
           ))
-          ->add('typeFormation', TextType::class); //TODO: remplacer par case a cocher et changer en base
+          // ->add('libelle_formation', EntityType::class, array( //TODO: a corriger
+          //   'class' => 'OCAS\OCASBundle\Entity\Libelle_Formation',
+          //   'choice_label' => 'libelle',
+          // ))
+          ->add(
+              'typeFormation',
+              ChoiceType::class,
+              array(
+                'choices' => array(
+                  'Qualification' => 'Qualification',
+                  'Formation générale / illétrisme' => 'Formation générale / illétrisme',
+                  'Insertion / Orientation' => 'Insertion / Orientation',
+            ),
+            'multiple' => true,
+            'expanded' => true,
+            'required' => false)
+          );
     }
 
     /**

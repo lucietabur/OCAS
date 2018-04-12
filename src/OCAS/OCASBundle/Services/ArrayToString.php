@@ -8,12 +8,25 @@ class ArrayToString
     * et si elle recoit un array elle le convertit en string
     * en appelant la fonction correspondante
     */
-    public function arrayOrString($arg)
+    public function fonctionArrayOrString($arg)
     {
         if (is_array($arg)) {
             return $this->arrayToString($arg);
         } elseif (is_string($arg)) {
-            return $this->stringToArray($arg);
+            return $this->fonctionStringToArray($arg);
+        }
+    }
+
+    /** si la fonction recoit une string elle le convertit en array
+    * et si elle recoit un array elle le convertit en string
+    * en appelant le type correspondant
+    */
+    public function typeArrayOrString($arg)
+    {
+        if (is_array($arg)) {
+            return $this->arrayToString($arg);
+        } elseif (is_string($arg)) {
+            return $this->typeStringToArray($arg);
         }
     }
 
@@ -29,7 +42,7 @@ class ArrayToString
         return $string;
     }
 
-    public function stringToArray($string)
+    public function fonctionStringToArray($string)
     {
         $array=preg_split('/[\s]?-[\s]?/', $string);
         for ($i=0; $i < count($array); $i++) {
@@ -63,4 +76,32 @@ class ArrayToString
         }
         return $array ; // 0 ou 1 espace
     }
+
+    public function typeStringToArray($string)
+    {
+        $array=preg_split('/[\s]?-[\s]?/', $string);
+        for ($i=0; $i < count($array); $i++) {
+          var_dump($array[$i]);
+          if ("Insertion/Orientation"===$array[$i]) {
+              $array[$i]="Insertion / Orientation";
+          }
+          if (strpos($array[$i], "Qualif")!==false) {
+              $array[$i]='Qualification';
+          }
+          if (strpos($array[$i], "Insert")!==false) {
+              $array[$i]='Insertion / Orientation';
+          }
+          if (strpos($array[$i], "Orient")!==false) {
+              $array[$i]='Insertion / Orientation';
+          }
+          if (strpos($array[$i], "Ill")!==false) {
+              $array[$i]='Formation Génerale / Illétrisme';
+          }
+          if ('vacataire'===$array[$i]) {
+              $array[$i]='Vacataire';
+          }
+        }
+        return $array ; // 0 ou 1 espace
+    }
+
 }
