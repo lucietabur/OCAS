@@ -171,27 +171,27 @@ class Detail_formation
     }
 
     /**
-     * Set feuilleEmargement
+     * Set sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
+     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      *
      * @return Detail_formation
      */
-    public function setFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function setSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
-        $this->feuille_emargement = $feuilleEmargement;
+        $this->session = $sessionEmargement;
 
         return $this;
     }
 
     /**
-     * Get feuilleEmargement
+     * Get sessionEmargement
      *
-     * @return \OCAS\OCASBundle\Entity\Feuille_emargement
+     * @return \OCAS\OCASBundle\Entity\Session
      */
-    public function getFeuilleEmargement()
+    public function getSessionEmargement()
     {
-        return $this->feuille_emargement;
+        return $this->session;
     }
 
     /**

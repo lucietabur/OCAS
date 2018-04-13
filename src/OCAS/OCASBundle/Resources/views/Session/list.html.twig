@@ -1,0 +1,47 @@
+{% extends "@OCAS/layout.html.twig" %}
+
+{% block title %}{{h1}}{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="row">Formation</th>
+      <th>Groupe</th>
+      <th>Intervenant</th>
+      <th>Lieu</th>
+      <th>Date de séance</th>
+      <th>Horaire</th>
+      <th>Date de retour</th>
+      <th></th>
+      <th><a role="button" href="{{ path('session_add') }}" class="btn btn-success">Ajouter</a></th>
+    </tr>
+  </thead>
+  <tbody>
+{% for session in sessions %}
+<tr>
+  {% if  session.formation != null and session.formation.id != '0'%}
+    <th scope="row"><a href="{{ path('session_edit',{'id': session.id }) }}">{{ session.formation.observation }}</a></td>
+  {% else %}
+    <th  scope="row">{{ session.observation }}</td>
+  {% endif %}
+
+  <td>{{ session.groupe }}</a></td>
+  <td>
+    {% for intervenant in session.intervenants %}
+      {{ intervenant.nom }}
+    {% endfor %}
+  </td>
+  <td>{{ session.lieu }}</td>
+  <td>{{ session.dateSeance|date("d/m/Y") }}</td>
+  <td>{{ session.dateSeance|date("H:i") }}</td>
+  <td>{{ session.dateRetour|date("d/m/Y") }}</td>
+  {#<td><a role="button" href="{{ path('session_edit',{'id': session.id }) }}" class="btn btn-warning">Modifier</a></td>
+  <td><a role="submit" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-danger">Supprimer</a></td>#}
+</tr>
+{% endfor %}
+
+</tbody>
+</table>
+<div class="col-sm-8 offset-4">{{ knp_pagination_render(sessions) }}</div>
+{% endblock %}

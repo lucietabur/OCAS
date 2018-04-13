@@ -13,17 +13,17 @@ class Detail_formationController extends Controller
 {
 
   /**
-   * @Route("/feuille/{feuille_id}/stagiaires/{page}",name="detail_list",requirements={"feuille_id"="\d*"},defaults={"page"=1})
+   * @Route("/session/{session_id}/stagiaires/{page}",name="detail_list",requirements={"session_id"="\d*"},defaults={"page"=1})
    */
-    public function listAction($feuille_id, $page = 1)
+    public function listAction($session_id, $page = 1)
     {
-        //on recherche la feuille correspondant a l'id
+        //on recherche la session correspondant a l'id
         $em = $this->getDoctrine()->getManager();
-        $feuille = $em->getRepository('OCASBundle:Feuille_emargement')->find($feuille_id);
-        // on recherche tous les detail correspondant à la feuille d'émargement
+        $session = $em->getRepository('OCASBundle:Session')->find($session_id);
+        // on recherche tous les detail correspondant à la session d'émargement
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_formation');
         $listeDetails = $repository->findby(
-      array("feuille_emargement" => $feuille)
+      array("session" => $session)
     );
 
         $details = $this->get('knp_paginator')->paginate(
@@ -37,15 +37,15 @@ class Detail_formationController extends Controller
 
         return $this->render('@OCAS/Detail/list.html.twig', array(
         'details' => $details,
-        'id_feuille' => $feuille_id,
+        'id_session' => $session_id,
         'h1' => "Liste des stagiaires pour la formation X"
     ));
     }
 
     /**
-     * @Route("/feuille/{feuille_id}/stagiaire/add/",name="detail_add",requirements={"feuille_id"="\d*"})
+     * @Route("/session/{session_id}/stagiaire/add/",name="detail_add",requirements={"session_id"="\d*"})
      */
-    public function addAction($feuille_id, Request $request)
+    public function addAction($session_id, Request $request)
     {
         $detail= new Detail_formation();
         $form = $this->createForm(DetailType::class, $detail);
@@ -65,18 +65,18 @@ class Detail_formationController extends Controller
     }
 
     /**
-     * @Route("/feuille/{feuille_id}/stagiaire/{id}/edit",name="detail_edit",requirements={"feuille_id"="\d*", "id"="\d*"})
+     * @Route("/session/{session_id}/stagiaire/{id}/edit",name="detail_edit",requirements={"session_id"="\d*", "id"="\d*"})
      */
-    public function editAction($feuille_id, $id, Request $request)
+    public function editAction($session_id, $id, Request $request)
     {
 
 
     }
 
     /**
-     * @Route("/feuille/{feuille_id}/stagiaire/{id}/delete",name="detail_delete",requirements={"feuille_id"="\d*", "id"="\d*"})
+     * @Route("/session/{session_id}/stagiaire/{id}/delete",name="detail_delete",requirements={"session_id"="\d*", "id"="\d*"})
      */
-    public function deleteAction($feuille_id, $id, Request $request)
+    public function deleteAction($session_id, $id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $detail = $em->getRepository('OCASBundle:Detail_formation')->find($id);
@@ -92,12 +92,12 @@ class Detail_formationController extends Controller
 
             $request->getSession()->getFlashBag()->add('info', "L'inscription a bien été supprimée");
 
-            return $this->redirectToRoute('detail_list', array('feuille_id' => $feuille_id));
+            return $this->redirectToRoute('detail_list', array('session_id' => $session_id));
         }
         return $this->render('@OCAS/Detail/delete.html.twig', array(
         'detail' => $detail,
         'form' => $form->createView(),
-        'id_feuille' => $feuille_id
+        'id_session' => $session_id
       ));
     }
 }

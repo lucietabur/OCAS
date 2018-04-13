@@ -4,13 +4,13 @@ namespace OCAS\OCASBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class FeuilleEmargementControllerControllerTest extends WebTestCase
+class SessionEmargementControllerControllerTest extends WebTestCase
 {
     public function testList()
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/feuilles');
+        $crawler = $client->request('GET', '/sessions');
     }
 
     public function testAdd()

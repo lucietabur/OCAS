@@ -17,7 +17,7 @@ class Menu
        'Sièges' => 'siege_list',
        'Formations' => 'formation_list',
        'Intervenants' => 'intervenant_list',
-       'Feuilles d\'émargement' => 'feuille_list',
+       'Sessions' => 'session_list',
     );
         return $menu;
     }

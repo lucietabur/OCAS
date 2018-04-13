@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class FeuilleType extends AbstractType
+class SessionType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -20,14 +20,11 @@ class FeuilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        // ->add('formation', EntityType::class, array(
-        //   'class' => 'OCAS\OCASBundle\Entity\Formation',
-        //   'choice_label' => 'libelle',
-        //   'placeholder' => ''
-        // ))
           ->add('formation', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Formation',
-            'choice_label' => 'libelle',
+            'choice_label' => function($formation){
+              return $formation->getLibelleFormation()->getLibelle();
+              },
             'placeholder' => ''
           ))
           ->add('intervenants', EntityType::class, array(
@@ -40,7 +37,6 @@ class FeuilleType extends AbstractType
           ->add('groupe', TextType::class, array('required' => false))
           ->add('duree', IntegerType::class, array('required' => false ))
           ->add('dateRetour', DateTimeType::class)
-          ->add('lieu', TextType::class, array('required' => false))
           ->add('observation', TextType::class, array('required' => false))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
@@ -51,7 +47,7 @@ class FeuilleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'OCAS\OCASBundle\Entity\Feuille_emargement'
+            'data_class' => 'OCAS\OCASBundle\Entity\Session'
         ));
     }
 
@@ -60,6 +56,6 @@ class FeuilleType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_feuille';
+        return 'ocasbundle_session';
     }
 }

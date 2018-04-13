@@ -24,4 +24,6 @@ class FormationRepository extends \Doctrine\ORM\EntityRepository
         $query->setParameter('key', '%'.$req.'%');
         return $query->getResult();
     }
+
+    
 }

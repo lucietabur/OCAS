@@ -67,7 +67,7 @@ $(document).ready(function() {
 
 
   // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
-  if (nb_elem !== 0) {
+  if (nb_elem > 0) {
       console.log(nb_elem);
       // S'il existe déjà des catégories
       $container.children('div').children('legend').each(function(index) {

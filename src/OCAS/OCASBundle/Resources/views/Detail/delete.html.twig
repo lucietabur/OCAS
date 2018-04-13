@@ -16,8 +16,8 @@
     Etes-vous certain de vouloir supprimer "{{ detail.stagiaire.nom }}" ?
   </p>
 
-  <form action="{{ path('detail_delete', {'id': detail.id, 'feuille_id':id_feuille}) }}" method="post" class="align-self-center">
-    <a href="{{ path('detail_list', {'id': detail.id, 'feuille_id':id_feuille}) }}" class="btn btn-primary">
+  <form action="{{ path('detail_delete', {'id': detail.id, 'session_id':id_session}) }}" method="post" class="align-self-center">
+    <a href="{{ path('detail_list', {'id': detail.id, 'session_id':id_session}) }}" class="btn btn-primary">
       <i class="glyphicon glyphicon-chevron-left"></i>
       Retour à la liste
     </a>

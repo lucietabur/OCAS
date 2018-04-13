@@ -19,11 +19,11 @@ class FormationController extends Controller
     public function listAction($page = 1)
     {
         $searchform = $this->createFormBuilder()
-      ->add('Formation', TextType::class, array('attr' => array( 'class' => "")))
-      ->add('rechercher', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
-      ->setMethod('POST')
-      ->setAction($this->generateUrl('formation_search'))
-      ->getForm();
+        ->add('Formation', TextType::class, array('attr' => array( 'class' => "")))
+        ->add('rechercher', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+        ->setMethod('POST')
+        ->setAction($this->generateUrl('formation_search'))
+        ->getForm();
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Formation');
         $listeFormations = $repository->findAll();
         $formations = $this->get('knp_paginator')->paginate(

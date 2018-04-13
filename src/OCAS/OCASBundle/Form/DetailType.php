@@ -22,10 +22,10 @@ class DetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        //TODO: num_emargement auto increment
+        //TODO: num auto increment
           ->add('formation', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Formation',
-            'choice_label' => 'libelle',
+            'choice_label' => 'observation',
             'placeholder' => ''
           ))
           // ->add('libelle_formation', EntityType::class, array( //TODO: a corriger
@@ -62,6 +62,6 @@ class DetailType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_feuille';
+        return 'ocasbundle_session';
     }
 }

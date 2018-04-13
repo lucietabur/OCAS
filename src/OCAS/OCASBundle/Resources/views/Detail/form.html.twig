@@ -9,9 +9,9 @@
   {{ form_start(form)}}
   {{ form_widget(form)}}
   {{form_end(form)}}
-  <a role="button" href="{{ path('detail_list',{'feuille_id': id_feuille })}}" class="btn btn-primary">Retour à la feuille d'émargement</a>
+  <a role="button" href="{{ path('detail_list',{'session_id': id_session })}}" class="btn btn-primary">Retour à la session d'émargement</a>
   {% if id is defined %}
-    <a role="submit" href="{{ path('detail_delete',{'id': id_feuille })}}" class="btn btn-danger">Supprimer</a>
+    <a role="submit" href="{{ path('detail_delete',{'id': id_session })}}" class="btn btn-danger">Supprimer</a>
   {% endif %}
   </div>
 {% endblock %}

@@ -144,24 +144,4 @@ class StagiaireController extends Controller
          ));
     }
 
-    /**
-     * @Route("/stagiaire/{id}/generate/mission",name="stagiaire_mission",defaults={"id"="1"},requirements={"id"="\d*"})
-     */
-    public function generateMission($id,Request $request)
-    {
-      $defaultData = array();
-      $form = $this->createFormBuilder($defaultData)
-        ->add('send', SubmitType::class)
-        ->getForm();
-      $form->handleRequest($request);
-      $em = $this->getDoctrine()->getManager();
-      $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
-      //rechercher la formation
-
-
-      return $this->render('@OCAS/PDF/ordre_de_mission.html.twig', array(
-        'stagiaire' =>  $stagiaire,
-        'h1' => "OCAS : Génerer l'odre de mission"
-       ));
-    }
 }

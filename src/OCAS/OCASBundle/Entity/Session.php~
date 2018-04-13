@@ -5,12 +5,12 @@ namespace OCAS\OCASBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Feuille_emargement
+ * Session
  *
- * @ORM\Table(name="feuille_emargement")
- * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Feuille_emargementRepository")
+ * @ORM\Table(name="session")
+ * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\SessionRepository")
  */
-class Feuille_emargement
+class Session
 {
     /**
      * @var int
@@ -24,7 +24,7 @@ class Feuille_emargement
     /**
      * @var int
      *
-     * @ORM\Column(name="num_emargement", type="integer", unique=false, nullable=true) //TODO: rendre auto increment
+     * @ORM\Column(name="num", type="integer", unique=false, nullable=true) //TODO: rendre auto increment
      */
     private $numEmargement;
 
@@ -36,9 +36,9 @@ class Feuille_emargement
     private $dateSeance;
 
     /**
-     * @var int
+     * @var string
      *
-     * @ORM\Column(name="groupe", type="integer", nullable=true)
+     * @ORM\Column(name="groupe", type="string", length=255, nullable=true)
      */
     private $groupe;
 
@@ -73,17 +73,17 @@ class Feuille_emargement
     /**
     * @var boolean
     *
-    * @ORM\Column(name="edite", type="boolean", options={"default":false})
+    * @ORM\Column(name="retour", type="boolean", options={"default":false})
     */
-    private $edite = false;
+    private $retour = false;
 
     /**
 
      * Owning Side
      *
-     * @ORM\ManyToMany(targetEntity="Intervenant", inversedBy="feuille_emargement")
-     * @ORM\JoinTable(name="feuille_emargement_intervenant",
-     *  joinColumns={@ORM\JoinColumn(name="feuille_emargement_id", referencedColumnName="id")},
+     * @ORM\ManyToMany(targetEntity="Intervenant", inversedBy="session")
+     * @ORM\JoinTable(name="session_intervenant",
+     *  joinColumns={@ORM\JoinColumn(name="session_id", referencedColumnName="id")},
      *  inverseJoinColumns={@ORM\JoinColumn(name="intervenant_id", referencedColumnName="id")}
      * )
      */
@@ -91,7 +91,7 @@ class Feuille_emargement
 
     //TODO
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="feuille_emargement")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="session")
     */
     private $formation;
 
@@ -110,7 +110,7 @@ class Feuille_emargement
      *
      * @param integer $numEmargement
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setNumEmargement($numEmargement)
     {
@@ -134,7 +134,7 @@ class Feuille_emargement
      *
      * @param \DateTime $dateSeance
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setDateSeance($dateSeance)
     {
@@ -158,7 +158,7 @@ class Feuille_emargement
      *
      * @param string $groupe
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setGroupe($groupe)
     {
@@ -182,7 +182,7 @@ class Feuille_emargement
      *
      * @param integer $duree
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setDuree($duree)
     {
@@ -206,7 +206,7 @@ class Feuille_emargement
      *
      * @param \DateTime $dateRetour
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setDateRetour($dateRetour)
     {
@@ -230,7 +230,7 @@ class Feuille_emargement
      *
      * @param string $lieu
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setLieu($lieu)
     {
@@ -254,7 +254,7 @@ class Feuille_emargement
      *
      * @param string $observation
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setObservation($observation)
     {
@@ -326,7 +326,7 @@ class Feuille_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Formation $formation
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function addFormation(\OCAS\OCASBundle\Entity\Formation $formation)
     {
@@ -360,7 +360,7 @@ class Feuille_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Formation $detailEmargement
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function addDetailFormation(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
     {
@@ -394,7 +394,7 @@ class Feuille_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant = null)
     {
@@ -408,7 +408,7 @@ class Feuille_emargement
      *
      * @param \OCAS\OCASBundle\Entity\Formation $formation
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setFormation(\OCAS\OCASBundle\Entity\Formation $formation = null)
     {
@@ -422,7 +422,7 @@ class Feuille_emargement
      *
      * @param boolean $retour
      *
-     * @return Feuille_emargement
+     * @return Session
      */
     public function setRetour($retour)
     {

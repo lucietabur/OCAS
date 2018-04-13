@@ -45,10 +45,10 @@ class Formation
 
 
     /**
-    * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Feuille_emargement", mappedBy="formation")
+    * @ORM\OneToMany(targetEntity="OCAS\OCASBundle\Entity\Session", mappedBy="formation")
     * @ORM\JoinColumn(nullable=false)
     */
-    private $feuille_emargement;
+    private $session;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Libelle_Formation")
@@ -67,31 +67,6 @@ class Formation
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set libelle
-     *
-     * @param string $libelle
-     *
-     * @return Formation
-     */
-    public function setLibelle($libelle)
-    {
-        $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * Get libelle
-     *
-     * @return string
-     */
-    public function getLibelle()
-    {
-        return $this->libelle.' - '.$this->dateDebut->format('d-m');
-        //TODO: a voir dans quel cas
     }
 
 
@@ -167,83 +142,60 @@ class Formation
         return $this->observation;
     }
 
+
     /**
-     * Set lieu
+     * Set sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\Agence $lieu
+     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      *
      * @return Formation
      */
-    public function setLieu(\OCAS\OCASBundle\Entity\Agence $lieu = null)
+    public function setSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
-        $this->lieu = $lieu;
+        $this->session = $sessionEmargement;
 
         return $this;
     }
 
     /**
-     * Get lieu
+     * Get sessionEmargement
      *
-     * @return \OCAS\OCASBundle\Entity\Agence
+     * @return \OCAS\OCASBundle\Entity\Session
      */
-    public function getLieu()
+    public function getSessionEmargement()
     {
-        return $this->lieu;
-    }
-
-    /**
-     * Set feuilleEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
-     *
-     * @return Formation
-     */
-    public function setFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
-    {
-        $this->feuille_emargement = $feuilleEmargement;
-
-        return $this;
-    }
-
-    /**
-     * Get feuilleEmargement
-     *
-     * @return \OCAS\OCASBundle\Entity\Feuille_emargement
-     */
-    public function getFeuilleEmargement()
-    {
-        return $this->feuille_emargement;
+        return $this->session;
     }
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->feuille_emargement = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->session = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add feuilleEmargement
+     * Add sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
+     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      *
      * @return Formation
      */
-    public function addFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function addSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
-        $this->feuille_emargement[] = $feuilleEmargement;
+        $this->session[] = $sessionEmargement;
 
         return $this;
     }
 
     /**
-     * Remove feuilleEmargement
+     * Remove sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
+     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      */
-    public function removeFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function removeSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
-        $this->feuille_emargement->removeElement($feuilleEmargement);
+        $this->session->removeElement($sessionEmargement);
     }
 
     /**

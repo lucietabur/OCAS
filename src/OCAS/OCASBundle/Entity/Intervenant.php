@@ -39,9 +39,9 @@ class Intervenant
      *
      * Inverse Side
      *
-     * @ORM\ManyToMany(targetEntity="Feuille_emargement", mappedBy="intervenants", cascade={"persist", "merge"})
+     * @ORM\ManyToMany(targetEntity="Session", mappedBy="intervenants", cascade={"persist", "merge"})
      */
-    private $feuille_emargement;
+    private $session;
 
     /**
      * Get id
@@ -101,27 +101,27 @@ class Intervenant
         return $this->adresse;
     }
 
-    public function setFeuille_emargements($items)
+    public function setSessions($items)
     {
         if ($items instanceof ArrayCollection || is_array($items)) {
             foreach ($items as $item) {
-                $this->addFeuille_emargement($item);
+                $this->addSession($item);
             }
-        } elseif ($items instanceof Feuille_emargement) {
-            $this->addFeuille_emargement($items);
+        } elseif ($items instanceof Session) {
+            $this->addSession($items);
         } else {
-            throw new Exception("$items must be an instance of Feuille_emargement or ArrayCollection");
+            throw new Exception("$items must be an instance of Session or ArrayCollection");
         }
     }
 
     /**
      * Get ArrayCollection
      *
-     * @return ArrayCollection $feuille_emargements
+     * @return ArrayCollection $sessions
      */
-    public function getFeuille_emargements()
+    public function getSessions()
     {
-        return $this->feuille_emargements;
+        return $this->sessions;
     }
 
     /**
@@ -129,56 +129,56 @@ class Intervenant
      */
     public function __construct()
     {
-        $this->feuille_emargements = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->sessions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add Feuille_emargement
+     * Add Session
      *
-     * @param Feuille_emargement $feuille_emargement
+     * @param Session $session
      */
-    public function addFeuille_emargement(Feuille_emargement $feuille_emargement)
+    public function addSession(Session $session)
     {
         // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->feuille_emargements->contains($feuille_emargement)) {
-            if (!$feuille_emargement->getProduits()->contains($this)) {
-                $feuille_emargement->addProduit($this);  // Lie le Feuille_emargement au produit.
+        if (!$this->sessions->contains($session)) {
+            if (!$session->getProduits()->contains($this)) {
+                $session->addProduit($this);  // Lie le Session au produit.
             }
-            $this->feuille_emargements->add($feuille_emargement);
+            $this->sessions->add($session);
         }
     }
 
     /**
-     * Remove feuilleEmargement
+     * Remove sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement
+     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      */
-    public function removeFeuilleEmargement(\OCAS\OCASBundle\Entity\Feuille_emargement $feuilleEmargement)
+    public function removeSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
-        $this->feuille_emargement->removeElement($feuilleEmargement);
+        $this->session->removeElement($sessionEmargement);
     }
 
     /**
-     * Add feuilleEmargement
+     * Add sessionEmargement
      *
-     * @param \OCAS\OCASBundle\Entity\feuille_emargement $feuilleEmargement
+     * @param \OCAS\OCASBundle\Entity\session $sessionEmargement
      *
      * @return Intervenant
      */
-    public function addFeuilleEmargement(\OCAS\OCASBundle\Entity\feuille_emargement $feuilleEmargement)
+    public function addSessionEmargement(\OCAS\OCASBundle\Entity\session $sessionEmargement)
     {
-        $this->feuille_emargement[] = $feuilleEmargement;
+        $this->session[] = $sessionEmargement;
 
         return $this;
     }
 
     /**
-     * Get feuilleEmargement
+     * Get sessionEmargement
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getFeuilleEmargement()
+    public function getSessionEmargement()
     {
-        return $this->feuille_emargement;
+        return $this->session;
     }
 }

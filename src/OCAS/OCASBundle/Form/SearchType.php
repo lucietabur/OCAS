@@ -39,6 +39,6 @@ class SearchType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_feuille';
+        return 'ocasbundle_session';
     }
 }

@@ -21,7 +21,7 @@ class DetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        //TODO: num_emargement auto increment
+        //TODO: num auto increment
           ->add('stagiaire', HiddenType::class, array(
             'data' => '1' //TODO: recuperer la valeur
           ))
@@ -53,6 +53,6 @@ class DetailType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'ocasbundle_feuille';
+        return 'ocasbundle_session';
     }
 }
