@@ -69,7 +69,7 @@ class StagiaireType extends AbstractType
             'label' => 'Résidence administrative',
             'placeholder' => ''
           ))
-          ->add('detail_formation', CollectionType::class, array(
+          ->add('detail_session', CollectionType::class, array(
             'label' => 'Formations',
             'entry_type' => DetailType::class,
             'allow_add' => true,

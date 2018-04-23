@@ -23,7 +23,7 @@
 
   {#}{% form_theme form "bootstrap_4_layout.html.twig" %}#}
   <div>
-    {{ form_row(form.detail_formation, {
+    {{ form_row(form.detail_session, {
       'label_attr': {'id':'detail'}
     }) }}
     {{ form_rest(form) }}
@@ -47,15 +47,15 @@ $(document).ready(function() {
   $('#wrapper').parent().css("justify-content","space-between");
   $('#wrapper').prepend($('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>'));
   $('#wrapper').prepend($('#detail'));
-  //$('div#ocasbundle_stagiaire_detail_formation').append('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>');
+  //$('div#ocasbundle_stagiaire_detail_session').append('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>');
 
 
   // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-  let $container = $('div#ocasbundle_stagiaire_detail_formation');
+  let $container = $('div#ocasbundle_stagiaire_detail_session');
 
 
   // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-  let nb_elem = $container.children('legend').length;
+  let nb_elem = $container.children().length;
 
 
   // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
@@ -68,7 +68,6 @@ $(document).ready(function() {
 
   // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
   if (nb_elem > 0) {
-      console.log(nb_elem);
       // S'il existe déjà des catégories
       $container.children('div').children('legend').each(function(index) {
       // on ajoute le numero de la formation a chacune

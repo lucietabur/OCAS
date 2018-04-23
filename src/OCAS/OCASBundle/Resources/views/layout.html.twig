@@ -3,7 +3,12 @@
 {% block nav %}
 <nav>
     <ul class="nav">
-      {% for nom,lien in menu.getMenu() %}
+      {% for nom,lien in menu.getMenu()['frequent'] %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path(lien)}}">{{nom}}</a>
+      </li>
+      {% endfor %}
+      {% for nom,lien in menu.getMenu()['liste'] %}
         <li class="nav-item">
           <a class="nav-link" href="{{ path(lien)}}">{{nom}}</a>
         </li>

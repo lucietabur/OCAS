@@ -11,11 +11,9 @@
   <thead>
     <tr>
       <th scope="row">Libelle</th>
-      <th>Date debut</th>
-      <th>Date fin</th>
-      {#<th>Observation</th>#}
-      <th></th>
-      <th><a role="button" href="{{ path('formation_add') }}" class="btn btn-success">Ajouter</a></th>
+      <th>
+        <a role="button" href="{{ path('formation_add') }}" class="btn btn-success">Ajouter</a></th>
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -23,13 +21,7 @@
   {% for formation in formations %}
 
   <tr>
-    <th scope="row"><a href="{{ path('formation_edit',{'id': formation.id }) }}">{{ formation.libelleFormation.libelle }}</a></th>
-    {#<td>{{formation.libelleFormation.libelle}}</td>#}
-    <td>{{formation.dateDebut|date("d/m/Y")}}</td>
-    <td>{{formation.dateFin|date("d/m/Y")}}</td>
-    {#<td>{{formation.observation}}</td>#}
-    <td><a role="button" href="{{ path('formation_edit',{'id': formation.id }) }}" class="btn btn-warning">Modifier</a></td>
-    <td><a role="submit" href="{{ path('formation_delete',{'id': formation.id })}}" class="btn btn-danger">Supprimer</a></td>
+    <th scope="row"><a href="{{ path('session_list',{'id': formation.id }) }}">{{ formation.libelle }}</a></th>
   </tr>
   {% endfor %}
 

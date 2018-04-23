@@ -3,14 +3,15 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use OCAS\OCASBundle\Services\ArrayToString;
 
 /**
- * Detail_formation
+ * Detail_session
  *
- * @ORM\Table(name="detail_formation")
- * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_formationRepository")
+ * @ORM\Table(name="detail_session")
+ * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_sessionRepository")
  */
-class Detail_formation
+class Detail_session
 {
     /**
      * @var int
@@ -50,13 +51,13 @@ class Detail_formation
     private $typeFormation;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="details_formation")
-    * @ORM\JoinColumn(name="formation_id", referencedColumnName="id",nullable=false)
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Session", inversedBy="details_session")
+    * @ORM\JoinColumn(name="session_id", referencedColumnName="id",nullable=false)
     */
-    private $formation;
+    private $session;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire", inversedBy="detail_formation")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire", inversedBy="detail_session")
     * @ORM\JoinColumn(name="stagiaire_id", referencedColumnName="id", nullable=false)
     */
     private $stagiaire;
@@ -76,7 +77,7 @@ class Detail_formation
      *
      * @param integer $hPresent
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setHPresent($hPresent)
     {
@@ -100,7 +101,7 @@ class Detail_formation
      *
      * @param integer $hAbsent
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setHAbsent($hAbsent)
     {
@@ -124,7 +125,7 @@ class Detail_formation
      *
      * @param integer $hFacture
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setHFacture($hFacture)
     {
@@ -148,13 +149,13 @@ class Detail_formation
      *
      * @param string $typeFormation
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setTypeFormation($typeFormation)
     {
-        $this->typeFormation = $typeFormation;
-
-        return $this;
+      $arrayToString = new ArrayToString();
+      $this->typeFormation = $arrayToString->typeArrayOrString($typeFormation);
+      return $this;
     }
 
     /**
@@ -164,7 +165,9 @@ class Detail_formation
      */
     public function getTypeFormation()
     {
-        return $this->typeFormation;
+      $arrayToString = new ArrayToString();
+      $this->typeFormation = $arrayToString->typeArrayOrString($this->typeFormation);
+      return $this->typeFormation;
     }
 
     /**
@@ -172,7 +175,7 @@ class Detail_formation
      *
      * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
     {
@@ -196,7 +199,7 @@ class Detail_formation
      *
      * @param \OCAS\OCASBundle\Entity\Stagiaire $stagiaire
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setStagiaire(\OCAS\OCASBundle\Entity\Stagiaire $stagiaire)
     {
@@ -220,7 +223,7 @@ class Detail_formation
      *
      * @param \OCAS\OCASBundle\Entity\Formation $formation
      *
-     * @return Detail_formation
+     * @return Detail_session
      */
     public function setFormation(\OCAS\OCASBundle\Entity\Formation $formation)
     {
@@ -237,5 +240,29 @@ class Detail_formation
     public function getFormation()
     {
         return $this->formation;
+    }
+
+    /**
+     * Set session
+     *
+     * @param \OCAS\OCASBundle\Entity\Session $session
+     *
+     * @return Detail_session
+     */
+    public function setSession(\OCAS\OCASBundle\Entity\Session $session)
+    {
+        $this->session = $session;
+
+        return $this;
+    }
+
+    /**
+     * Get session
+     *
+     * @return \OCAS\OCASBundle\Entity\Session
+     */
+    public function getSession()
+    {
+        return $this->session;
     }
 }

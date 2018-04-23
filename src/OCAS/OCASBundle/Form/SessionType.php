@@ -20,11 +20,9 @@ class SessionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('formation', EntityType::class, array(
-            'class' => 'OCAS\OCASBundle\Entity\Formation',
-            'choice_label' => function($formation){
-              return $formation->getLibelleFormation()->getLibelle();
-              },
+          ->add('libelle_formation', EntityType::class, array(
+            'class' => 'OCAS\OCASBundle\Entity\Libelle_Formation',
+            'choice_label' => 'libelle',
             'placeholder' => ''
           ))
           ->add('intervenants', EntityType::class, array(
@@ -34,7 +32,7 @@ class SessionType extends AbstractType
             'placeholder' => '',
           ))
           ->add('dateSeance', DateTimeType::class)
-          ->add('groupe', TextType::class, array('required' => false))
+          ->add('groupe', IntegerType::class, array('required' => false)) 
           ->add('duree', IntegerType::class, array('required' => false ))
           ->add('dateRetour', DateTimeType::class)
           ->add('observation', TextType::class, array('required' => false))

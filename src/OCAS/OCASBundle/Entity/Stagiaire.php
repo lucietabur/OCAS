@@ -81,9 +81,9 @@ class Stagiaire
     /**
      * Owning Side
      *
-     * @ORM\OneToMany(targetEntity="Detail_formation", mappedBy="stagiaire", cascade={"persist", "merge"})
+     * @ORM\OneToMany(targetEntity="Detail_session", mappedBy="stagiaire", cascade={"persist", "merge"})
      */
-     private $detail_formation;
+     private $detail_session;
 
     /**
      * Get id
@@ -352,5 +352,39 @@ class Stagiaire
     public function getDetailFormation()
     {
         return $this->detail_formation;
+    }
+
+    /**
+     * Add detailSession
+     *
+     * @param \OCAS\OCASBundle\Entity\Detail_session $detailSession
+     *
+     * @return Stagiaire
+     */
+    public function addDetailSession(\OCAS\OCASBundle\Entity\Detail_session $detailSession)
+    {
+        $this->detail_session[] = $detailSession;
+
+        return $this;
+    }
+
+    /**
+     * Remove detailSession
+     *
+     * @param \OCAS\OCASBundle\Entity\Detail_session $detailSession
+     */
+    public function removeDetailSession(\OCAS\OCASBundle\Entity\Detail_session $detailSession)
+    {
+        $this->detail_session->removeElement($detailSession);
+    }
+
+    /**
+     * Get detailSession
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDetailSession()
+    {
+        return $this->detail_session;
     }
 }

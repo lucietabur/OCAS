@@ -9,7 +9,7 @@ use OCAS\OCASBundle\Entity\Detail_formation;
 use OCAS\OCASBundle\Form\DetailType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class Detail_formationController extends Controller
+class Detail_sessionController extends Controller
 {
 
   /**
@@ -47,21 +47,31 @@ class Detail_formationController extends Controller
      */
     public function addAction($session_id, Request $request)
     {
-        $detail= new Detail_formation();
+        // on recherche la session correspondant à l'id et on l'ajoute à l'objet detail
+        $em = $this->getDoctrine()->getManager();
+        $session = $em->getRepository('OCASBundle:Session')->find($session_id);
+        $detail = new Detail_formation();
+        $detail->setSessionEmargement($session); //TODO: ErrorException
         $form = $this->createForm(DetailType::class, $detail);
+
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($detail);
             $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien enregistré•e.');
 
-            $request->getSession()->getFlashBag()->add('notice', 'Enregistré');
-            return $this->redirectToRoute('');
+            // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
+            $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
+            return $this->redirectToRoute($nextAction, array('session_id' => $session_id));
         }
+
+        $libelle=$session->getFormation()->getLibelle();
         return $this->render('@OCAS/Detail/form.html.twig', array(
-        'h1' => "OCAS : ",
-        'form' => $form->createView(),
-      ));
+            'h1' => "OCAS : Ajouter un stagiaire à la formation : ".$libelle,
+            'form' => $form->createView(),
+            'id_session' => $session_id
+        ));
     }
 
     /**
@@ -69,8 +79,37 @@ class Detail_formationController extends Controller
      */
     public function editAction($session_id, $id, Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $session = $em->getRepository('OCASBundle:Session')->find($session_id);
+
+        $detail = $em->getRepository('OCASBundle:Detail_formation')->find($id);
+
+        if ($id == null) {
+            $request->getSession()->getFlashBag()->add('notice', "l'inscription du stagiaire demandée n'a pas pu être trouvé");
+            return $this->redirectToRoute('detail_list', array('session_id' => $session_id));
+            //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
+        }
+        $form = $this->createForm(DetailType::class, $detail);
+        $form->handleRequest($request);
+
+        // soumission du formulaire
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($detail);
+            $em->flush();
+            $request->getSession()->getFlashBag()->add('notice', 'Inscription bien modifiée');
+            // si le bouton "save and add" a été cliqué on redirige vers la page de création sinon on retourne a la liste
+            $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'detail_add' : 'detail_list';
+            return $this->redirectToRoute($nextAction, array('session_id' => $session_id));
+        }
 
 
+        $libelle=$session->getFormation()->getLibelle();
+        return $this->render('@OCAS/Detail/form.html.twig', array(
+        'h1' => "OCAS : Modifier l'inscription d'un stagiaire à la formation : ".$libelle,
+        'form' => $form->createView(),
+        'id_session' => $session_id
+      ));
     }
 
     /**

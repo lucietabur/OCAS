@@ -36,6 +36,22 @@ class Session
     private $dateSeance;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_debut", type="datetime", nullable=true)
+     */
+    private $dateDebut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_fin", type="datetime", nullable=true)
+     */
+    private $dateFin;
+
+
+    //TODO: 2 seances a la meme date et le meme libelle doivent avoir un numero de groupe different
+    /**
      * @var int
      *
      * @ORM\Column(name="groupe", type="integer", nullable=true)
@@ -89,11 +105,11 @@ class Session
      */
     private $intervenants;
 
-    //TODO
+
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Formation", inversedBy="session")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Libelle_Formation")
     */
-    private $formation;
+    private $libelle_formation;
 
     /**
      * Get id
@@ -321,39 +337,7 @@ class Session
 
 
 
-    /**
-     * Add formation
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $formation
-     *
-     * @return Session
-     */
-    public function addFormation(\OCAS\OCASBundle\Entity\Formation $formation)
-    {
-        $this->formation[] = $formation;
 
-        return $this;
-    }
-
-    /**
-     * Remove formation
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $formation
-     */
-    public function removeFormation(\OCAS\OCASBundle\Entity\Formation $formation)
-    {
-        $this->formation->removeElement($formation);
-    }
-
-    /**
-     * Get formation
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFormation()
-    {
-        return $this->formation;
-    }
 
     /**
      * Add detailEmargement
@@ -449,5 +433,101 @@ class Session
     public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
     {
         $this->intervenants->removeElement($intervenant);
+    }
+
+    /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     *
+     * @return Session
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     *
+     * @return Session
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
+     * Set edite
+     *
+     * @param boolean $edite
+     *
+     * @return Session
+     */
+    public function setEdite($edite)
+    {
+        $this->edite = $edite;
+
+        return $this;
+    }
+
+    /**
+     * Get edite
+     *
+     * @return boolean
+     */
+    public function getEdite()
+    {
+        return $this->edite;
+    }
+
+    /**
+     * Set libelleFormation
+     *
+     * @param \OCAS\OCASBundle\Entity\Libelle_Formation $libelleFormation
+     *
+     * @return Session
+     */
+    public function setLibelleFormation(\OCAS\OCASBundle\Entity\Libelle_Formation $libelleFormation = null)
+    {
+        $this->libelle_formation = $libelleFormation;
+
+        return $this;
+    }
+
+    /**
+     * Get libelleFormation
+     *
+     * @return \OCAS\OCASBundle\Entity\Libelle_Formation
+     */
+    public function getLibelleFormation()
+    {
+        return $this->libelle_formation;
     }
 }

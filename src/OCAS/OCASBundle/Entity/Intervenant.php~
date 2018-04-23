@@ -181,4 +181,24 @@ class Intervenant
     {
         return $this->session;
     }
+
+    /**
+     * Remove session
+     *
+     * @param \OCAS\OCASBundle\Entity\Session $session
+     */
+    public function removeSession(\OCAS\OCASBundle\Entity\Session $session)
+    {
+        $this->session->removeElement($session);
+    }
+
+    /**
+     * Get session
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSession()
+    {
+        return $this->session;
+    }
 }

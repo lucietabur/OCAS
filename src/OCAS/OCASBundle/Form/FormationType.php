@@ -21,13 +21,7 @@ class FormationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('libelle_formation', EntityType::class, array( //TODO: a corriger
-          'class' => 'OCAS\OCASBundle\Entity\Libelle_Formation',
-          'choice_label' => 'libelle',
-        ))
-        ->add('dateDebut', DateTimeType::class)
-        ->add('dateFin', DateTimeType::class)
-        ->add('observation', TextType::class, array('required' => false))
+        ->add('libelle', TextType::class)
         ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
     }
 
@@ -36,9 +30,7 @@ class FormationType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'OCAS\OCASBundle\Entity\Formation'
-        ));
+
     }
 
     /**
