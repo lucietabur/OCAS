@@ -25,18 +25,14 @@ class SessionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
-    * Retourne les sessions du mois en cours
+    * Retourne les sessions dont le libelle est $libelle
     */
-    public function findCurrentSessions()
+    public function findByLibelle($libelle)
     {
-        //30 derniers jours ou mois en cours ?
-        $mois = new \DateTime("m");
-        $builder = $this->createQueryBuilder('a');
-        $builder->select('a')
-            ->where('MONTH(a.date_debut) = :date')
-            ->orderBy('a.date_debut')
-            ->setParameter('date', $mois->format('m'));
-        return $builder->getQuery();
+      $query = $this->_em->createQuery("SELECT s FROM OCASBundle:Session s  WHERE s.libelle_formation=:libelle ")
+      ->setParameter("libelle", $libelle);
+      $results = $query->getResult();
+      return $results;
     }
 
 

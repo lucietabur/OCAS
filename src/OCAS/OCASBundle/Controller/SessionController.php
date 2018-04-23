@@ -79,25 +79,41 @@ class SessionController extends Controller
     }
 
     /**
-     * @Route("/sessions/current/{page}",name="session_current",defaults={"page"=1})
+     * @Route("/formations/{id}/sessions/{page}",name="session_libelle",defaults={"page"=1},requirements={"id"="\d*"})
      */
-    public function listCurrentAction($page = 1)
+    public function listSessionsByLibelleAction($id,$page = 1)
     {
-        $repository = $this->getDoctrine()->getRepository('OCASBundle:Session');
-        $listeSessions = $repository->findCurrentSessions();
-        $sessions = $this->get('knp_paginator')->paginate(
-        $listeSessions,
-        $page
-      );
+      $repository = $this->getDoctrine()->getRepository('OCASBundle:Session');
+      $libelle=$repository->findById($id);
 
-        if ($page < 1) {
-            throw $this->createNotFoundException('Page '.$page.' inexistante.');
-        }
+      $listeSessions = $repository->findByLibelle($libelle);
 
-        return $this->render('@OCAS/Session/list.html.twig', array(
-          'sessions' => $sessions,
-          'h1' => 'Liste des sessions'
-      ));
+      $listePresent=array();
+      $listeInscrit=array();
+      $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
+      foreach ($listeSessions as $session) {
+        $countPresentSession = $repository->countPresentSession($session);
+        $listePresent[]=$countPresentSession[0];
+
+        $countInscritSession = $repository->countInscritSession($session);
+        $listeInscrit[]=$countInscritSession[0];
+      }
+
+      $sessions = $this->get('knp_paginator')->paginate(
+      $listeSessions,
+      $page
+    );
+
+      if ($page < 1) {
+          throw $this->createNotFoundException('Page '.$page.' inexistante.');
+      }
+
+      return $this->render('@OCAS/Session/list.html.twig', array(
+        'sessions' => $sessions,
+        'listePresent' => $listePresent,
+        'listeInscrit' => $listeInscrit,
+        'h1' => 'Liste des sessions'
+    ));
     }
 
     /**

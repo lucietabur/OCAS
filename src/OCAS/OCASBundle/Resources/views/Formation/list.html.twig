@@ -21,7 +21,7 @@
   {% for formation in formations %}
 
   <tr>
-    <th scope="row"><a href="{{ path('session_list',{'id': formation.id }) }}">{{ formation.libelle }}</a></th>
+    <th scope="row"><a href="{{ path('session_libelle',{'id': formation.id }) }}">{{ formation.libelle }}</a></th>
   </tr>
   {% endfor %}
 
