@@ -1,7 +1,7 @@
 <?php
 
 namespace OCAS\OCASBundle\Repository;
-
+use \DoctrineExtensions\Query\MySQL\Month;
 /**
  * SessionRepository
  *
@@ -11,15 +11,34 @@ namespace OCAS\OCASBundle\Repository;
 class SessionRepository extends \Doctrine\ORM\EntityRepository
 {
     /**
-    * Compte toutes les sessions d'emargement de l'annee en cours
+    * Compte toutes les sessions de l'annee en cours
     */
     public function nombreSessions()
     {
-        $annee = new date("Y");
+        $annee = new \DateTime("Y");
         $builder = $this->createQueryBuilder('a');
         $builder->select('COUNT(a.id) AS nombre')
-            ->where('a.date_debut LIKE "'.$annee.'%"')
-            ->orderBy('a.date_debut');
+            ->where('a.date_debut LIKE ":annee%"')
+            ->orderBy('a.date_debut')
+            ->setParameter('annee', $annee);
         return $builder->getQuery()->getSingleScalarResult();
     }
+
+    /**
+    * Retourne les sessions du mois en cours
+    */
+    public function findCurrentSessions()
+    {
+        //30 derniers jours ou mois en cours ?
+        $mois = new \DateTime("m");
+        $builder = $this->createQueryBuilder('a');
+        $builder->select('a')
+            ->where('MONTH(a.date_debut) = :date')
+            ->orderBy('a.date_debut')
+            ->setParameter('date', $mois->format('m'));
+        return $builder->getQuery();
+    }
+
+
+
 }

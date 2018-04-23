@@ -19,6 +19,72 @@ class SessionController extends Controller
     {
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Session');
         $listeSessions = $repository->findAll();
+        $listePresent=array();
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
+        foreach ($listeSessions as $session) {
+          $countPresentSession = $repository->countPresentSession($session);
+          $listePresent[]=$countPresentSession[0];
+
+          $countInscritSession = $repository->countInscritSession($session);
+          $listeInscrit[]=$countInscritSession[0];
+        }
+        $sessions = $this->get('knp_paginator')->paginate(
+        $listeSessions,
+        $page
+      );
+
+        if ($page < 1) {
+            throw $this->createNotFoundException('Page '.$page.' inexistante.');
+        }
+
+        return $this->render('@OCAS/Session/list.html.twig', array(
+          'sessions' => $sessions,
+          'listePresent' => $listePresent,
+          'listeInscrit' => $listeInscrit,
+          'h1' => 'Liste des sessions'
+      ));
+    }
+
+    /**
+     * @Route("/sessions-retour/{page}",name="session_retour",defaults={"page"=1})
+     */
+    public function listRetourAction($page = 1)
+    {
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
+        $listeSessions = $repository->retourSession();
+        $listePresent=array();
+        $listeInscrit=array();
+        foreach ($listeSessions as $session) {
+          $countPresentSession = $repository->countPresentSession($session);
+          $listePresent[]=$countPresentSession[0];
+
+          $countInscritSession = $repository->countInscritSession($session);
+          $listeInscrit[]=$countInscritSession[0];
+        }
+        $sessions = $this->get('knp_paginator')->paginate(
+        $listeSessions,
+        $page
+      );
+
+        if ($page < 1) {
+            throw $this->createNotFoundException('Page '.$page.' inexistante.');
+        }
+
+        return $this->render('@OCAS/Session/list.html.twig', array(
+          'sessions' => $sessions,
+          'listePresent' => $listePresent,
+          'listeInscrit' => $listeInscrit,
+          'h1' => 'Liste des sessions'
+      ));
+    }
+
+    /**
+     * @Route("/sessions/current/{page}",name="session_current",defaults={"page"=1})
+     */
+    public function listCurrentAction($page = 1)
+    {
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Session');
+        $listeSessions = $repository->findCurrentSessions();
         $sessions = $this->get('knp_paginator')->paginate(
         $listeSessions,
         $page

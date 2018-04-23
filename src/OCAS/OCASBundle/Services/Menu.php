@@ -11,14 +11,26 @@ class Menu
     public function getMenu()
     {
         $menu = array(
-      'Accueil' => 'home',
-      'Stagiaires' => 'stagiaire_list',
-       'Résidences administratives' => 'agence_list',
-       'Sièges' => 'siege_list',
-       'Formations' => 'formation_list',
-       'Intervenants' => 'intervenant_list',
-       'Sessions' => 'session_list',
-    );
+          'liste'=>
+            array(
+              'liste des stagiaires' => 'stagiaire_list',
+              'liste des sessions' => 'session_list',
+              'liste des formations' => 'formation_list',
+            ),
+            'frequent'=>
+              array(
+                'Menu' => 'home',
+                'inscrire des stagiaires' => 'stagiaire_add',
+                'ajouter une session de formation' => 'session_add',
+                'voir les sessions du mois' => 'session_list',
+                'retour des feuilles d\'émargement' => 'session_retour'
+              ),
+            'rare' => array(
+               'Résidences administratives' => 'agence_list',
+               'Sièges' => 'siege_list',
+               'Intervenants' => 'intervenant_list',
+            )
+        );
         return $menu;
     }
 }
