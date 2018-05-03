@@ -3,12 +3,14 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Libelle_Formation
  *
  * @ORM\Table(name="libelle_formation")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Libelle_FormationRepository")
+ * @UniqueEntity("libelle")
  */
 class Libelle_Formation
 {

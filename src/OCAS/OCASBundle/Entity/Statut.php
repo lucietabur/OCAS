@@ -3,12 +3,15 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Statut
  *
  * @ORM\Table(name="statut")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\StatutRepository")
+ * @UniqueEntity("libelle", message="Ce statut a déjà été créé")
  */
 class Statut
 {

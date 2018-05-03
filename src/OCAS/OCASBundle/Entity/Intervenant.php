@@ -3,12 +3,15 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Intervenant
  *
  * @ORM\Table(name="intervenant")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\IntervenantRepository")
+ * @UniqueEntity("nom", message="Cet·te intervenant·e a déjà été créé·e")
  */
 class Intervenant
 {
@@ -31,7 +34,7 @@ class Intervenant
     /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
 

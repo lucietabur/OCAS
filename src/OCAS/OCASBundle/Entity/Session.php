@@ -3,12 +3,19 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use OCAS\OCASBundle\Services\Validator\Constraints as SessionAssert;
 /**
  * Session
  *
  * @ORM\Table(name="session")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\SessionRepository")
+ * @UniqueEntity(
+ *    fields={"libelle_formation","date_seance","groupe"},
+ *    errorPath="groupe",
+ *    message="Ce groupe existe déjà pour cette session"
+ *    )
  */
 class Session
 {
@@ -30,27 +37,27 @@ class Session
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date()
+     * @SessionAssert\ThisYear
      * @ORM\Column(name="date_seance", type="datetime")
      */
     private $dateSeance;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date()
+     * @SessionAssert\ThisYear
      * @ORM\Column(name="date_debut", type="datetime", nullable=true)
      */
     private $dateDebut;
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date()
      * @ORM\Column(name="date_fin", type="datetime", nullable=true)
      */
     private $dateFin;
 
-
-    //TODO: 2 seances a la meme date et le meme libelle doivent avoir un numero de groupe different
     /**
      * @var int
      *
@@ -67,7 +74,7 @@ class Session
 
     /**
      * @var \DateTime
-     *
+     * @Assert\Date()
      * @ORM\Column(name="date_retour", type="datetime", nullable=true)
      */
     private $dateRetour;

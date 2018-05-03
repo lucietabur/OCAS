@@ -4,12 +4,18 @@ namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use OCAS\OCASBundle\Services\ArrayToString;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Detail_session
  *
  * @ORM\Table(name="detail_session")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_sessionRepository")
+ * @UniqueEntity(
+ *    fields={"stagiaire_id","session_id"},
+ *    message="Ce·tte stagiaire a déjà été ajouté·e à cette sesssion"
+ *    )
  */
 class Detail_session
 {
@@ -42,6 +48,13 @@ class Detail_session
      * @ORM\Column(name="h_facture", type="integer", nullable=true)
      */
     private $hFacture;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="motif_absence", type="string", length=255, nullable=true)
+     */
+    private $motif_absence;
 
     /**
      * @var string

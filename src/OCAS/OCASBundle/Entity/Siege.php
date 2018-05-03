@@ -3,12 +3,14 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Siege
  *
  * @ORM\Table(name="siege")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\SiegeRepository")
+ * @UniqueEntity("rsociale", message="Ce siège déjà été créé")
  */
 class Siege
 {

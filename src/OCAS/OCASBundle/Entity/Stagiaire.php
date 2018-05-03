@@ -5,12 +5,17 @@ namespace OCAS\OCASBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use OCAS\OCASBundle\Services\ArrayToString;
-
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Stagiaire
  *
  * @ORM\Table(name="stagiaire")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\StagiaireRepository")
+ * @UniqueEntity(
+ *    fields={"nom", "ville", "naissance", "agence"},
+ *    errorPath="nom",
+ *    message="Ce stagiaire a déjà été créé·e"
+ *    )
  */
 class Stagiaire
 {

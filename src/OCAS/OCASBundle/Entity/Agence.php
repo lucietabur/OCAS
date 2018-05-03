@@ -3,12 +3,15 @@
 namespace OCAS\OCASBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Agence
  *
  * @ORM\Table(name="agence")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\AgenceRepository")
+ * @UniqueEntity("rsociale", message="Cette agence a déjà été créée")
  */
 class Agence
 {
