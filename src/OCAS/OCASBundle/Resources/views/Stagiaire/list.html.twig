@@ -10,13 +10,13 @@
 <table class="table">
   <thead>
     <tr>
+      <th>{{knp_pagination_sortable(stagiaires,"No d'inscription",'id')}}</th>
       <th scope="row">Titre</th>
-      <th>Nom</th>
+      <th>{{knp_pagination_sortable(stagiaires,'nom','nom')}}</th>
       <th>Fonction</th>
       <th>Ville</th>
       <th>Date de naissance</th>
       <th>Nationalite</th>
-      {#<th>Statut</th>#}
       <th>Quotite</th>
       <th>Résidence administrative</th>
       <th></th>
@@ -26,7 +26,8 @@
   <tbody>
   {% for stagiaire in stagiaires %}
     <tr>
-      <th scope="row">{{ stagiaire.titre }}</th>
+      <th>{{stagiaire.id}}</th>
+      <th>{{ stagiaire.titre }}</th>
       <td><a href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}">{{ stagiaire.nom }}</a></td>
       <td>
           {% for fonction in stagiaire.fonction %}
