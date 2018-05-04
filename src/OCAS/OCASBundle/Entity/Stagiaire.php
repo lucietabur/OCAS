@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use OCAS\OCASBundle\Services\ArrayToString;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * Stagiaire
  *
@@ -322,45 +323,11 @@ class Stagiaire
      */
     public function __construct()
     {
-        $this->details_formation = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->details_session = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Add detailFormation
-     *
-     * @param \OCAS\OCASBundle\Entity\Detail_formation $detailFormation
-     *
-     * @return Stagiaire
-     */
-    public function addDetailFormation(\OCAS\OCASBundle\Entity\Detail_formation $detailFormation)
-    {
-        $this->detail_formation[] = $detailFormation;
-        $detailFormation->setStagiaire($this);
-        return $this;
-    }
-
-    /**
-     * Remove detailFormation
-     *
-     * @param \OCAS\OCASBundle\Entity\Detail_formation $detailFormation
-     */
-    public function removeDetailFormation(\OCAS\OCASBundle\Entity\Detail_formation $detailFormation)
-    {
-        $this->detail_formation->removeElement($detailFormation);
-    }
-
-    /**
-     * Get detailFormation
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDetailFormation()
-    {
-        return $this->detail_formation;
-    }
-
-    /**
-     * Add detailSession
      *
      * @param \OCAS\OCASBundle\Entity\Detail_session $detailSession
      *
@@ -369,7 +336,7 @@ class Stagiaire
     public function addDetailSession(\OCAS\OCASBundle\Entity\Detail_session $detailSession)
     {
         $this->detail_session[] = $detailSession;
-
+        $detailSession->setStagiaire($this);
         return $this;
     }
 
@@ -380,15 +347,15 @@ class Stagiaire
      */
     public function removeDetailSession(\OCAS\OCASBundle\Entity\Detail_session $detailSession)
     {
-        $this->detail_session->removeElement($detailSession);
+        $this->detail_session->removeElement($detailFormation);
     }
 
     /**
-     * Get detailSession
+     * Get detailFormation
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDetailSession()
+    public function getDetailFormation()
     {
         return $this->detail_session;
     }

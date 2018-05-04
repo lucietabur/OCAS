@@ -118,10 +118,19 @@ class Session
     */
     private $libelle_formation;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->intervenants = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
@@ -145,7 +154,7 @@ class Session
     /**
      * Get numEmargement
      *
-     * @return int
+     * @return integer
      */
     public function getNumEmargement()
     {
@@ -177,9 +186,57 @@ class Session
     }
 
     /**
+     * Set dateDebut
+     *
+     * @param \DateTime $dateDebut
+     *
+     * @return Session
+     */
+    public function setDateDebut($dateDebut)
+    {
+        $this->dateDebut = $dateDebut;
+
+        return $this;
+    }
+
+    /**
+     * Get dateDebut
+     *
+     * @return \DateTime
+     */
+    public function getDateDebut()
+    {
+        return $this->dateDebut;
+    }
+
+    /**
+     * Set dateFin
+     *
+     * @param \DateTime $dateFin
+     *
+     * @return Session
+     */
+    public function setDateFin($dateFin)
+    {
+        $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    /**
+     * Get dateFin
+     *
+     * @return \DateTime
+     */
+    public function getDateFin()
+    {
+        return $this->dateFin;
+    }
+
+    /**
      * Set groupe
      *
-     * @param string $groupe
+     * @param integer $groupe
      *
      * @return Session
      */
@@ -193,7 +250,7 @@ class Session
     /**
      * Get groupe
      *
-     * @return string
+     * @return integer
      */
     public function getGroupe()
     {
@@ -217,7 +274,7 @@ class Session
     /**
      * Get duree
      *
-     * @return int
+     * @return integer
      */
     public function getDuree()
     {
@@ -297,200 +354,6 @@ class Session
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->intervenants = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->formation = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->detail_formation = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add Intervenant
-     *
-     * @param Intervenant $intervenant
-     */
-    public function addIntervenant(Intervenant $intervenant)
-    {
-        // Si l'objet fait déjà partie de la collection on ne l'ajoute pas
-        if (!$this->intervenants->contains($intervenant)) {
-            $this->intervenants->add($intervenant);
-        }
-    }
-
-    public function setIntervenants($items)
-    {
-        if ($items instanceof ArrayCollection || is_array($items)) {
-            foreach ($items as $item) {
-                $this->addIntervenant($item);
-            }
-        } elseif ($items instanceof Intervenant) {
-            $this->addIntervenant($items);
-        } else {
-            throw new Exception("$items must be an instance of Intervenant or ArrayCollection");
-        }
-    }
-
-    /**
-     * Get ArrayCollection
-     *
-     * @return ArrayCollection $intervenants
-     */
-    public function getIntervenants()
-    {
-        return $this->intervenants;
-    }
-
-
-
-
-
-    /**
-     * Add detailEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $detailEmargement
-     *
-     * @return Session
-     */
-    public function addDetailFormation(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
-    {
-        $this->detail_formation[] = $detailEmargement;
-
-        return $this;
-    }
-
-    /**
-     * Remove detailEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $detailEmargement
-     */
-    public function removeDetailFormation(\OCAS\OCASBundle\Entity\Formation $detailEmargement)
-    {
-        $this->detail_formation->removeElement($detailEmargement);
-    }
-
-    /**
-     * Get detailEmargement
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDetailFormation()
-    {
-        return $this->detail_formation;
-    }
-
-    /**
-     * Set intervenant
-     *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
-     *
-     * @return Session
-     */
-    public function setIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant = null)
-    {
-        $this->intervenant = $intervenant;
-
-        return $this;
-    }
-
-    /**
-     * Set formation
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $formation
-     *
-     * @return Session
-     */
-    public function setFormation(\OCAS\OCASBundle\Entity\Formation $formation = null)
-    {
-        $this->formation = $formation;
-
-        return $this;
-    }
-
-    /**
-     * Set retour
-     *
-     * @param boolean $retour
-     *
-     * @return Session
-     */
-    public function setRetour($retour)
-    {
-        $this->retour = $retour;
-
-        return $this;
-    }
-
-    /**
-     * Get retour
-     *
-     * @return boolean
-     */
-    public function getRetour()
-    {
-        return $this->retour;
-    }
-
-    /**
-     * Remove intervenant
-     *
-     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
-     */
-    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
-    {
-        $this->intervenants->removeElement($intervenant);
-    }
-
-    /**
-     * Set dateDebut
-     *
-     * @param \DateTime $dateDebut
-     *
-     * @return Session
-     */
-    public function setDateDebut($dateDebut)
-    {
-        $this->dateDebut = $dateDebut;
-
-        return $this;
-    }
-
-    /**
-     * Get dateDebut
-     *
-     * @return \DateTime
-     */
-    public function getDateDebut()
-    {
-        return $this->dateDebut;
-    }
-
-    /**
-     * Set dateFin
-     *
-     * @param \DateTime $dateFin
-     *
-     * @return Session
-     */
-    public function setDateFin($dateFin)
-    {
-        $this->dateFin = $dateFin;
-
-        return $this;
-    }
-
-    /**
-     * Get dateFin
-     *
-     * @return \DateTime
-     */
-    public function getDateFin()
-    {
-        return $this->dateFin;
-    }
-
-    /**
      * Set edite
      *
      * @param boolean $edite
@@ -512,6 +375,40 @@ class Session
     public function getEdite()
     {
         return $this->edite;
+    }
+
+    /**
+     * Add intervenant
+     *
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     *
+     * @return Session
+     */
+    public function addIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    {
+        $this->intervenants[] = $intervenant;
+
+        return $this;
+    }
+
+    /**
+     * Remove intervenant
+     *
+     * @param \OCAS\OCASBundle\Entity\Intervenant $intervenant
+     */
+    public function removeIntervenant(\OCAS\OCASBundle\Entity\Intervenant $intervenant)
+    {
+        $this->intervenants->removeElement($intervenant);
+    }
+
+    /**
+     * Get intervenants
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getIntervenants()
+    {
+        return $this->intervenants;
     }
 
     /**
