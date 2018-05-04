@@ -25,7 +25,7 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
   }
 
   /**
-  * Compte le nombre de présents a une session
+  * Compte le nombre d'inscrits a une session
   * une personne est considérée présente si son nombre d'h de présence est >0
   **/
   public function countInscritSession($session)
@@ -37,7 +37,20 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
     return $results;
   }
 
-
+  /**
+  * Retourne les stagiaires inscrits a une session
+  * une personne est considérée présente si son nombre d'h de présence est >0
+  **/
+  public function getInscritSession($session)
+  {
+    $query = $this->_em->createQuery('SELECT s.id, s.nom, d.typeFormation, d.hPresent, d.hAbsent, d.hFacture
+      FROM OCASBundle:Detail_session d LEFT JOIN OCASBundle:Stagiaire s
+      WHERE d.session=:session AND d.stagiaire=s')
+    ->setParameter("session", $session);
+    $results = $query->getResult();
+    //TODO: verifier que ca marche
+    return $results;
+  }
 
 
 

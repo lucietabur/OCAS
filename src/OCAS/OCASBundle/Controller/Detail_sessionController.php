@@ -21,11 +21,8 @@ class Detail_sessionController extends Controller
         $em = $this->getDoctrine()->getManager();
         $session = $em->getRepository('OCASBundle:Session')->find($session_id);
         // on recherche tous les detail correspondant à la session d'émargement
-        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_formation');
-        $listeDetails = $repository->findby(
-      array("session" => $session)
-    );
-
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
+        $listeDetails = $repository->getInscritSession($session);
         $details = $this->get('knp_paginator')->paginate(
       $listeDetails,
       $page
