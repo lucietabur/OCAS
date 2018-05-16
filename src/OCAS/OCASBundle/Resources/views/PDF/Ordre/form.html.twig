@@ -1,0 +1,54 @@
+{% extends "@OCAS/layout.html.twig" %}
+{# changer l'heritage de template #}
+{% block title %}{{h1}}{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+{% block content %}
+
+<div class="col-10 offset-1">
+  {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
+  {{ form_row(form.libelle)}}
+  {{ form_row(form.lieu)}}
+  {{ form_row(form.date_formation)}}
+  {{ form_row(form.imputation)}}
+  {{ form_row(form.suivi_par)}}
+  {{ form_row(form.ref)}}
+  {{ form_row(form.date_edition)}}
+  <div >
+    <h3 class="center">Liste des stagiaires</h3>
+  {{ form_widget(form.stagiaires)}}
+</div>
+  {{ form_row(form.send) }}
+</div>
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {
+  //ajouter au parent de legend une div. ajouter legend a cette div
+
+  // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+
+  // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+  let container = $('div#stagiaires_0').parent().parent().parent();
+  let nb_elem = container.children().length;
+
+  if (nb_elem > 0) {
+      // S'il existe des stagiaires
+      for (let i = 0; i < nb_elem; i++) {
+        console.log(nb_elem)
+        // on ajoute le numero du stagiaire a chaque bloc
+        let block = $('div#stagiaires_'+i).parent().parent();
+        console.log(block);
+        block.addClass('repeated_stagiaire')
+        block.children('legend').text('Stagiaire n° '+(i+1));
+        //$('div#stagiaire_'+i).
+      }
+  }
+
+
+});
+
+</script>
+{% endblock %}

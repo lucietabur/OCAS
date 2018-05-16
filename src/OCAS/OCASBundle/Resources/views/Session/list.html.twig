@@ -39,6 +39,7 @@
   <td>{{ listePresent[loop.index0][1] }}/{{listeInscrit[loop.index0][1]}}</td>
   <td><a role="button" href="{{ path('session_edit',{'id': session.id }) }}" class="btn btn-warning">Modifier</a></td>
   <td><a role="submit" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-danger">Supprimer</a></td>
+  <td><a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-primary">Génerer</a></td>
 </tr>
 {% endfor %}
 

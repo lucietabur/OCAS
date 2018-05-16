@@ -8,7 +8,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use OCAS\OCASBundle\Form\SessionType;
 use OCAS\OCASBundle\Form\SearchType;
+use OCAS\OCASBundle\Form\MissionType;
+use OCAS\OCASBundle\Form\StagiaireMissionType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+// Include the BinaryFileResponse and the ResponseHeaderBag
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+
+// Include the requires classes of Phpword
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\TemplateProcessor;
+use PhpOffice\PhpWord\IOFactory;
+
 
 class SessionController extends Controller
 {
@@ -202,22 +213,90 @@ class SessionController extends Controller
     }
 
     /**
+     * @Route("/session/{id}/generate/choice",name="session_generate",defaults={"id"="1"},requirements={"id"="\d*"})
+     */
+    public function generateChoice($id,Request $request)
+    {
+      return $this->render('@OCAS/PDF/choice.html.twig', array(
+        'h1' => "OCAS : Génerer les documents"
+       ));
+    }
+
+    /**
      * @Route("/session/{id}/generate/mission",name="session_mission",defaults={"id"="1"},requirements={"id"="\d*"})
      */
-    public function generateMission($id,Request $request)
+     public function generateMission($id,Request $request)
+     {
+       $em = $this->getDoctrine()->getManager();
+       $session = $em->getRepository('OCASBundle:Session')->find($id);
+       $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($session);
+       //rechercher la formation
+       $libelle = $em->getRepository('OCASBundle:Session')->findLibelleBySession($id);
+       //tableau regroupant le stagiaire, son agence et son siege
+       $infos_stagiaires= array();
+       foreach ($stagiaires as $stagiaire) {
+         $agence=$stagiaire->getAgence();
+         $siege=$agence->getSiege();
+         $infos_stagiaires[$stagiaire->getId()]=array($stagiaire,
+                                                    $agence,
+                                                     $siege);
+       }
+       $defaultData = array(
+         'date_edition' => new \DateTime('today'), //TODO: use service to translate format
+         'date_formation' => $session->getDateSeance(),
+         'libelle' =>$libelle[0]['libelle'],
+         'lieu' => $agence->getRsociale(),
+         'stagiaires' => $stagiaires
+       );
+
+       //creation du formulaire
+       $form = $this->createForm(MissionType::class, $defaultData);
+       $form->handleRequest($request);
+       // soumission du formulaire
+       if ($form->isSubmitted() && $form->isValid()) {
+          $data = $form->getData();
+          var_dump($data);
+           // generer le fichier
+           $tbs = $this->container->get('opentbs');
+           $tbs->LoadTemplate('/var/www/html/project/fichiers generes/om_ocas genere.docx');
+           $tbs->MergeField('stagiaire');
+           $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
+           //if success
+             //update session to put "edite" to 1
+             $session = $this->getDoctrine()->getManager()->find($id);
+             // $session->setEdite(1);
+       }
+
+       return $this->render('@OCAS/PDF/Ordre/form.html.twig', array(
+         'stagiaire' =>  $stagiaire,
+         'h1' => "OCAS : Génerer l'odre de mission pour :".$libelle[0]['libelle'],
+         'form' => $form->createView(),
+        ));
+     }
+
+    /**
+     * @Route("/session/{id}/generate/feuille",name="session_feuille",defaults={"id"="1"},requirements={"id"="\d*"})
+     */
+    public function generateFeuille($id,Request $request)
     {
+      $em = $this->getDoctrine()->getManager();
+      // find Session
+      $session = $em->getRepository('OCASBundle:Session')->find($id);
+      // find stagiaires inscrits
+      $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($id);
+      //requete
       $defaultData = array();
       $form = $this->createFormBuilder($defaultData)
+        //préremplir les champs
+        // formation : libelle, lieu,date
+
         ->add('send', SubmitType::class)
         ->getForm();
       $form->handleRequest($request);
-      $em = $this->getDoctrine()->getManager();
-      $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
-      //rechercher la formation
 
 
       return $this->render('@OCAS/PDF/ordre_de_mission.html.twig', array(
-        'stagiaire' =>  $stagiaire,
+        'stagiaires' =>  $stagiaires,
         'h1' => "OCAS : Génerer l'odre de mission"
        ));
     }

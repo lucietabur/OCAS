@@ -35,6 +35,35 @@ class SessionRepository extends \Doctrine\ORM\EntityRepository
       return $results;
     }
 
+    /**
+    * Retourne les stagiaires inscrits à la session
+    */
+    public function findInscrits($session)
+    {
+      $query = $this->getEntityManager()
+                    ->createQuery(
+                        '
+          SELECT s FROM OCASBundle:Detail_session p, OCASBundle:Stagiaire s
+          WHERE p.session = :session
+          AND s = p.stagiaire'
+                    );
+      $query->setParameter('session', $session);
+      return $query->getResult();
+      //find stagiaire id where Detail_session.session_id = id
+    }
+
+    /**
+    * Retourne le libelle de formation a partir de l'id de session
+    */
+    public function findLibelleBySession($id)
+    {
+      $query = $this->_em->createQuery("SELECT l.libelle FROM OCASBundle:Session s JOIN OCASBundle:Libelle_Formation l
+        WHERE s.id=:id
+        AND s.libelle_formation = l")
+      ->setParameter("id", $id);
+      $results = $query->getResult();
+      return $results;
+    }
 
 
 }

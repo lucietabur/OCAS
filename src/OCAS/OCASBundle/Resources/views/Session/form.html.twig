@@ -13,6 +13,7 @@
   {% if id is defined %}
     <a role="button" href="{{ path('detail_list',{'session_id': session.id })}}" class="btn btn-success">Liste des stagiaires</a>
     <a role="button" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-danger">Supprimer</a>
+    <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-primary">Génerer</a>
   {% endif %}
   </div>
 {% endblock %}

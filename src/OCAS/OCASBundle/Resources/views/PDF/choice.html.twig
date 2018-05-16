@@ -1,0 +1,11 @@
+{% extends "@OCAS/layout.html.twig" %}
+{# changer l'heritage de template #}
+{% block title %}{{h1}}{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+{% block content %}
+
+<div class="col-8 offset-2">
+  <a role="button" href="{{ path('session_mission')}}" class="btn btn-primary">Génerer les odres de mission</a>
+  <a role="button" href="{{ path('session_feuille')}}" class="btn btn-primary">Génerer les feuilles d'émargements</a>
+  </div>
+{% endblock %}
