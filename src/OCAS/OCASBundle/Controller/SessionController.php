@@ -246,7 +246,7 @@ class SessionController extends Controller
          'date_formation' => $session->getDateSeance(),
          'libelle' =>$libelle[0]['libelle'],
          'lieu' => $agence->getSiege()->getRsociale()." – ".$agence->getRsociale()." – ".$agence->getNumVoie()." – ".
-         $agence->getCodeDepartement()." – ".$agence->getVille(),
+         $agence->getCodeDepartement()." – ".$agence->getCommune(),
          'stagiaires' => $stagiaires
        );
 

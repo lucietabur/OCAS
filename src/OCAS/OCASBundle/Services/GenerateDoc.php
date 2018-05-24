@@ -42,11 +42,11 @@ class GenerateDoc
             "ville" => $entity->getAgence()->getCommune(),
           ),
           "siege" => array( //TODO: null -> $entity->getAgence()->getSiege()
-            "correspondant" => $entity->getAgence()->getCorrespondant(),
-            "rsociale" => $entity->getAgence()->getRsociale(),
-            "num_voie" => $entity->getAgence()->getNumVoie(),
-            "code" => $entity->getAgence()->getCodeDepartement(),
-            "ville" => $entity->getAgence()->getCommune(),
+            "correspondant" => $entity->getAgence()->getSiege()->getCorrespondant(),
+            "rsociale" => $entity->getAgence()->getSiege()->getRsociale(),
+            "num_voie" => $entity->getAgence()->getSiege()->getNumVoie(),
+            "code" => $entity->getAgence()->getSiege()->getCodeDepartement(),
+            "ville" => $entity->getAgence()->getSiege()->getCommune(),
           )
         ));
         $i++;
