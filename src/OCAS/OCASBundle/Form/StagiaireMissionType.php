@@ -57,8 +57,8 @@ class StagiaireMissionType extends AbstractType
           ))
           ->add('remboursement', ChoiceType::class, array(
             'choices' => array(
-              'SANS REMBOURSEMENT' => 0,
-              'selon tarif SNCF 2ème classe' => 1
+              'SANS REMBOURSEMENT' => 'SANS REMBOURSEMENT',
+              'selon tarif SNCF 2ème classe' => 'selon tarif SNCF 2ème classe'
             ),
             'mapped' => false
           ))

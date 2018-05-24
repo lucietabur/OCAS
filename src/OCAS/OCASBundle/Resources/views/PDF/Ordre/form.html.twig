@@ -6,6 +6,7 @@
 
 <div class="col-10 offset-1">
   {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
+  {{ form_start(form)}}
   {{ form_row(form.libelle)}}
   {{ form_row(form.lieu)}}
   {{ form_row(form.date_formation)}}
@@ -16,8 +17,9 @@
   <div >
     <h3 class="center">Liste des stagiaires</h3>
   {{ form_widget(form.stagiaires)}}
+  {{form_rest(form)}}
 </div>
-  {{ form_row(form.send) }}
+  {{ form_row(form.enregistrer) }}
 </div>
 
 

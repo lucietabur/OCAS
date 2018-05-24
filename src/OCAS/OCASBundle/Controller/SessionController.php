@@ -20,7 +20,7 @@ use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\TemplateProcessor;
 use PhpOffice\PhpWord\IOFactory;
 
-
+use \Doctrine\Common\Util\Debug;
 class SessionController extends Controller
 {
     /**
@@ -242,28 +242,31 @@ class SessionController extends Controller
                                                      $siege);
        }
        $defaultData = array(
-         'date_edition' => new \DateTime('today'), //TODO: use service to translate format
+         'date_edition' => new \DateTime('01-01-2018'), //TODO: use service to translate format
          'date_formation' => $session->getDateSeance(),
          'libelle' =>$libelle[0]['libelle'],
-         'lieu' => $agence->getRsociale(),
+         'lieu' => $agence->getSiege()->getRsociale()." – ".$agence->getRsociale()." – ".$agence->getNumVoie()." – ".
+         $agence->getCodeDepartement()." – ".$agence->getVille(),
          'stagiaires' => $stagiaires
        );
 
        //creation du formulaire
-       $form = $this->createForm(MissionType::class, $defaultData);
-       $form->handleRequest($request);
+       $form = $this->createForm(MissionType::class, $defaultData, array(
+         'method' => 'POST',
+
+       ));
        // soumission du formulaire
-       if ($form->isSubmitted() && $form->isValid()) {
-          $data = $form->getData();
-          var_dump($data);
-           // generer le fichier
-           $tbs = $this->container->get('opentbs');
-           $tbs->LoadTemplate('/var/www/html/project/fichiers generes/om_ocas genere.docx');
-           $tbs->MergeField('stagiaire');
-           $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
+
+      if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+           $data = $form->getData();
+           $stagiaires = $form->get('stagiaires')->getData();
+          //generer le fichier
+          $tbs = $this->container->get('opentbs');
+          $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateMissionDoc($form,$tbs,$stagiaires);
+          //  }
            //if success
              //update session to put "edite" to 1
-             $session = $this->getDoctrine()->getManager()->find($id);
+             //$session = $this->getDoctrine()->getManager()->find($id);
              // $session->setEdite(1);
        }
 
