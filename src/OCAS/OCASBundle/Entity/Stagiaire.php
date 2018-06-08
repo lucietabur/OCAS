@@ -327,7 +327,7 @@ class Stagiaire
     }
 
     /**
-     * Add detailFormation
+     * Add detailSession
      *
      * @param \OCAS\OCASBundle\Entity\Detail_session $detailSession
      *
@@ -351,11 +351,11 @@ class Stagiaire
     }
 
     /**
-     * Get detailFormation
+     * Get detailSession
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDetailFormation()
+    public function getDetailSession()
     {
         return $this->detail_session;
     }

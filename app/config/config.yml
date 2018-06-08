@@ -35,11 +35,13 @@ framework:
 # Twig Configuration
 twig:
     # form_themes:
-    #   - 'bootstrap_4_horizontal_layout.html.twig'
+    #     resources: 'DependentSelectBundle::fields.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     globals:
-      menu : '@OCAS\OCASBundle\Services\Menu'
+        menu : '@OCAS\OCASBundle\Services\Menu'
+
+
 
 # Doctrine Configuration
 doctrine:
@@ -84,4 +86,16 @@ knp_paginator:
     template:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
-        # sortable: '@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig' //TODO
+        # sortable: '@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig' #//TODO
+
+dependent_select:
+    # template:
+    #   fields : '@DependentSelectBundle/Resources/views/fields/html.twig'
+    session_by_libelle:
+        class: OCASBundle:Session
+        parent_property: libelle_formation
+        property: libelle
+        role: ROLE_USER
+        no_result_msg: 'pas de session pour cette formation'
+        order_property: libelle
+        order_direction: ASC

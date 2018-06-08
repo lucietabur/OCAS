@@ -96,9 +96,16 @@ class Session
     /**
     * @var boolean
     *
-    * @ORM\Column(name="edite", type="boolean", options={"default":false})
+    * @ORM\Column(name="feuille_edite", type="boolean", options={"default":false})
     */
-    private $edite = false;
+    private $feuille_edite = false;
+
+    /**
+    * @var boolean
+    *
+    * @ORM\Column(name="mission_edite", type="boolean", options={"default":false})
+    */
+    private $mission_edite = false;
 
     /**
 
@@ -433,5 +440,53 @@ class Session
     public function getLibelleFormation()
     {
         return $this->libelle_formation;
+    }
+
+    /**
+     * Set feuilleEdite
+     *
+     * @param boolean $feuilleEdite
+     *
+     * @return Session
+     */
+    public function setFeuilleEdite($feuilleEdite)
+    {
+        $this->feuille_edite = $feuilleEdite;
+
+        return $this;
+    }
+
+    /**
+     * Get feuilleEdite
+     *
+     * @return boolean
+     */
+    public function getFeuilleEdite()
+    {
+        return $this->feuille_edite;
+    }
+
+    /**
+     * Set missionEdite
+     *
+     * @param boolean $missionEdite
+     *
+     * @return Session
+     */
+    public function setMissionEdite($missionEdite)
+    {
+        $this->mission_edite = $missionEdite;
+
+        return $this;
+    }
+
+    /**
+     * Get missionEdite
+     *
+     * @return boolean
+     */
+    public function getMissionEdite()
+    {
+        return $this->mission_edite;
     }
 }
