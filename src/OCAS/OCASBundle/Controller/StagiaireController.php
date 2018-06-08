@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -52,6 +54,8 @@ class StagiaireController extends Controller
         $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // dump($form);
+            // exit;
             $em = $this->getDoctrine()->getManager();
             $em->persist($stagiaire);
             $em->flush();
@@ -126,7 +130,7 @@ class StagiaireController extends Controller
     }
 
     /**
-     * @Route("/stagiaire/search",name="stagiaire_search")
+     * @Route("/stagiaire/search/",name="stagiaire_search")
      */
     public function searchAction(Request $request)
     {
@@ -143,5 +147,53 @@ class StagiaireController extends Controller
           'h1' => 'OCAS : Résultat de la recherche',
          ));
     }
+    /**
+     * @Route("/stagiaire/{libelle}/search", name="search_session")
+     */
+    public function searchSessionAction(Request $request,$libelle)
+    {
+      if($request->isXmlHttpRequest())
+      {
+          if(!empty($libelle))
+          {
+              $repository = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Session');
+              $sessions = $repository->findByLibelle($libelle);
+
+              if (!empty($sessions)){
+                // dump($sessions);
+                // exit;
+                $data = array();
+                foreach ($sessions as $session) {
+                  $array = array();
+                  $array['id'] = $session->getId();
+                  $array['num'] = $session->getNumEmargement();
+                  $array['date_seance'] = $session->getDateSeance();
+                  $array['date_debut'] = $session->getDateDebut();
+                  $array['date_fin'] = $session->getDateFin();
+                  $array['groupe'] = $session->getGroupe();
+                  $array['lieu'] = $session->getLieu();
+                  $array['observation'] = $session->getObservation();
+                  $array['intervenants'] = $session->getIntervenants();
+                  $array['libelle_formation'] = $session->getLibelleFormation()->getLibelle();
+                  $data[]= $array;
+                }
+                $response = new JsonResponse($data);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+              }
+              else{
+                throw $this->createNotFoundException('No session found with this name');
+                $response = new JsonResponse();
+                $response->setContent('Pas de session correspondante');
+                $response->setStatusCode(404);
+                return $response;
+              }
+          }
+          else{
+            throw $this->createNotFoundException('Unable to find session');
+          }
+
+      }
+  }
 
 }

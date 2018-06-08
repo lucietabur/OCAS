@@ -11,6 +11,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use OCAS\OCASBundle\Entity\Statut;
@@ -22,6 +24,9 @@ class StagiaireType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+      // $builder->addEventSubscriber(new AddSessionFieldSubscriber($propertyPath));
+
+
         $builder
           ->add('nom', TextType::class)
           ->add(
@@ -75,11 +80,14 @@ class StagiaireType extends AbstractType
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
+            'mapped' => true,
           ))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+
+
     }
 
-    /**210
+    /**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)

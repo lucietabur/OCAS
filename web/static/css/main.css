@@ -11,7 +11,9 @@ code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break
 #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
 #container { padding: 2em; }
 
-
+.error{
+  color:red;
+}
 /* on homepage */
 .index{
     margin:10px;
@@ -25,7 +27,7 @@ code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break
 }
 
 
-#ocasbundle_stagiaire_detail_formation > div{
+#ocasbundle_stagiaire_detail_session > div{
   border: 1px solid #ced4da;
   padding: 5px;
   border-radius: 5px;
