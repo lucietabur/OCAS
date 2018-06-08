@@ -13,7 +13,7 @@
       <th scope="row">Nom</th>
       <th>Adresse</th>
       <th></th>
-      <th><a role="button" href="{{ path('intervenant_add') }}" class="btn btn-success">Ajouter</a></th>
+      <th><a role="button" href="{{ path('intervenant_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
   </thead>
   <tbody>
@@ -23,8 +23,8 @@
   <tr>
     <th scope="row"><a href="{{ path('intervenant_edit',{'id': intervenant.id }) }}">{{ intervenant.nom }}</a></th>
     <td>{{intervenant.adresse}}</td>
-    <td><a role="button" href="{{ path('intervenant_edit',{'id': intervenant.id }) }}" class="btn btn-warning">Modifier</a></td>
-    <td><a role="submit" href="{{ path('intervenant_delete',{'id': intervenant.id })}}" class="btn btn-danger">Supprimer</a></td>
+    <td><a role="button" href="{{ path('intervenant_edit',{'id': intervenant.id }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
+    <td><a role="submit" href="{{ path('intervenant_delete',{'id': intervenant.id })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
   </tr>
   {% endfor %}
 

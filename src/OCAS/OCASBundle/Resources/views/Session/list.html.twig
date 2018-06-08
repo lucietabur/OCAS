@@ -6,40 +6,45 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="row">Formation</th>
-      <th>Groupe</th>
-      <th>Intervenant</th>
-      <th>Lieu</th>
-      <th>Date de séance</th>
-      <th>Horaire</th>
-      <th>Date de retour</th>
-      <th>Présents</th>
+      <th class="col-sm-7" scope="row">Formation</th>
+      <th class="col-sm-1">Groupe</th>
+      <th class="col-sm-2">Intervenant</th>
+      <th class="col-sm-4">Lieu</th>
+      <th class="col-sm-1">Date de séance</th>
+      <th class="col-sm-1">Horaire</th>
+      <th class="col-sm-1">Date de retour</th>
+      <th class="col-sm-1">Présents</th>
       <th></th>
-      <th><a role="button" href="{{ path('session_add') }}" class="btn btn-success">Ajouter</a></th>
+      <th></th>
+      <th class="col-sm-1"><a role="button" href="{{ path('session_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
   </thead>
   <tbody>
 
 {% for session in sessions %}
 <tr>
-    <th scope="row">libelle</th>
-    {#}<th scope="row"><a href="{{ path('session_edit',{'id': session.id }) }}">{{ session.libelleFormation.libelle }}</a></td>#}
-
-
-  <td>{{ session.groupe }}</td>
-  <td>
+    <th class="col-sm-7" scope="row"><a href="{{ path('session_edit',{'id': session.id }) }}">{{ session.libelleFormation.libelle }}</a></td>
+  <td class="col-sm-1">{{ session.groupe }}</td>
+  <td class="col-sm-2">
     {% for intervenant in session.intervenants %}
       {{ intervenant.nom}}
     {% endfor %}
   </td>
-  <td>{{ session.lieu|default("lieu") }}</td>
-  <td>{{ session.dateSeance|date("d/m/Y")}}</td>
-  <td>{{ session.dateSeance|date("H:i") }}</td>
-  <td>{{ session.dateRetour|date("d/m/Y") }}</td>
-  <td>{{ listePresent[loop.index0][1] }}/{{listeInscrit[loop.index0][1]}}</td>
-  <td><a role="button" href="{{ path('session_edit',{'id': session.id }) }}" class="btn btn-warning">Modifier</a></td>
-  <td><a role="submit" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-danger">Supprimer</a></td>
-  <td><a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-primary">Génerer</a></td>
+  <td class="col-sm-4">{{ session.lieu|default("lieu") }}</td>
+  <td class="col-sm-1">{{ session.dateSeance|date("d/m/Y")}}</td>
+  <td class="col-sm-1">{{ session.dateSeance|date("H:i") }}</td>
+  <td class="col-sm-1">{{ session.dateRetour|date("d/m/Y") }}</td>
+  <td class="col-sm-1">{{ listePresent[loop.index0][1] }}/{{listeInscrit[loop.index0][1]}}</td>
+
+  <td class="col-sm-1"><a role="button" href="{{ path('session_edit',{'id': session.id }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
+  <td class="col-sm-1"><a role="submit" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
+  <td class="col-sm-1">
+  {% if session.missionEdite and session.feuilleEdite %}
+    <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-sm btn-secondary">Génerer</a>
+  {% else %}
+    <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-sm  btn-success">Génerer</a>
+  {% endif %}
+  </td>
 </tr>
 {% endfor %}
 

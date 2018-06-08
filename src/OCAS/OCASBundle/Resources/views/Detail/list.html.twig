@@ -12,7 +12,6 @@
       <th>heure absent</th>
       <th>heure facturée</th>
       <th></th>
-      <th><a role="button" href="{{ path('detail_add',{'session_id': id_session }) }}" class="btn btn-success">Ajouter</a></th>
     </tr>
   </thead>
   <tbody>
@@ -23,8 +22,8 @@
   <td>{{ detail.hPresent }}</td>
   <td>{{ detail.hAbsent }}</td>
   <td>{{ detail.hFacture }}</td>
-  <td><a role="button" href="{{ path('detail_edit',{'id' : detail.id,'session_id' : id_session }) }}" class="btn btn-warning">Modifier</a></td>
-  <td><a role="submit" href="{{ path('detail_delete',{'id': detail.id ,'session_id' : id_session })}}" class="btn btn-danger">Supprimer</a></td>
+  <td><a role="button" href="{{ path('detail_edit',{'id' : detail.id,'session_id' : id_session }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
+  <td><a role="submit" href="{{ path('detail_delete',{'id': detail.id ,'session_id' : id_session })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
 </tr>
 {% endfor %}
 
