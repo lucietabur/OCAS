@@ -7,16 +7,15 @@ $(document).ready(function() {
   $('#wrapper').prepend($('<a href="#" id="add_formation" class="btn btn-primary">Ajouter une formation</a>'));
   $('#wrapper').prepend($('#detail'));
 
-
   // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
   let $container = $('div#ocasbundle_stagiaire_detail_session');
 
   // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
-  nb_elem = $container.children().length;
+  let nb_elem = $container.children().length;
 
   // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
   $('#add_formation').click(function(e) {
-    addFormation($container);
+    addFormation($container, nb_elem);
     e.preventDefault(); // évite qu'un # apparaisse dans l'URL
     return false;
   });
@@ -37,7 +36,7 @@ $(document).ready(function() {
 });
 
   // La fonction qui ajoute un formulaire DetailType
-  function addFormation($container) {
+  function addFormation($container,nb_elem) {
 
     // Dans le contenu de l'attribut « data-prototype », on remplace :
     // - le texte "__name__label__" qu'il contient par le label du champ
@@ -83,7 +82,6 @@ $(document).ready(function() {
       let libelle = liste_response[i]['libelle_formation'];
       let date = formatDate(liste_response[i]['date_seance'].date);
       let groupe = '';
-      console.log(liste_response[i]['groupe']);
       if (liste_response[i]['groupe'] !== null) {
         groupe = ' - groupe '+liste_response[i]['groupe'];
       } else {

@@ -19,15 +19,16 @@
   {{ form_widget(form.stagiaires)}}
   {{form_rest(form)}}
 </div>
+
   {{ form_row(form.enregistrer) }}
 </div>
 
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
 <script type="text/javascript">
 
 $(document).ready(function() {
+  $('button#enregistrer').parent().prepend('<a role="button" href="{{ path('session_generate')}}" class="btn btn-primary">Retour à la génération</a>');
   //ajouter au parent de legend une div. ajouter legend a cette div
 
   // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
@@ -53,4 +54,5 @@ $(document).ready(function() {
 });
 
 </script>
+
 {% endblock %}
