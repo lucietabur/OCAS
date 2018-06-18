@@ -35,7 +35,9 @@ class MissionType extends AbstractType
             'by_reference' => false,
 
           ))
-          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer', SubmitType::class, array(
+            'label' => 'Génerer',
+            'attr' => array('class' => 'btn btn-success') ));
     }
 
     /**

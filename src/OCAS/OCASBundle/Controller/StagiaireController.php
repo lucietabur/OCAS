@@ -46,6 +46,23 @@ class StagiaireController extends Controller
     }
 
     /**
+     * @Route("/stagiaire/{id}/formations/",name="stagiaire_formation",defaults={"id"="1"},requirements={"id"="\d*"})
+     */
+    public function listFormationAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
+        $repository = $this->getDoctrine()->getRepository('OCASBundle:Session');
+        $sessions = $repository->findSessionByStagiaire($stagiaire);
+
+        return $this->render('@OCAS/Stagiaire/list_formation.html.twig', array(
+          'stagiaire' => $stagiaire,
+          'sessions' => $sessions,
+          'h1' => 'OCAS : Liste des formations effectuées par : ',
+      ));
+    }
+
+    /**
      * @Route("stagiaire/add", name="stagiaire_add")
      */
     public function addAction(Request $request)
@@ -54,8 +71,6 @@ class StagiaireController extends Controller
         $form = $this->createForm(StagiaireType::class, $stagiaire);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // dump($form);
-            // exit;
             $em = $this->getDoctrine()->getManager();
             $em->persist($stagiaire);
             $em->flush();

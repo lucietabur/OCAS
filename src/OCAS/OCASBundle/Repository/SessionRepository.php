@@ -29,10 +29,17 @@ class SessionRepository extends \Doctrine\ORM\EntityRepository
     */
     public function findByLibelle($libelle)
     {
-      $query = $this->_em->createQuery("SELECT s FROM OCASBundle:Session s  WHERE s.libelle_formation=:libelle ")
-      ->setParameter("libelle", $libelle);
-      $results = $query->getResult();
-      return $results;
+      // $date = new \DateTime("today");
+      // AND s.dateDebut >= :date
+      $query = $this->getEntityManager()->createQuery(
+        '
+        SELECT s FROM OCASBundle:Session s JOIN OCASBundle:Libelle_Formation l
+        WHERE l.libelle = :libelle
+
+        AND s.libelle_formation = l')
+        // ->setParameter("date", $date)
+        ->setParameter("libelle", $libelle);
+      return $query->getResult();
     }
 
     /**
@@ -57,13 +64,32 @@ class SessionRepository extends \Doctrine\ORM\EntityRepository
     */
     public function findLibelleBySession($id)
     {
-      $query = $this->_em->createQuery("SELECT l.libelle FROM OCASBundle:Session s JOIN OCASBundle:Libelle_Formation l
+      $query = $this->_em->createQuery(
+        '
+        SELECT l.libelle FROM OCASBundle:Session s JOIN OCASBundle:Libelle_Formation l
         WHERE s.id=:id
-        AND s.libelle_formation = l")
-      ->setParameter("id", $id);
+        AND s.libelle_formation = l')
+        ->setParameter("id", $id);
       $results = $query->getResult();
       return $results;
     }
+
+    /**
+    * Retourne les formations auxquelles a participé un stagiaire
+    */
+    public function findSessionByStagiaire($stagiaire)
+    {
+      $query = $this->_em->createQuery(
+        '
+        SELECT s
+        FROM OCASBundle:Session s, OCASBundle:Detail_session d
+          WHERE d.stagiaire=:stagiaire
+          AND d.session = s')
+        ->setParameter("stagiaire", $stagiaire);
+      $results = $query->getResult();
+      return $results;
+    }
+
 
 
 }

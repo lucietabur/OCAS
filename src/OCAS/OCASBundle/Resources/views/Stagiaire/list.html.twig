@@ -11,14 +11,15 @@
   <thead>
     <tr>
       <th class="col-sm-1">{{knp_pagination_sortable(stagiaires,"No d'inscription",'id')}}</th>
-      <th  class="col-sm-1" scope="row">Titre</th>
+      <!-- <th  class="col-sm-1" scope="row">Titre</th> -->
       <th class="col-sm-2">{{knp_pagination_sortable(stagiaires,'nom','nom')}}</th>
       <th class="col-sm-1">Fonction</th>
       <th class="col-sm-2">Ville</th>
       <th class="col-sm-1">Date de naissance</th>
       <th class="col-sm-1">Nationalite</th>
       <th>Quotite</th>
-      <th class="col-sm-3">Résidence administrative</th>
+      <th class="col-sm-3">Résidence</th>
+      <th class="col-sm-3">Siège</th>
       <th></th>
       <th><a role="button" href="{{ path('stagiaire_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
@@ -27,7 +28,7 @@
   {% for stagiaire in stagiaires %}
     <tr>
       <th>{{stagiaire.id}}</th>
-      <th>{{ stagiaire.titre }}</th>
+      <!-- <th>{{ stagiaire.titre }}</th> -->
       <td><a href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}">{{ stagiaire.nom }}</a></td>
       <td>
           {% for fonction in stagiaire.fonction %}
@@ -44,6 +45,12 @@
           {{ stagiaire.agence.rsociale }}
         {% endif %}
       </td>
+      <td>
+        {% if stagiaire.agence.siege != null %}
+          {{ stagiaire.agence.siege.rsociale }}
+        {% endif %}
+      </td>
+      <td><a role="button" href="{{ path('stagiaire_formation',{'id': stagiaire.id }) }}" class="btn btn-sm btn-primary">Liste des formations</a></td>
       <td><a role="button" href="{{ path('stagiaire_edit',{'id': stagiaire.id }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
       <td><a role="submit" href="{{ path('stagiaire_delete',{'id': stagiaire.id })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
     </tr>
