@@ -33,7 +33,6 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
     $query = $this->_em->createQuery('SELECT COUNT(d) FROM OCASBundle:Detail_session d  WHERE d.session=:session')
     ->setParameter("session", $session);
     $results = $query->getResult();
-    //TODO: verifier que ca marche
     return $results;
   }
 
@@ -43,12 +42,13 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
   **/
   public function getInscritSession($session)
   {
-    $query = $this->_em->createQuery('SELECT s.id, s.nom, d.typeFormation, d.hPresent, d.hAbsent, d.hFacture
-      FROM OCASBundle:Detail_session d LEFT JOIN OCASBundle:Stagiaire s
-      WHERE d.session=:session AND d.stagiaire=s')
+    $query = $this->_em->createQuery('
+      SELECT s.id, s.nom, d.typeFormation, d.hPresent, d.hAbsent, d.hFacture
+      FROM OCASBundle:Detail_session d, OCASBundle:Stagiaire s
+      WHERE d.session=:session
+      AND d.stagiaire=s')
     ->setParameter("session", $session);
     $results = $query->getResult();
-    //TODO: verifier que ca marche
     return $results;
   }
 
@@ -64,11 +64,9 @@ public function retourSession()
 {
   $datejour = new \DateTime();
   $datejour->setTime(00,00);
-  var_dump($datejour);
   $query = $this->_em->createQuery("SELECT s FROM OCASBundle:Session s  WHERE s.dateRetour >= :datejour ")
   ->setParameter("datejour", $datejour);
   $results = $query->getResult();
-  //TODO: verifier que ca marche
   return $results;
 }
 }

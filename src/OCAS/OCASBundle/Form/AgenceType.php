@@ -26,7 +26,7 @@ class AgenceType extends AbstractType
           ->add('codeDepartement', TextType::class, array('label' => 'Code postal'))
           ->add('telephone', TextType::class, array('required' => false))
           ->add('cedex', TextType::class, array('required' => false))
-          ->add('siege', EntityType::class, array( //TODO: a corriger
+          ->add('siege', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Siege',
             'choice_label' => 'rsociale',
             'placeholder' => '',

@@ -217,8 +217,12 @@ class SessionController extends Controller
      */
     public function generateChoice($id,Request $request)
     {
+      $em = $this->getDoctrine()->getManager();
+      $session = $em->getRepository('OCASBundle:Session')->find($id);
+
       return $this->render('@OCAS/PDF/choice.html.twig', array(
-        'h1' => "OCAS : Génerer les documents"
+        'h1' => "OCAS : Génerer les documents",
+        'session' => $session
        ));
     }
 
@@ -242,10 +246,10 @@ class SessionController extends Controller
                                                      $siege);
        }
        $defaultData = array(
-         'date_edition' => new \DateTime('01-01-2018'), //TODO: use service to translate format
+         'date_edition' => new \DateTime('01-01-2018'),
          'date_formation' => $session->getDateSeance(),
          'libelle' =>$libelle[0]['libelle'],
-         'lieu' => $agence->getSiege()->getRsociale()." – ".$agence->getRsociale()." – ".$agence->getNumVoie()." – ".
+         'lieu' => 'Rectorat – Salle'.
          $agence->getCodeDepartement()." – ".$agence->getCommune(),
          'stagiaires' => $stagiaires
        );
@@ -285,18 +289,20 @@ class SessionController extends Controller
       $em = $this->getDoctrine()->getManager();
       // find Session
       $session = $em->getRepository('OCASBundle:Session')->find($id);
+      // find libelle
+      $libelle = $em->getRepository('OCASBundle:Session')->findLibelleBySession($id);
       // find stagiaires inscrits
       $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($id);
-      //requete
-      $defaultData = array();
-      $form = $this->createFormBuilder($defaultData)
-        //préremplir les champs
-        // formation : libelle, lieu,date
-
-        ->add('send', SubmitType::class)
-        ->getForm();
-      $form->handleRequest($request);
-
+      // $defaultData = array();
+      // $form = $this->createFormBuilder($defaultData)
+      //   //préremplir les champs
+      //   // formation : libelle, lieu,date
+      //   ->add('send', SubmitType::class)
+      //   ->getForm();
+      // $form->handleRequest($request);
+      //generer le fichier
+      $tbs = $this->container->get('opentbs');
+      $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateFeuilleDoc($session,$libelle,$stagiaires,$tbs);
 
       return $this->render('@OCAS/PDF/ordre_de_mission.html.twig', array(
         'stagiaires' =>  $stagiaires,

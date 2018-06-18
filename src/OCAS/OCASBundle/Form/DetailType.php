@@ -25,7 +25,7 @@ class DetailType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        //TODO: num auto increment
+
         ->add('libelle', EntityType::class, array(
           'class' => 'OCAS\OCASBundle\Entity\Libelle_Formation',
           'choice_label' => 'libelle',

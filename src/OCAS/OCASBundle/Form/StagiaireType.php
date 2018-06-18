@@ -57,12 +57,12 @@ class StagiaireType extends AbstractType
           ))
           ->add('titre', TextType::class, array('required' => false))
           ->add('nationalite', CountryType::class, array(
-            'preferred_choices' => array('France' =>'FR'), //TODO : valeur les plus fréquentes
+            'preferred_choices' => array('France' =>'FR'),
             'required' => false,
             'data' => 1,
           ))
           ->add('quotite', IntegerType::class, array('required' => false))
-          ->add('statut', EntityType::class, array( //TODO: a corriger
+          ->add('statut', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Statut',
             'choice_label' => 'libelle',
             'placeholder' => '',
