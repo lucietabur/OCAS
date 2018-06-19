@@ -57,13 +57,6 @@ class Detail_session
     private $motif_absence;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="type_formation", type="string", length=255, nullable=true)
-     */
-    private $typeFormation;
-
-    /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Session", inversedBy="details_session")
     * @ORM\JoinColumn(name="session_id", referencedColumnName="id",nullable=false)
     */

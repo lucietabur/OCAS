@@ -45,6 +45,12 @@ class Stagiaire
 
     /**
      * @var string
+     * @ORM\Column(name="secteur", type="string", length=255, nullable=true)
+     */
+    private $secteur;
+
+    /**
+     * @var string
      * @ORM\Column(name="ville", type="string", length=255,nullable=true)
      */
     private $ville;

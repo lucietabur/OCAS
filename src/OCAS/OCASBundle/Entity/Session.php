@@ -31,17 +31,9 @@ class Session
     /**
      * @var int
      *
-     * @ORM\Column(name="num_emargement", type="integer", unique=false, nullable=true) //TODO: rendre auto increment
+     * @ORM\Column(name="num_emargement", type="integer", unique=false, nullable=true)
      */
     private $numEmargement;
-
-    /**
-     * @var \DateTime
-     * @Assert\Date()
-     * @SessionAssert\ThisYear
-     * @ORM\Column(name="date_seance", type="datetime")
-     */
-    private $dateSeance;
 
     /**
      * @var \DateTime
