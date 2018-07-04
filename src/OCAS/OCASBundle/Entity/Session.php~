@@ -54,6 +54,7 @@ class Session
     /**
      * @var \DateTime
      * @Assert\Date()
+     * @SessionAssert\DateSuperior
      * @ORM\Column(name="date_fin", type="datetime", nullable=true)
      */
     private $dateFin;
@@ -75,6 +76,7 @@ class Session
     /**
      * @var \DateTime
      * @Assert\Date()
+     * @SessionAssert\DateSuperior
      * @ORM\Column(name="date_retour", type="datetime", nullable=true)
      */
     private $dateRetour;

@@ -252,6 +252,7 @@ class Stagiaire
      */
     public function getNationalite()
     {
+      
         return $this->nationalite;
     }
 

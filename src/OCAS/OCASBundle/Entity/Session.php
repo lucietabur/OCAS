@@ -46,6 +46,7 @@ class Session
     /**
      * @var \DateTime
      * @Assert\Date()
+     * @Assert\GreaterThan(propertyPath="date_debut")
      * @ORM\Column(name="date_fin", type="datetime", nullable=true)
      */
     private $dateFin;
@@ -67,6 +68,7 @@ class Session
     /**
      * @var \DateTime
      * @Assert\Date()
+     * @Assert\GreaterThan(propertyPath="date_fin")
      * @ORM\Column(name="date_retour", type="datetime", nullable=true)
      */
     private $dateRetour;
