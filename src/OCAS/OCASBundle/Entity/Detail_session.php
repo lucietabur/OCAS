@@ -13,7 +13,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="detail_session")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\Detail_sessionRepository")
  * @UniqueEntity(
- *    fields={"stagiaire_id","session_id"},
+ *    fields={"stagiaire","session"},
  *    message="Ce·tte stagiaire a déjà été ajouté·e à cette sesssion"
  *    )
  */
@@ -38,7 +38,7 @@ class Detail_session
     /**
      * @var int
      *
-     * @ORM\Column(name="h_absent", type="integer", nullable=true)
+     * @ORM\Column(name="h_absent", type="integer", nullable=true, options={"default":0})
      */
     private $hAbsent;
 
@@ -58,13 +58,13 @@ class Detail_session
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Session", inversedBy="details_session")
-    * @ORM\JoinColumn(name="session_id", referencedColumnName="id",nullable=false)
+    * @ORM\JoinColumn(name="session_id", referencedColumnName="id",nullable=false, onDelete="CASCADE")
     */
     private $session;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Stagiaire", inversedBy="detail_session")
-    * @ORM\JoinColumn(name="stagiaire_id", referencedColumnName="id", nullable=false)
+    * @ORM\JoinColumn(name="stagiaire_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
     */
     private $stagiaire;
 
@@ -150,31 +150,7 @@ class Detail_session
         return $this->hFacture;
     }
 
-    /**
-     * Set typeFormation
-     *
-     * @param string $typeFormation
-     *
-     * @return Detail_session
-     */
-    public function setTypeFormation($typeFormation)
-    {
-      $arrayToString = new ArrayToString();
-      $this->typeFormation = $arrayToString->typeArrayOrString($typeFormation);
-      return $this;
-    }
 
-    /**
-     * Get typeFormation
-     *
-     * @return string
-     */
-    public function getTypeFormation()
-    {
-      $arrayToString = new ArrayToString();
-      $this->typeFormation = $arrayToString->typeArrayOrString($this->typeFormation);
-      return $this->typeFormation;
-    }
 
     /**
      * Set sessionEmargement
@@ -270,5 +246,29 @@ class Detail_session
     public function getSession()
     {
         return $this->session;
+    }
+
+    /**
+     * Set motifAbsence
+     *
+     * @param string $motifAbsence
+     *
+     * @return Detail_session
+     */
+    public function setMotifAbsence($motifAbsence)
+    {
+        $this->motif_absence = $motifAbsence;
+
+        return $this;
+    }
+
+    /**
+     * Get motifAbsence
+     *
+     * @return string
+     */
+    public function getMotifAbsence()
+    {
+        return $this->motif_absence;
     }
 }

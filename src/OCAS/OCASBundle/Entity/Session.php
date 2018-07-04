@@ -12,7 +12,7 @@ use OCAS\OCASBundle\Services\Validator\Constraints as SessionAssert;
  * @ORM\Table(name="session")
  * @ORM\Entity(repositoryClass="OCAS\OCASBundle\Repository\SessionRepository")
  * @UniqueEntity(
- *    fields={"libelle_formation","date_seance","groupe"},
+ *    fields={"libelle_formation","dateDebut","groupe"},
  *    errorPath="groupe",
  *    message="Ce groupe existe déjà pour cette session"
  *    )
@@ -58,9 +58,9 @@ class Session
     private $groupe;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="duree", type="integer", nullable=true)
+     * @var \DateTime
+     * @Assert\Time()
+     * @ORM\Column(name="duree", type="time", nullable=true)
      */
     private $duree;
 
@@ -105,8 +105,8 @@ class Session
      *
      * @ORM\ManyToMany(targetEntity="Intervenant", inversedBy="session")
      * @ORM\JoinTable(name="session_intervenant",
-     *  joinColumns={@ORM\JoinColumn(name="session_id", referencedColumnName="id")},
-     *  inverseJoinColumns={@ORM\JoinColumn(name="intervenant_id", referencedColumnName="id")}
+     *  joinColumns={@ORM\JoinColumn(name="session_id", referencedColumnName="id", onDelete="CASCADE")},
+     *  inverseJoinColumns={@ORM\JoinColumn(name="intervenant_id", referencedColumnName="id", onDelete="CASCADE")}
      * )
      */
     private $intervenants;
@@ -114,6 +114,7 @@ class Session
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Libelle_Formation")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     private $libelle_formation;
 
@@ -160,29 +161,6 @@ class Session
         return $this->numEmargement;
     }
 
-    /**
-     * Set dateSeance
-     *
-     * @param \DateTime $dateSeance
-     *
-     * @return Session
-     */
-    public function setDateSeance($dateSeance)
-    {
-        $this->dateSeance = $dateSeance;
-
-        return $this;
-    }
-
-    /**
-     * Get dateSeance
-     *
-     * @return \DateTime
-     */
-    public function getDateSeance()
-    {
-        return $this->dateSeance;
-    }
 
     /**
      * Set dateDebut
@@ -352,29 +330,6 @@ class Session
         return $this->observation;
     }
 
-    /**
-     * Set edite
-     *
-     * @param boolean $edite
-     *
-     * @return Session
-     */
-    public function setEdite($edite)
-    {
-        $this->edite = $edite;
-
-        return $this;
-    }
-
-    /**
-     * Get edite
-     *
-     * @return boolean
-     */
-    public function getEdite()
-    {
-        return $this->edite;
-    }
 
     /**
      * Add intervenant

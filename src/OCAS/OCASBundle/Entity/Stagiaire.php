@@ -82,11 +82,13 @@ class Stagiaire
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Statut")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     private $statut;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Agence")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     private $agence;
 
@@ -353,7 +355,7 @@ class Stagiaire
      */
     public function removeDetailSession(\OCAS\OCASBundle\Entity\Detail_session $detailSession)
     {
-        $this->detail_session->removeElement($detailFormation);
+        $this->detail_session->removeElement($detailSession);
     }
 
     /**
@@ -365,4 +367,31 @@ class Stagiaire
     {
         return $this->detail_session;
     }
+
+    /**
+     * Set secteur
+     *
+     * @param string $secteur
+     *
+     * @return Stagiaire
+     */
+    public function setSecteur($secteur)
+    {
+      $arrayToString = new ArrayToString();
+      $this->secteur = $arrayToString->typeArrayOrString($secteur);
+      return $this;
+    }
+
+    /**
+     * Get secteur
+     *
+     * @return string
+     */
+    public function getSecteur()
+    {
+      $arrayToString = new ArrayToString();
+      $this->secteur = $arrayToString->typeArrayOrString($this->secteur);
+      return $this->secteur;
+    }
+
 }

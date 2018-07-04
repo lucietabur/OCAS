@@ -82,6 +82,7 @@ class Agence
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Siege")
+    * @ORM\JoinColumn(onDelete="SET NULL")
     */
     private $siege;
 
