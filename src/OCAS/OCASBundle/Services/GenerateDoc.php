@@ -5,7 +5,9 @@ namespace OCAS\OCASBundle\Services;
 class GenerateDoc
 {
 
-
+    /**
+    * génère l'ordre de MissionType
+    */
     public function generateMissionDoc($form,$tbs,$stagiaires)
     {
       $data = $form->getData();
@@ -25,6 +27,51 @@ class GenerateDoc
        $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
     }
 
+    /**
+    * génère la feuille d'émargement
+    */
+    public function generateFeuilleDoc($session,$libelle,$stagiaires,$tbs)
+    {
+      $session = $this->sessionToArray($session,$stagiaires);
+      $data = $this->nomStagiaireToArray($stagiaires);
+       // generer le fichier
+       setlocale (LC_TIME, 'fr_FR.utf8','fra');
+      $tbs->LoadTemplate('/var/www/html/project/fichiers generes/Emargement PAFOC.docx', OPENTBS_ALREADY_UTF8);
+       $tbs->MergeField('libelle',$libelle[0]['libelle']);
+       $tbs->Assigned['expl_2'] = array('b_auto', $data);
+       $tbs->MergeBlock('expl_2', 'assigned');
+       $tbs->MergeBlock('tbs',$session);
+       $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
+    }
+
+    /**
+    * retourne un tableau de sessions formaté pour la feuille d'emargement'
+    */
+    public function sessionToArray($session,$stagiaires)
+    {
+      $res=array();
+
+      // $interval = $session->getDateDebut()->diff($session->getDateFin());
+      for ($i=1; $i <= 3; $i++) {
+        // $date_formation=date_add($session->getDateDebut(),date_interval_create_from_date_string('+'.$i.' days'));
+        array_push($res,array(
+                  "intervenants" => $session->getIntervenants()[0]->getNom(),
+                  "num_emargement" => $session->getNumEmargement(),
+                  "date_formation" => $session->getDateDebut(),
+                  "heure_debut" => $session->getDateDebut(),
+                  "date_debut" => $session->getDateDebut(),
+                  // "date_fin" =>  $session->getDateFin(),
+                  "duree" =>  $session->getDuree(),
+                  "stagiaires" => $this->nomStagiaireToArray($stagiaires),
+                  "date_edition" => new \DateTime('today'),
+                ));
+      }
+      return $res;
+    }
+
+    /**
+    * retourne un tableau de stagiaires formaté pour la feuille de mission
+    */
     public function stagiaireToArray($form,$data)
     {
       $res=array();
@@ -53,6 +100,36 @@ class GenerateDoc
       }
       return $res;
     }
+
+    /**
+    * retourne un tableau d'intervenants formaté pour la feuille d'émargement
+    */
+    public function intervenantToArray($session)
+    {
+      $res='';
+      $intervenants=$session->getIntervenants()->toArray();
+      for ($i=0; $i < sizeof($intervenants); $i++) {
+        $res+=$session->getIntervenants()[$i]->getNom();
+      }
+      dump($res);exit;
+      // foreach ($session->getIntervenants() as $entity){
+      //   $res+=', '+$entity->getNom();
+      // }
+      return $res;
+    }
+
+    /**
+    * retourne un tableau de stagiaires formaté pour la feuille d'émargement
+    */
+    public function nomStagiaireToArray($stagiaires){
+      $res = array();
+      foreach ($stagiaires as $stagiaire) {
+        $res[] = array('nom' => $stagiaire->getNom());
+      }
+      return $res;
+    }
+
+
 
     /**
     * Fonction qui convertit les valeurs des "select" du formulaires
@@ -98,10 +175,14 @@ class GenerateDoc
     return $check_case;
     }
 
+
+
+
+    //TODO : inutile ?
     /**
     * prend en argument une date au format datetime et retourne une string du type dd mmmm yyyy (exemple 01 janvier 2018)
     **/
-    public function dateToString($date) //TODO: a ameliorer
+    public function dateToString($date)
     {
       setlocale (LC_TIME, 'fr_FR.utf8','fra');
       $date = date("%d %B %Y",$date->getTimeStamp());
@@ -113,8 +194,10 @@ class GenerateDoc
     **/
     public function timeToString($date)
     {
-      setlocale (LC_TIME, 'fr_FR.utf8','fra');
-      $date = strftime("%Hh%M",$date->getTimeStamp());
-      return $date;
+      if ($date != null){
+        setlocale (LC_TIME, 'fr_FR.utf8','fra');
+        $date = strftime("%Hh%M",$date->getTimeStamp());
+        return $date;
+      }
     }
 }

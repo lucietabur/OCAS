@@ -14,6 +14,7 @@
       <!-- <th  class="col-sm-1" scope="row">Titre</th> -->
       <th class="col-sm-2">{{knp_pagination_sortable(stagiaires,'nom','nom')}}</th>
       <th class="col-sm-1">Fonction</th>
+      <th class="col-sm-1">Secteur</th>
       <th class="col-sm-2">Ville</th>
       <th class="col-sm-1">Date de naissance</th>
       <th class="col-sm-1">Nationalite</th>
@@ -33,6 +34,11 @@
       <td>
           {% for fonction in stagiaire.fonction %}
             {{ fonction }}
+          {% endfor %}
+      </td>
+      <td>
+          {% for secteur in stagiaire.secteur %}
+            {{ secteur }}
           {% endfor %}
       </td>
       <td>{{ stagiaire.ville }}</td>

@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TimeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -31,9 +32,14 @@ class SessionType extends AbstractType
             'multiple' => true,
             'placeholder' => '',
           ))
-          ->add('dateSeance', DateTimeType::class)
-          ->add('groupe', IntegerType::class, array('required' => false)) 
-          ->add('duree', IntegerType::class, array('required' => false ))
+          ->add('dateDebut', DateTimeType::class)
+          ->add('dateFin', DateTimeType::class)
+          ->add('groupe', IntegerType::class, array(
+            'required' => false))
+          ->add('duree', TimeType::class, array(
+            'required' => false,
+            'minutes' => array('0','15','30','45')
+          ))
           ->add('dateRetour', DateTimeType::class)
           ->add('observation', TextType::class, array('required' => false))
           ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));

@@ -15,7 +15,6 @@
       <th class="col-sm-1">Présents</th>
       <th></th>
       <th></th>
-      <th class="col-sm-1"><a role="button" href="{{ path('session_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
   </thead>
   <tbody>
@@ -29,20 +28,13 @@
       {{ intervenant.nom}}
     {% endfor %}
   </td>
-  <td class="col-sm-4">{{ session.lieu}}</td>
+  <td class="col-sm-4">{{ session.lieu|default("lieu") }}</td>
   <td class="col-sm-1">{{ session.dateDebut|date("H:i") }}</td>
   <td class="col-sm-1">{{ session.dateRetour|date("d/m/Y") }}</td>
   <td class="col-sm-1">{{ listePresent[loop.index0][1] }}/{{listeInscrit[loop.index0][1]}}</td>
 
-  <td class="col-sm-1"><a role="button" href="{{ path('session_edit',{'id': session.id }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
-  <td class="col-sm-1"><a role="submit" href="{{ path('session_delete',{'id': session.id })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
-  <td class="col-sm-1">
-  {% if session.missionEdite and session.feuilleEdite %}
-    <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-sm btn-secondary">Génerer</a>
-  {% else %}
-    <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-sm  btn-success">Génerer</a>
-  {% endif %}
-  </td>
+  <td class="col-sm-1"><a role="button" href="{{ path('detail_list',{'session_id': session.id }) }}" class="btn btn-sm btn-warning">Liste des absents</a></td>
+
 </tr>
 {% endfor %}
 

@@ -75,6 +75,21 @@ class SessionRepository extends \Doctrine\ORM\EntityRepository
     }
 
     /**
+    * Retourne les intervenants a partir de l'id de session
+    */
+    public function findIntervenantsSession($id)
+    {
+      $query = $this->_em->createQuery(
+        '
+        SELECT s.intervenants FROM OCASBundle:Session s
+        WHERE s.id=:id
+        ')
+        ->setParameter("id", $id);
+      $results = $query->getResult();
+      return $results;
+    }
+
+    /**
     * Retourne les formations auxquelles a participé un stagiaire
     */
     public function findSessionByStagiaire($stagiaire)

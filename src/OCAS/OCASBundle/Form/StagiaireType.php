@@ -47,6 +47,20 @@ class StagiaireType extends AbstractType
             'multiple' => true,
             'required' => false)
           )
+          ->add(
+              'secteur',
+              ChoiceType::class,
+              array(
+                'choices' => array(
+                  'Qualification' => 'Qualification',
+                  'Formation générale / illétrisme' => 'Formation générale / illétrisme',
+                  'Insertion / Orientation' => 'Insertion / Orientation',
+            ),
+            'multiple' => true,
+            'expanded' => true,
+            'by_reference' => false,
+            'required' => false)
+          )
           ->add('ville', TextType::class, array('required' => false))
           ->add('naissance', BirthdayType::class, array(
             'required' => false,
@@ -57,9 +71,10 @@ class StagiaireType extends AbstractType
           ))
           ->add('titre', TextType::class, array('required' => false))
           ->add('nationalite', CountryType::class, array(
-            'preferred_choices' => array('France' =>'FR'),
+            'preferred_choices' => array('FR'),
             'required' => false,
             'data' => 1,
+            'choices_as_values' => true
           ))
           ->add('quotite', IntegerType::class, array('required' => false))
           ->add('statut', EntityType::class, array(
@@ -72,7 +87,8 @@ class StagiaireType extends AbstractType
             'class' => 'OCAS\OCASBundle\Entity\Agence',
             'choice_label' => 'rsociale',
             'label' => 'Résidence administrative',
-            'placeholder' => ''
+            'placeholder' => '',
+
           ))
           ->add('detail_session', CollectionType::class, array(
             'label' => 'Formations',
@@ -82,7 +98,9 @@ class StagiaireType extends AbstractType
             'by_reference' => false,
             'mapped' => true,
           ))
-          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ))
+          ->add('enregistrer&suivant',SubmitType::class, array('attr' => array('class' => 'btn btn-success', 'label' => 'Enregistrer et ajouter un autre stagiaire') ));
+
 
 
     }

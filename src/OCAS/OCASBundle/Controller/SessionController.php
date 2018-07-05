@@ -32,22 +32,28 @@ class SessionController extends Controller
         $listeSessions = $repository->findAll();
         $listePresent=array();
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
-        foreach ($listeSessions as $session) {
-          $countPresentSession = $repository->countPresentSession($session);
-          $listePresent[]=$countPresentSession[0];
+        if ($listeSessions !== []){
+          foreach ($listeSessions as $session) {
+            $countPresentSession = $repository->countPresentSession($session);
+            $listePresent[]=$countPresentSession[0];
 
-          $countInscritSession = $repository->countInscritSession($session);
-          $listeInscrit[]=$countInscritSession[0];
+            $countInscritSession = $repository->countInscritSession($session);
+            $listeInscrit[]=$countInscritSession[0];
+          }
+        }
+        else{
+          $sessions = [];
+          $listeInscrit = [];
+          $listePresent = [];
         }
         $sessions = $this->get('knp_paginator')->paginate(
-        $listeSessions,
-        $page
-      );
+          $listeSessions,
+          $page
+        );
 
         if ($page < 1) {
             throw $this->createNotFoundException('Page '.$page.' inexistante.');
         }
-
         return $this->render('@OCAS/Session/list.html.twig', array(
           'sessions' => $sessions,
           'listePresent' => $listePresent,
@@ -81,7 +87,7 @@ class SessionController extends Controller
             throw $this->createNotFoundException('Page '.$page.' inexistante.');
         }
 
-        return $this->render('@OCAS/Session/list.html.twig', array(
+        return $this->render('@OCAS/Session/list_retour.html.twig', array(
           'sessions' => $sessions,
           'listePresent' => $listePresent,
           'listeInscrit' => $listeInscrit,
@@ -159,7 +165,6 @@ class SessionController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $session = $em->getRepository('OCASBundle:Session')->find($id);
-
         if ($id == null) {
             $request->getSession()->getFlashBag()->add('notice', "la session demandée n'a pas pu être trouvé");
             return $this->redirectToRoute('session_list');
@@ -247,7 +252,7 @@ class SessionController extends Controller
        }
        $defaultData = array(
          'date_edition' => new \DateTime('01-01-2018'),
-         'date_formation' => $session->getDateSeance(),
+         'date_formation' => $session->getDateDebut(),
          'libelle' =>$libelle[0]['libelle'],
          'lieu' => 'Rectorat – Salle'.
          $agence->getCodeDepartement()." – ".$agence->getCommune(),
@@ -267,11 +272,10 @@ class SessionController extends Controller
           //generer le fichier
           $tbs = $this->container->get('opentbs');
           $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateMissionDoc($form,$tbs,$stagiaires);
-          //  }
-           //if success
-             //update session to put "edite" to 1
-             //$session = $this->getDoctrine()->getManager()->find($id);
-             // $session->setEdite(1);
+
+           //on enregistre que la feuille de mission a été générée
+             $session = $this->getDoctrine()->getManager()->find($id);
+             $session->setMissionEdite(1);
        }
 
        return $this->render('@OCAS/PDF/Ordre/form.html.twig', array(
@@ -293,6 +297,7 @@ class SessionController extends Controller
       $libelle = $em->getRepository('OCASBundle:Session')->findLibelleBySession($id);
       // find stagiaires inscrits
       $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($id);
+
       // $defaultData = array();
       // $form = $this->createFormBuilder($defaultData)
       //   //préremplir les champs

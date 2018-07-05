@@ -18,3 +18,8 @@
 /node_modules
 php-cs-fixer-v2.phar
 .php_cs.cache
+
+###> symfony/phpunit-bridge ###
+.phpunit
+phpunit.xml
+

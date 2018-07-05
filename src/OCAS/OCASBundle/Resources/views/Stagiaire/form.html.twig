@@ -3,7 +3,7 @@
 {{ parent() }}
 <link rel="stylesheet" href="/static/css/form.css">
 {% endblock %}
-{# changer l'heritage de template #}
+
 {% block title %}{{h1}}{% endblock %}
 {% block header %}{{h1}}{% endblock %}
 {% block content %}
@@ -14,6 +14,7 @@
   {{ form_start(form)}}
   {{ form_row(form.nom) }}
   {{ form_row(form.fonction) }}
+  {{ form_row(form.secteur) }}
   {{ form_row(form.ville) }}
   {{ form_row(form.naissance) }}
   {{ form_row(form.titre) }}

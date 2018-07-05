@@ -21,29 +21,21 @@ class DetailEditType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
+        ->add('stagiaire', EntityType::class, array(
+          'class' => 'OCAS\OCASBundle\Entity\Stagiaire',
+          'choice_label' => 'nom',
+          'placeholder' => ''
+        ))
           ->add('session', EntityType::class, array(
             'class' => 'OCAS\OCASBundle\Entity\Session',
             'choice_label' => 'libelle_formation.libelle',
             'placeholder' => ''
           ))
-          ->add(
-              'typeFormation',
-              ChoiceType::class,
-              array(
-                'choices' => array(
-                  'Qualification' => 'Qualification',
-                  'Formation générale / illétrisme' => 'Formation générale / illétrisme',
-                  'Insertion / Orientation' => 'Insertion / Orientation',
-            ),
-            'multiple' => true,
-            'expanded' => true,
-            'required' => false)
-          )
           ->add('h_present', IntegerType::class)
           ->add('h_absent', IntegerType::class)
           ->add('h_facture', IntegerType::class)
-          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success') ));
+          ->add('enregistrer', SubmitType::class, array('attr' => array('class' => 'btn btn-success')))
+          ->add('enregistrer&suivant',SubmitType::class, array('attr' => array('class' => 'btn btn-success', 'label' => 'Enregistrer et saisir le prochain stagiaire') ));
     }
 
     /**

@@ -80,7 +80,7 @@ $(document).ready(function() {
     // session.append("<option value=''></option>");
     for (var i = 0; i < liste_response.length; i++) {
       let libelle = liste_response[i]['libelle_formation'];
-      let date = formatDate(liste_response[i]['date_seance'].date);
+      let date = formatDate(liste_response[i]['date_debut'].date);
       let groupe = '';
       if (liste_response[i]['groupe'] !== null) {
         groupe = ' - groupe '+liste_response[i]['groupe'];
@@ -103,7 +103,7 @@ $(document).ready(function() {
   function addDeleteLink($prototype) {
     // Création du lien
     let $deleteLink = $('<a href="#" class="btn btn-danger">Retirer</a>');
-    let $saveLink = $('<a type="button" id="libelle_session" class="btn btn-primary">Enregistrer</a>');
+    let $saveLink = $('<a id="libelle_session" class="btn btn-primary">Rechercher une session</a>');
     // Ajout du lien
     $prototype.append($deleteLink);
     $prototype.append($saveLink);

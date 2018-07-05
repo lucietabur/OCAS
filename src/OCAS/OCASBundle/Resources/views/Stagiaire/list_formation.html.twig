@@ -13,7 +13,7 @@
       <th class="col-sm-1">Groupe</th>
       <th class="col-sm-2">Intervenant</th>
       <th class="col-sm-4">Lieu</th>
-      <th class="col-sm-1">Date de séance</th>
+      <th class="col-sm-1">Date de formation</th>
 
       <th class="col-sm-1"><a role="button" href="{{ path('session_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
@@ -30,7 +30,7 @@
     {% endfor %}
   </td>
   <td class="col-sm-4">{{ session.lieu|default("lieu") }}</td>
-  <td class="col-sm-1">{{ session.dateSeance|date("d/m/Y")}}</td>
+  <td class="col-sm-1">{{ session.dateDebut|date("d/m/Y")}}</td>
   <td class="col-sm-1">
   {% if session.missionEdite and session.feuilleEdite %}
     <a role="button" href="{{ path('session_generate',{'id': session.id }) }}" class="btn btn-sm btn-secondary">Génerer</a>

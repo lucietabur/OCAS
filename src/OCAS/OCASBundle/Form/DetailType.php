@@ -32,6 +32,7 @@ class DetailType extends AbstractType
           'placeholder' => '',
           'mapped' => false,
           'label_attr' => array( 'class' => 'select_libelle'),
+          'required' => false
         ))
         ->add('session', EntityType::class, array( //TODO: discriminer les sessions
           'class' => 'OCAS\OCASBundle\Entity\Session',
@@ -44,21 +45,7 @@ class DetailType extends AbstractType
           'attr' => array( 'class' => 'select_session'),
 
 
-        ))
-
-        ->add(
-            'typeFormation',
-            ChoiceType::class,
-            array(
-              'choices' => array(
-                'Qualification' => 'Qualification',
-                'Formation générale / illétrisme' => 'Formation générale / illétrisme',
-                'Insertion / Orientation' => 'Insertion / Orientation',
-          ),
-          'multiple' => true,
-          'expanded' => true,
-          'required' => false)
-        );
+        ));
 
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {

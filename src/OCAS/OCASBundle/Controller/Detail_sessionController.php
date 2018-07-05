@@ -24,10 +24,12 @@ class Detail_sessionController extends Controller
         // on recherche tous les detail correspondant à la session d'émargement
         $repository = $this->getDoctrine()->getRepository('OCASBundle:Detail_session');
         $listeDetails = $repository->getInscritSession($session);
-        $details = $this->get('knp_paginator')->paginate(
-      $listeDetails,
-      $page
-    );
+
+          $details = $this->get('knp_paginator')->paginate(
+            $listeDetails,
+            $page
+          );
+        
 
         if ($page < 1) {
             throw $this->createNotFoundException('Page '.$page.' inexistante.');
@@ -54,7 +56,8 @@ class Detail_sessionController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Enregistré');
-            return $this->redirectToRoute('');
+
+            return $this->redirectToRoute('detail_list');
         }
         return $this->render('@OCAS/Detail/form.html.twig', array(
         'h1' => "OCAS : ",
@@ -70,8 +73,9 @@ class Detail_sessionController extends Controller
       $em = $this->getDoctrine()->getManager();
       $detail_session = $em->getRepository('OCASBundle:Detail_session')->find($id);
 
+
       if ($id == null) {
-          $request->getDetail_session()->getFlashBag()->add('notice', "l'inscription' demandée n'a pas pu être trouvé");
+          $request->getSession()->getFlashBag()->add('notice', "l'inscription' demandée n'a pas pu être trouvé");
           return $this->redirectToRoute('detail_list');
           //on rajoutera a l'affichage "stagiaire demandé n'existe pas"
       }
@@ -80,11 +84,31 @@ class Detail_sessionController extends Controller
 
       // soumission du formulaire
       if ($form->isSubmitted() && $form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $stagiaire = $em->getRepository('OCASBundle:Stagiaire')->find($id);
           $em = $this->getDoctrine()->getManager();
+          $detail_session->setStagiaire($stagiaire);
           $em->persist($detail_session);
           $em->flush();
-          $request->getDetail_session()->getFlashBag()->add('notice', 'inscription bien modifiée');
-          return $this->redirectToRoute('detail_session_list');
+          $request->getSession()->getFlashBag()->add('notice', 'inscription bien modifiée');
+
+          //redirection selon le bouton cliqué
+
+          $session = $em->getRepository('OCASBundle:Session')->find($session_id);
+          //recherche la liste des inscrits
+          $listeInscrit = $em->getRepository('OCASBundle:Detail_session')->getInscritSession($session);
+          // dump($listeInscrit); exit;
+          $inscrit_id=0;
+          //recherche le prochain inscrit a la session
+          for ($i=0; $i < sizeof($listeInscrit); $i++) {
+            if ($listeInscrit[$i]['id'] == $id and sizeof($listeInscrit)+1 < $i+1) {
+              $inscrit_id = $listeInscrit[$i+1]['id'];
+            }
+          }
+          //si le bouton cliqué est enregistrer&suivant et qu'il existe un prochain inscrit
+          // alors on renvoie vers la page d'edition du prochain stagiaire sinon on renvoie vers la liste
+          $nextAction = ($form->get('enregistrer&suivant')->isClicked() and $inscrit_id>0) ? 'detail_edit' : 'detail_list';
+          return $this->redirectToRoute($nextAction, array('session_id' => $session_id, 'id' => $inscrit_id));
       }
 
       return $this->render('@OCAS/Detail/form.html.twig', array(

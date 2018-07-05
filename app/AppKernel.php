@@ -19,7 +19,6 @@ class AppKernel extends Kernel
             new OCAS\OCASBundle\OCASBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
-            new Evercode\DependentSelectBundle\DependentSelectBundle(),
             new jonasarts\Bundle\OpenTBSBundle\OpenTBSBundle(),
         ];
 

@@ -43,7 +43,7 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
   public function getInscritSession($session)
   {
     $query = $this->_em->createQuery('
-      SELECT s.id, s.nom, d.typeFormation, d.hPresent, d.hAbsent, d.hFacture
+      SELECT s.id, s.nom, d.hPresent, d.hAbsent, d.hFacture
       FROM OCASBundle:Detail_session d, OCASBundle:Stagiaire s
       WHERE d.session=:session
       AND d.stagiaire=s')
@@ -51,8 +51,6 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
     $results = $query->getResult();
     return $results;
   }
-
-
 
 
 /**
@@ -64,7 +62,7 @@ public function retourSession()
 {
   $datejour = new \DateTime();
   $datejour->setTime(00,00);
-  $query = $this->_em->createQuery("SELECT s FROM OCASBundle:Session s  WHERE s.dateRetour >= :datejour ")
+  $query = $this->_em->createQuery("SELECT s FROM OCASBundle:Session s  WHERE s.dateRetour >= :datejour AND s.feuille_edite = 1")
   ->setParameter("datejour", $datejour);
   $results = $query->getResult();
   return $results;

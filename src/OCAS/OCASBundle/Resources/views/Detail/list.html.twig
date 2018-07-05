@@ -7,23 +7,24 @@
   <thead>
     <tr>
       <th scope="row">Stagiaire</th>
-      <th>Type Formation</th>
       <th>heure présent</th>
       <th>heure absent</th>
       <th>heure facturée</th>
-      <th></th>
+      <th>
+        {% if details is not empty %}
+        <a role="button" href="{{ path('detail_edit',{'id' : details[0].id,'session_id' : id_session }) }}" class="btn btn-sm btn-success">Saisir les absences</a>
+        {% endif %}
+      </th>
     </tr>
   </thead>
   <tbody>
 {% for detail in details %}
 <tr>
-  <th scope="row"><a href="">{{ detail.nom }}</a></th>
-  <td>{{ detail.typeFormation }}</td>
+  <th scope="row">{{ detail.nom }}</a></th>
   <td>{{ detail.hPresent }}</td>
   <td>{{ detail.hAbsent }}</td>
   <td>{{ detail.hFacture }}</td>
-  <td><a role="button" href="{{ path('detail_edit',{'id' : detail.id,'session_id' : id_session }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
-  <td><a role="submit" href="{{ path('detail_delete',{'id': detail.id ,'session_id' : id_session })}}" class="btn btn-sm btn-danger">Supprimer</a></td>
+  <td><a role="button" href="{{ path('detail_edit',{'id' : detail.id,'session_id' : id_session }) }}" class="btn btn-sm btn-primary">Saisir absence</a></td>
 </tr>
 {% endfor %}
 

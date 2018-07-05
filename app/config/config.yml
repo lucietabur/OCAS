@@ -52,7 +52,10 @@ doctrine:
         dbname: '%database_name%'
         user: '%database_user%'
         password: '%database_password%'
-        charset: UTF8
+        charset: utf8mb4
+        default_table_options:
+            charset: utf8mb4
+            collate: utf8mb4_unicode_ci
         # if using pdo_sqlite as your database driver:
         #   1. add the path in parameters.yml
         #     e.g. database_path: '%kernel.project_dir%/var/data/data.sqlite'
@@ -87,15 +90,3 @@ knp_paginator:
         pagination: '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig'
         sortable: '@KnpPaginator/Pagination/sortable_link.html.twig'
         # sortable: '@KnpPaginator/Pagination/twitter_bootstrap_v3_sortable_link.html.twig' #//TODO
-
-dependent_select:
-    # template:
-    #   fields : '@DependentSelectBundle/Resources/views/fields/html.twig'
-    session_by_libelle:
-        class: OCASBundle:Session
-        parent_property: libelle_formation
-        property: libelle
-        role: ROLE_USER
-        no_result_msg: 'pas de session pour cette formation'
-        order_property: libelle
-        order_direction: ASC

@@ -81,7 +81,6 @@ class ArrayToString
     {
         $array=preg_split('/[\s]?-[\s]?/', $string);
         for ($i=0; $i < count($array); $i++) {
-          var_dump($array[$i]);
           if ("Insertion/Orientation"===$array[$i]) {
               $array[$i]="Insertion / Orientation";
           }
@@ -104,4 +103,8 @@ class ArrayToString
         return $array ; // 0 ou 1 espace
     }
 
+    //prend en entree une durée en seconde et retourne la durée en heure décimale
+    public function intToHour($int){
+      return;
+    }
 }

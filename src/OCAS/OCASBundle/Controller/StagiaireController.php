@@ -76,7 +76,8 @@ class StagiaireController extends Controller
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Stagiaire bien enregistré•e.');
-            return $this->redirectToRoute('stagiaire_list');
+            $nextAction = $form->get('enregistrer&suivant')->isClicked() ? 'stagiaire_add' : 'stagiaire_list';
+            return $this->redirectToRoute($nextAction);
         }
         return $this->render('@OCAS/Stagiaire/form.html.twig', array(
           'h1' => "OCAS : Ajouter un stagiaire",
@@ -173,16 +174,13 @@ class StagiaireController extends Controller
           {
               $repository = $this->getDoctrine()->getManager()->getRepository('OCASBundle:Session');
               $sessions = $repository->findByLibelle($libelle);
-
+              
               if (!empty($sessions)){
-                // dump($sessions);
-                // exit;
                 $data = array();
                 foreach ($sessions as $session) {
                   $array = array();
                   $array['id'] = $session->getId();
                   $array['num'] = $session->getNumEmargement();
-                  $array['date_seance'] = $session->getDateSeance();
                   $array['date_debut'] = $session->getDateDebut();
                   $array['date_fin'] = $session->getDateFin();
                   $array['groupe'] = $session->getGroupe();

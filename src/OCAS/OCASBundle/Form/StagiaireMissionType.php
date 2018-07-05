@@ -20,8 +20,8 @@ class StagiaireMissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('titre', TextType::class)
-          ->add('nom', TextType::class)
+          ->add('titre', TextType::class, array('disabled' => 'true'))
+          ->add('nom', TextType::class, array('disabled' => 'true'))
           ->add(
               'fonction',
               ChoiceType::class,

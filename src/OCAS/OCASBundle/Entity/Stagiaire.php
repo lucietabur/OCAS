@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use OCAS\OCASBundle\Services\ArrayToString;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Intl\Intl;
 /**
  * Stagiaire
  *
@@ -251,8 +251,7 @@ class Stagiaire
      * @return string
      */
     public function getNationalite()
-    {
-      
+    {      
         return $this->nationalite;
     }
 
