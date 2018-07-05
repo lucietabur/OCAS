@@ -39,15 +39,14 @@ $ php bin/console server:run
 ##Documentation
 
 ### Conception
-..* [modèle de conception de données](doc/adress)
-..* [Cas d'utilisation]
+[modèle de conception de données](uml_nouveau.png)
 ### Utilisation 
-
+[manuel d'utilisation](manuel/manuel.pdf)
 ### Maintien de l'application
 
 #### Pour modifier les modèles pdf
-Les fichiers se situent dans src/OCAS/OCASBundle/Resources/views/PDF
-Ils sont écrits au format twig.
+Les fichiers word se situent à la racine fichiers générés.
+Ils sont générés dans le service situé dans src/OCAS/OCASBundle/Services/GenerateDoc.php.
 
 #### Pour modifier la structure de la base de données
 Les fichiers se situent dans src/OCAS/OCASBundle/Entity
