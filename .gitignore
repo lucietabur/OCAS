@@ -23,3 +23,7 @@ php-cs-fixer-v2.phar
 .phpunit
 phpunit.xml
 
+
+
+/archives/export access
+/archives/import_to_db/
