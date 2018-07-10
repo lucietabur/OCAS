@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="col-8 offset-2">
-  <a role="button" href="{{ path('session_edit', {'session_id':session.id})}}" class="btn btn-primary">Retour à la session</a>
+  <a role="button" href="{{ path('session_edit', {'id':session.id})}}" class="btn btn-primary">Retour à la session</a>
   {% if session.missionEdite %}
     <a role="button" href="{{ path('session_mission', {'id':session.id})}}" class="btn btn-secondary">Génerer les odres de mission</a>
   {% else %}

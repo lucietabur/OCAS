@@ -1,0 +1,109 @@
+{% extends "@OCAS/layout.html.twig" %}
+{# changer l'heritage de template #}
+{% block title %}{{h1}}{% endblock %}
+{% block header %}{{h1}}{% endblock %}
+{% block content %}
+
+<div class="col-10 offset-1">
+  {% form_theme form "bootstrap_4_horizontal_layout.html.twig" %}
+  {{ form_start(form)}}
+  {{form_row(form.date_edition)}}
+  <div class="well">
+    {{ form_row(form.dates) }}
+    <a href="#" id="add_category" class="btn btn-primary">Ajouter une date</a>
+      {{form_rest(form)}}
+  </div>
+  {{ form_row(form.enregistrer) }}
+</div>
+{# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+   mais si vous l'avez en local, changez simplement l'adresse. #}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('button#enregistrer').parent().prepend('<a role="button" href="{{ path('session_generate', {'id': id})}}" class="btn btn-primary">Retour à la génération</a>');
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#dates');
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+      let index = $container.children().length;
+
+    // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+    $('#add_category').click(function(e) {
+      addDate($container);
+
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+    if (index == 0) {
+      addDate($container);
+    } else {
+      // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+      $container.children('div').each(function() {
+        //on le numérote
+        let num = $(this).find("legend").text();
+        num = (parseInt(num)+1).toString();
+        $(this).find("legend").text('Jour n°'+num);
+
+        addDeleteLink($(this));
+      });
+    }
+
+    // La fonction qui ajoute un formulaire DateType
+    function addDate($container) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      var template = $container.attr('data-prototype')
+        .replace(/__name__label__/g, 'Jour n°' + (index+1))
+        .replace(/__name__/g,        index)
+      ;
+
+      // On crée un objet jquery qui contient ce template
+      var $prototype = $(template);
+
+      // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+      addDeleteLink($prototype);
+
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+
+      // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+      index++;
+    }
+
+    // La fonction qui ajoute un lien de suppression d'une catégorie
+    function addDeleteLink($prototype) {
+      // Création du lien
+      var $deleteLink = $('<a href="#" class="btn btn-danger">Supprimer</a>');
+
+      // Ajout du lien
+      $prototype.append($deleteLink);
+
+      // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+      $deleteLink.click(function(e) {
+        $prototype.remove();
+        //convertir en for de i a index
+        // for (var i = 0; i < index; i++) {
+        //   $container.children('div')[i].find("legend").text().slice(7);
+        //   num = (parseInt(num)).toString();
+        //   $(this).find("legend").text('Jour n°'+num);
+        // }
+        var $i=1;
+        $container.children('div').each(function() {
+          //on le numérote
+          $(this).find("legend").text('Jour n°'+$i);
+        $i++;
+        });
+        index=$i-1;
+        console.log(index);
+        e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+        return false;
+      });
+    }
+  });
+</script>
+
+{% endblock %}

@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use OCAS\OCASBundle\Form\SessionType;
 use OCAS\OCASBundle\Form\SearchType;
 use OCAS\OCASBundle\Form\MissionType;
+use OCAS\OCASBundle\Form\FeuilleType;
 use OCAS\OCASBundle\Form\StagiaireMissionType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 // Include the BinaryFileResponse and the ResponseHeaderBag
@@ -254,8 +255,7 @@ class SessionController extends Controller
          'date_edition' => new \DateTime('01-01-2018'),
          'date_formation' => $session->getDateDebut(),
          'libelle' =>$libelle[0]['libelle'],
-         'lieu' => 'Rectorat – Salle'.
-         $agence->getCodeDepartement()." – ".$agence->getCommune(),
+         'lieu' => 'Rectorat – Salle ',
          'stagiaires' => $stagiaires
        );
 
@@ -274,14 +274,15 @@ class SessionController extends Controller
           $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateMissionDoc($form,$tbs,$stagiaires);
 
            //on enregistre que la feuille de mission a été générée
-             $session = $this->getDoctrine()->getManager()->find($id);
-             $session->setMissionEdite(1);
+          $session = $this->getDoctrine()->getManager()->find($id);
+          $session->setMissionEdite(1);
        }
 
        return $this->render('@OCAS/PDF/Ordre/form.html.twig', array(
-         'stagiaire' =>  $stagiaire,
+         'stagiaires' =>  $stagiaires,
          'h1' => "OCAS : Génerer l'odre de mission pour :".$libelle[0]['libelle'],
          'form' => $form->createView(),
+         'id' => $id
         ));
      }
 
@@ -293,25 +294,45 @@ class SessionController extends Controller
       $em = $this->getDoctrine()->getManager();
       // find Session
       $session = $em->getRepository('OCASBundle:Session')->find($id);
-      // find libelle
-      $libelle = $em->getRepository('OCASBundle:Session')->findLibelleBySession($id);
-      // find stagiaires inscrits
-      $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($id);
+      // on calcule l'ecart entre date_debut et date_fin
+      // le nb de jours = le nb de date à créer d'avance
 
-      // $defaultData = array();
-      // $form = $this->createFormBuilder($defaultData)
-      //   //préremplir les champs
-      //   // formation : libelle, lieu,date
-      //   ->add('send', SubmitType::class)
-      //   ->getForm();
-      // $form->handleRequest($request);
-      //generer le fichier
-      $tbs = $this->container->get('opentbs');
-      $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateFeuilleDoc($session,$libelle,$stagiaires,$tbs);
+      //données du formulaire
+      $defaultData = array(
+        'date_edition' => new \DateTime(),
+        'dates' => array($session->getDateDebut(),$session->getDateFin()),
+      );
 
-      return $this->render('@OCAS/PDF/ordre_de_mission.html.twig', array(
-        'stagiaires' =>  $stagiaires,
-        'h1' => "OCAS : Génerer l'odre de mission"
-       ));
+      //creation du formulaire
+      $form = $this->createForm(FeuilleType::class, $defaultData, array(
+        'method' => 'POST',
+
+      ));
+      // soumission du formulaire
+      $form->handleRequest($request);
+      if ($request->isMethod('POST') && $form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        // find Session
+        $session = $em->getRepository('OCASBundle:Session')->find($id);
+        // find libelle
+        $libelle = $em->getRepository('OCASBundle:Session')->findLibelleBySession($id);
+        // find stagiaires inscrits
+        $stagiaires = $em->getRepository('OCASBundle:Session')->findInscrits($id);
+        $data = $form->getData();
+         //generer le fichier
+
+        $tbs = $this->container->get('opentbs');
+        $data = $form->getData();
+        $this->get('OCAS\OCASBundle\Services\GenerateDoc')->generateFeuilleDoc($session,$libelle,$stagiaires,$data,$tbs);
+          //on enregistre que la feuille de mission a été générée
+         $session = $this->getDoctrine()->getManager()->find($id);
+         $session->setFeuilleEdite(1);
+         return $this->redirectToRoute('session_list');
+   }
+    return $this->render('@OCAS/PDF/Feuille/form.html.twig', array(
+      'h1' => "OCAS : Génerer l'odre de mission",
+      'form' => $form->createView(),
+      'id' => $id
+     ));
     }
 }

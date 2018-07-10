@@ -11,7 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
-class MissionType extends AbstractType
+class FeuilleType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -19,19 +19,12 @@ class MissionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('libelle', TextType::class, array('disabled' => 'true'))
-          ->add('lieu')
-          ->add('date_formation', DateTimeType::class)
-          ->add('imputation', TextType::class)
-          ->add('suivi_par')
-          ->add('ref')
           ->add('date_edition', DateTimeType::class)
 
-          ->add('stagiaires', CollectionType::class, array(
-            'entry_type' => StagiaireMissionType::class,
-            'allow_add' => false,
-            'allow_delete' => false,
-            'by_reference' => false,
+          ->add('dates', CollectionType::class, array(
+            'entry_type' => DateTimeType::class,
+            'allow_add' => true,
+            'allow_delete' => true,
 
           ))
           ->add('enregistrer', SubmitType::class, array(

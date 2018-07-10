@@ -28,7 +28,7 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
-  $('button#enregistrer').parent().prepend('<a role="button" href="{{ path('session_generate')}}" class="btn btn-primary">Retour à la génération</a>');
+  $('button#enregistrer').parent().prepend('<a role="button" href="{{ path('session_generate', {'id': id})}}" class="btn btn-primary">Retour à la génération</a>');
   //ajouter au parent de legend une div. ajouter legend a cette div
 
   // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
@@ -40,16 +40,12 @@ $(document).ready(function() {
   if (nb_elem > 0) {
       // S'il existe des stagiaires
       for (let i = 0; i < nb_elem; i++) {
-        console.log(nb_elem)
         // on ajoute le numero du stagiaire a chaque bloc
         let block = $('div#stagiaires_'+i).parent().parent();
-        console.log(block);
         block.addClass('repeated_stagiaire')
         block.children('legend').text('Stagiaire n° '+(i+1));
-        //$('div#stagiaire_'+i).
       }
   }
-
 
 });
 

@@ -24,43 +24,43 @@ class GenerateDoc
        $tbs->MergeField('date_formation',$data['date_formation']);
        $tbs->MergeField('heure_formation',$data['date_formation']);
        $tbs->MergeField('ref',$data['ref']);
-       $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
+       $tbs->Show(OPENTBS_DOWNLOAD, 'mission.docx');
     }
 
     /**
     * génère la feuille d'émargement
     */
-    public function generateFeuilleDoc($session,$libelle,$stagiaires,$tbs)
+    public function generateFeuilleDoc($session,$libelle,$stagiaires,$data,$tbs)
     {
-      $session = $this->sessionToArray($session,$stagiaires);
+      $dates = $data['dates'];
+      $session = $this->sessionToArray($session,$stagiaires,$dates);
       $data = $this->nomStagiaireToArray($stagiaires);
        // generer le fichier
        setlocale (LC_TIME, 'fr_FR.utf8','fra');
-      $tbs->LoadTemplate('/var/www/html/project/fichiers generes/Emargement PAFOC.docx', OPENTBS_ALREADY_UTF8);
+       $tbs->LoadTemplate('/var/www/html/project/fichiers generes/Emargement PAFOC.docx', OPENTBS_ALREADY_UTF8);
        $tbs->MergeField('libelle',$libelle[0]['libelle']);
        $tbs->Assigned['expl_2'] = array('b_auto', $data);
        $tbs->MergeBlock('expl_2', 'assigned');
        $tbs->MergeBlock('tbs',$session);
-       $tbs->Show(OPENTBS_DOWNLOAD, 'document.docx');
+       $tbs->Show(OPENTBS_DOWNLOAD, 'emargement.docx');
     }
 
     /**
     * retourne un tableau de sessions formaté pour la feuille d'emargement'
     */
-    public function sessionToArray($session,$stagiaires)
+    public function sessionToArray($session,$stagiaires,$dates)
     {
       $res=array();
-
-      // $interval = $session->getDateDebut()->diff($session->getDateFin());
-      for ($i=1; $i <= 3; $i++) {
-        // $date_formation=date_add($session->getDateDebut(),date_interval_create_from_date_string('+'.$i.' days'));
+      $dates=$this->repairArray($dates);
+      // trier les dates par ordre chrono
+      // le nombre d'iteration de la boucle = le nombre de dates du tableau
+      for ($i=0; $i < sizeof($dates); $i++) {
         array_push($res,array(
                   "intervenants" => $session->getIntervenants()[0]->getNom(),
                   "num_emargement" => $session->getNumEmargement(),
-                  "date_formation" => $session->getDateDebut(),
+                  "date_formation" => $dates[$i],
                   "heure_debut" => $session->getDateDebut(),
                   "date_debut" => $session->getDateDebut(),
-                  // "date_fin" =>  $session->getDateFin(),
                   "duree" =>  $session->getDuree(),
                   "stagiaires" => $this->nomStagiaireToArray($stagiaires),
                   "date_edition" => new \DateTime('today'),
@@ -89,11 +89,11 @@ class GenerateDoc
             "ville" => $entity->getAgence()->getCommune(),
           ),
           "siege" => array( //TODO: null -> $entity->getAgence()->getSiege()
-            "correspondant" => $entity->getAgence()->getSiege()->getCorrespondant(),
-            "rsociale" => $entity->getAgence()->getSiege()->getRsociale(),
-            "num_voie" => $entity->getAgence()->getSiege()->getNumVoie(),
-            "code" => $entity->getAgence()->getSiege()->getCodeDepartement(),
-            "ville" => $entity->getAgence()->getSiege()->getCommune(),
+            "correspondant" => (($entity->getAgence()->getSiege() ?  $entity->getAgence()->getSiege()->getCorrespondant() : '')),
+            "rsociale" => (($entity->getAgence()->getSiege() ?  $entity->getAgence()->getSiege()->getRsociale() : '')),
+            "num_voie" => (($entity->getAgence()->getSiege() ?  $entity->getAgence()->getSiege()->getNumVoie() : '')),
+            "code" =>(($entity->getAgence()->getSiege() ?   $entity->getAgence()->getSiege()->getCodeDepartement() : '')),
+            "ville" => (($entity->getAgence()->getSiege() ?  $entity->getAgence()->getSiege()->getCommune() : '')),
           )
         ));
         $i++;
@@ -199,5 +199,14 @@ class GenerateDoc
         $date = strftime("%Hh%M",$date->getTimeStamp());
         return $date;
       }
+    }
+
+    public function repairArray($array)
+    {
+      $res=array();
+      foreach ($array as $val) {
+        array_push($res,$val);
+      }
+      return $res;
     }
 }
