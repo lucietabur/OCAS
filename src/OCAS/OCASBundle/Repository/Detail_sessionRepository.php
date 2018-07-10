@@ -20,7 +20,6 @@ class Detail_sessionRepository extends \Doctrine\ORM\EntityRepository
     $query = $this->_em->createQuery('SELECT COUNT(d) FROM OCASBundle:Detail_session d  WHERE d.session=:session AND d.hPresent>0')
     ->setParameter("session", $session);
     $results = $query->getResult();
-    //TODO: verifier que ca marche
     return $results;
   }
 

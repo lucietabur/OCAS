@@ -34,34 +34,15 @@ class DetailType extends AbstractType
           'label_attr' => array( 'class' => 'select_libelle'),
           'required' => false
         ))
-        ->add('session', EntityType::class, array( //TODO: discriminer les sessions
+        ->add('session', EntityType::class, array(
           'class' => 'OCAS\OCASBundle\Entity\Session',
           'mapped' => true,
           'choice_label' => 'libelle_formation.libelle',
-          // 'choice_label' => function($session){
-          //   return $session->getLibelleFormation()->getLibelle().' - '.$session->getDateDebut();
-          //   },
-          // 'placeholder' => '',
           'attr' => array( 'class' => 'select_session'),
 
 
         ));
 
-
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
-            $data = $event->getData();
-
-            // if ($libelle!=null){
-            //   $builder->add('session', EntityType::class, array( //TODO: discriminer les sessions
-            //     'class' => 'OCAS\OCASBundle\Entity\Session',
-            //     'choice_label' => 'libelle_formation.libelle',
-            //     'placeholder' => '',
-            //   ));
-            //
-            // }
-
-        });
-    }
 
     /**
      * {@inheritdoc}

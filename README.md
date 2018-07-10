@@ -19,8 +19,8 @@ $ composer install
 ```
 
 ### Base de données
+[modèle de conception de données](uml_nouveau.png)
 
-_TODO: Partie base de données à renseigner quand celle-ci sera existante_
 
 Créer le schéma
 ```bash
@@ -38,9 +38,8 @@ $ php bin/console server:run
 ```
 ##Documentation
 
-### Conception
-[modèle de conception de données](uml_nouveau.png)
-### Utilisation 
+
+### Utilisation
 [manuel d'utilisation](manuel/manuel.pdf)
 ### Maintien de l'application
 
