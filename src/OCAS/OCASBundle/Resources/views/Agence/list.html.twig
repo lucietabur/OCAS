@@ -17,6 +17,7 @@
       <th>Commune</th>
       <th>Télephone</th>
       <th>Cedex</th>
+      <th>Siège</th>
       <th><a role="button" href="{{ path('agence_add') }}" class="btn btn-sm btn-success">Ajouter</a></th>
     </tr>
   </thead>
@@ -31,6 +32,11 @@
       <td>{{ agence.commune }}</td>
       <td>{{ agence.telephone }}</td>
       <td>{{ agence.cedex }}</td>
+      {% if agence.siege != null %}
+        <td>{{ agence.siege.rsociale }}</td>
+      {% else %}
+        <td class="error">PAS DE SIEGE</td>
+      {% endif %}
       <td><a role="button" href="{{ path('agence_edit',{'id': agence.id }) }}" class="btn btn-sm btn-warning">Modifier</a></td>
     </tr>
   {% endfor %}
