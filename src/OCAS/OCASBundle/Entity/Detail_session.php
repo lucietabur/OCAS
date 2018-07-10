@@ -150,32 +150,6 @@ class Detail_session
         return $this->hFacture;
     }
 
-
-
-    /**
-     * Set sessionEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
-     *
-     * @return Detail_session
-     */
-    public function setSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
-    {
-        $this->session = $sessionEmargement;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionEmargement
-     *
-     * @return \OCAS\OCASBundle\Entity\Session
-     */
-    public function getSessionEmargement()
-    {
-        return $this->session;
-    }
-
     /**
      * Set stagiaire
      *
@@ -200,29 +174,6 @@ class Detail_session
         return $this->stagiaire;
     }
 
-    /**
-     * Set formation
-     *
-     * @param \OCAS\OCASBundle\Entity\Formation $formation
-     *
-     * @return Detail_session
-     */
-    public function setFormation(\OCAS\OCASBundle\Entity\Formation $formation)
-    {
-        $this->formation = $formation;
-
-        return $this;
-    }
-
-    /**
-     * Get formation
-     *
-     * @return \OCAS\OCASBundle\Entity\Formation
-     */
-    public function getFormation()
-    {
-        return $this->formation;
-    }
 
     /**
      * Set session

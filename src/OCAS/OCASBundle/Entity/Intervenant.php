@@ -152,40 +152,6 @@ class Intervenant
     }
 
     /**
-     * Remove sessionEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\Session $sessionEmargement
-     */
-    public function removeSessionEmargement(\OCAS\OCASBundle\Entity\Session $sessionEmargement)
-    {
-        $this->session->removeElement($sessionEmargement);
-    }
-
-    /**
-     * Add sessionEmargement
-     *
-     * @param \OCAS\OCASBundle\Entity\session $sessionEmargement
-     *
-     * @return Intervenant
-     */
-    public function addSessionEmargement(\OCAS\OCASBundle\Entity\session $sessionEmargement)
-    {
-        $this->session[] = $sessionEmargement;
-
-        return $this;
-    }
-
-    /**
-     * Get sessionEmargement
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSessionEmargement()
-    {
-        return $this->session;
-    }
-
-    /**
      * Remove session
      *
      * @param \OCAS\OCASBundle\Entity\Session $session
