@@ -82,13 +82,13 @@ class Stagiaire
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Statut")
-    * @ORM\JoinColumn(onDelete="SET NULL")
+    * @ORM\JoinColumn(onDelete="SET NULL",nullable=true)
     */
     private $statut;
 
     /**
     * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Agence")
-    * @ORM\JoinColumn(onDelete="SET NULL")
+    * @ORM\JoinColumn(onDelete="SET NULL", nullable=true)
     */
     private $agence;
 
@@ -251,7 +251,7 @@ class Stagiaire
      * @return string
      */
     public function getNationalite()
-    {      
+    {
         return $this->nationalite;
     }
 

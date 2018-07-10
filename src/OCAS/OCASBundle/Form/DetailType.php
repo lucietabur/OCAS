@@ -42,7 +42,7 @@ class DetailType extends AbstractType
 
 
         ));
-
+    }
 
     /**
      * {@inheritdoc}

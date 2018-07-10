@@ -57,7 +57,7 @@ class Detail_session
     private $motif_absence;
 
     /**
-    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Session", inversedBy="details_session")
+    * @ORM\ManyToOne(targetEntity="OCAS\OCASBundle\Entity\Session")
     * @ORM\JoinColumn(name="session_id", referencedColumnName="id",nullable=false, onDelete="CASCADE")
     */
     private $session;
