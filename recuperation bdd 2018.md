@@ -1,7 +1,7 @@
 ## Transformation Access vers SQL
-Ouvrir « Bullzip MS Access to Mysql »
-Fichier source : « D:\archives ocas\archives\OCAS 2018\gretacod.mdb »
-Fichier destination : D:\archives ocas\dump2016.sql
+Ouvrir «Bullzip MS Access to Mysql»
+Fichier source : `D:\archives ocas\archives\OCAS 2018\gretacod.mdb`
+Fichier destination : `D:\archives ocas\dump2016.sql`
 
 ## Scripts
 
