@@ -42,6 +42,7 @@ class AgenceController extends Controller
         'h1' => 'OCAS : Liste des résidences administratives'
     ));
     }
+
     /**
      * @Route("agence/add", name="agence_add")
      */
