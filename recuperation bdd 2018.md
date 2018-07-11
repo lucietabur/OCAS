@@ -1,16 +1,16 @@
-##Transformation Access vers SQL
-Ouvrir « Bullzip MS Access to Mysql »
-Fichier source : « D:\archives ocas\archives\OCAS 2018\gretacod.mdb »
-Fichier destination : D:\archives ocas\dump2016.sql
+## Transformation Access vers SQL
+Ouvrir «Bullzip MS Access to Mysql»
+Fichier source : `D:\archives ocas\archives\OCAS 2018\gretacod.mdb`
+Fichier destination : `D:\archives ocas\dump2016.sql`
 
-##Scripts
+## Scripts
 
 Sur linux. `mdp : root`
  En console en root (mdp compte ltabur: root)
 ```atom /media/sf_D_DRIVE/archives ocas/adaptation/propre```
 Le script se décompose en 2 parties. La premiere écrit les requetes d'insertion des stagiaires et des feuilles d'émargement, les intervenants, la deuxieme ecrit les liens entre les sessions, les stagiaires et les intervenants.
 
-###Execution des scripts
+### Execution des scripts
 
 1. Dans atom, ouvrir le fichier partie1.py
 2. aller à la fin du script et changer l'argument de la fonction par : `writeAllData('2018')`
